@@ -317,6 +317,26 @@
             </div>
         </div>
     </footer>
+  <!-- Script Hamburger Menu Mobile -->
+    <script>
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileIcon = mobileMenuBtn.querySelector('i');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            // Toggle class hidden pada wadah menu mobile
+            mobileMenu.classList.toggle('hidden');
+            
+            // Ubah ikon FontAwesome (Garis Tiga <=> Silang)
+            if (mobileMenu.classList.contains('hidden')) {
+                mobileIcon.classList.remove('fa-xmark');
+                mobileIcon.classList.add('fa-bars');
+            } else {
+                mobileIcon.classList.remove('fa-bars');
+                mobileIcon.classList.add('fa-xmark');
+            }
+        });
+    </script>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="main.js"></script>
