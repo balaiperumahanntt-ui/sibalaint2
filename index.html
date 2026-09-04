@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website SIBALAI</title>
+  
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        krem: '#F2EEDF',
+                        khaki: '#D5C58A',
+                        darkaqua: '#0E5B73',
+                        midnightgreen: '#084C61',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-krem min-h-screen text-midnightgreen antialiased">
+
+    <!-- Header / Navbar -->
+    <header class="bg-midnightgreen/90 backdrop-blur-md border-b-4 border-khaki text-krem sticky top-0 z-50 transition-all shadow-md" data-aos="fade-down">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-3">
+                <a href="index.html" class="flex items-center shrink-0">
+                    <img src="https://i.ibb.co.com/Gf4rz3Yn/BALAI-NT-II-8.png" alt="Maskot SiBalai NT II" class="w-[180px] h-auto object-contain">
+                </a>
+                        
+                <nav class="hidden md:flex space-x-1">
+                    <a href="index.html" class="px-4 py-3 bg-darkaqua/50 rounded-lg transition-colors font-medium">Beranda</a>
+                    
+                    <div class="group relative">
+                        <a href="#" class="px-4 py-3 hover:bg-darkaqua rounded-lg transition-colors font-medium inline-flex items-center">
+                            Layanan <i class="fa-solid fa-caret-down ml-2 text-xs"></i>
+                        </a>
+                        <div class="hidden group-hover:flex absolute top-full left-1/2 -translate-x-1/2 pt-2 z-[1000]">
+                            <div class="w-[620px] bg-midnightgreen/95 backdrop-blur-xl border border-khaki/25 rounded-2xl p-5 shadow-2xl flex gap-5">
+                                <div class="flex-1 bg-darkaqua/40 rounded-xl p-6 flex flex-col justify-center text-center border border-krem/10">
+                                    <h3 class="text-krem text-xl font-bold mb-2">Layanan SiBalai</h3>
+                                    <p class="text-krem/80 text-sm leading-relaxed">Jelajahi program dan layanan unggulan Balai Perumahan NTT dengan pengalaman layanan yang lebih cepat, mudah, dan terintegrasi.</p>
+                                </div>
+                                <div class="flex-[1.2] flex flex-col gap-2 justify-center">
+                                    <a href="https://script.google.com/macros/s/AKfycbz4DFWF4XU6hak6WwgIO8C8IXKtwE5xLfjn-1tMQcfSpynfOvQonKABdP01bHZR2qVW/exec" class="block p-3 bg-darkaqua/30 text-krem border border-krem/15 rounded-xl text-sm font-semibold hover:bg-khaki hover:text-midnightgreen transition-all">Lapor Rumah Tidak Layak Huni</a>
+                                    <a href="#" class="block p-3 bg-darkaqua/30 text-krem border border-krem/15 rounded-xl text-sm font-semibold hover:bg-khaki hover:text-midnightgreen transition-all">Peraturan Perumahan</a>
+                                    <a href="sig.html" class="block p-3 bg-darkaqua/30 text-krem border border-krem/15 rounded-xl text-sm font-semibold hover:bg-khaki hover:text-midnightgreen transition-all">SiGAP (Sistem Informasi Geografis Perumahan NTT)</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="group relative">
+                        <a href="#" class="px-4 py-3 hover:bg-darkaqua rounded-lg transition-colors font-medium inline-flex items-center">
+                            Klinik PKP <i class="fa-solid fa-caret-down ml-2 text-xs"></i>
+                        </a>
+                        <div class="hidden group-hover:flex absolute top-full left-1/2 -translate-x-1/2 pt-2 z-[1000]">
+                            <div class="w-[620px] bg-midnightgreen/95 backdrop-blur-xl border border-khaki/25 rounded-2xl p-5 shadow-2xl flex gap-5">
+                                <div class="flex-1 bg-darkaqua/40 rounded-xl p-6 flex flex-col justify-center text-center border border-krem/10">
+                                    <h3 class="text-krem text-xl font-bold mb-2">Produk</h3>
+                                    <p class="text-krem/80 text-sm leading-relaxed">Jelajahi program dan layanan unggulan Balai Perumahan NTT dengan layanan yang lebih cepat, mudah, dan terintegrasi.</p>
+                                </div>
+                                <div class="flex-[1.2] flex flex-col gap-2 justify-center">
+                                    <a href="#" class="block p-3 bg-darkaqua/30 text-krem border border-krem/15 rounded-xl text-sm font-semibold hover:bg-khaki hover:text-midnightgreen transition-all">Bank Desain Rumah</a>
+                                    <a href="#" class="block p-3 bg-darkaqua/30 text-krem border border-krem/15 rounded-xl text-sm font-semibold hover:bg-khaki hover:text-midnightgreen transition-all">Konsultasi Klinik PKP</a>
+                                    <a href="#" class="block p-3 bg-darkaqua/30 text-krem border border-krem/15 rounded-xl text-sm font-semibold hover:bg-khaki hover:text-midnightgreen transition-all">Portal Pengembang Perumahan</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="group relative">
+                        <a href="#" class="px-4 py-3 hover:bg-darkaqua rounded-lg transition-colors font-medium inline-flex items-center">
+                            Pelaporan <i class="fa-solid fa-caret-down ml-2 text-xs"></i>
+                        </a>
+                        <div class="hidden group-hover:flex absolute top-full left-1/2 -translate-x-1/2 pt-2 z-[1000]">
+                            <div class="w-[620px] bg-midnightgreen/95 backdrop-blur-xl border border-khaki/25 rounded-2xl p-5 shadow-2xl flex gap-5">
+                                <div class="flex-1 bg-darkaqua/40 rounded-xl p-6 flex flex-col justify-center text-center border border-krem/10">
+                                    <h3 class="text-krem text-xl font-bold mb-2">Produk</h3>
+                                    <p class="text-krem/80 text-sm leading-relaxed">Jelajahi program dan layanan unggulan Balai Perumahan NTT dengan pengalaman layanan yang lebih cepat, mudah, dan terintegrasi.</p>
+                                </div>
+                                <div class="flex-[1.2] flex flex-col gap-2 justify-center">
+                                    <a href="https://www.lapor.go.id/" class="block p-3 bg-darkaqua/30 text-krem border border-krem/15 rounded-xl text-sm font-semibold hover:bg-khaki hover:text-midnightgreen transition-all">SP4N Lapor!</a>
+                                    <a href="https://api.whatsapp.com/send/?phone=6281288888911&text&type=phone_number&app_absent=0" class="block p-3 bg-darkaqua/30 text-krem border border-krem/15 rounded-xl text-sm font-semibold hover:bg-khaki hover:text-midnightgreen transition-all">Benar PKP</a>
+                                    <a href="https://sippn.menpan.go.id/instansi/balai-pelaksana-penyediaan-perumahan-dan-kawasan-permukiman-nusa-tenggara-ii-1889208" class="block p-3 bg-darkaqua/30 text-krem border border-krem/15 rounded-xl text-sm font-semibold hover:bg-khaki hover:text-midnightgreen transition-all">SiPPN</a>
+                                    <a href="https://wbs.pkp.go.id/" class="block p-3 bg-darkaqua/30 text-krem border border-krem/15 rounded-xl text-sm font-semibold hover:bg-khaki hover:text-midnightgreen transition-all">Awasi PKP</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <a href="#" class="px-4 py-3 hover:bg-darkaqua rounded-lg transition-colors font-medium">Tentang</a>
+                    <a href="#footer" class="px-4 py-3 hover:bg-darkaqua rounded-lg transition-colors font-medium">Kontak</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="py-24 text-center px-4" data-aos="fade-up" data-aos-delay="200">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-midnightgreen mb-6 leading-tight">Platform Solusi Premium & Layanan Inovatif</h1>
+            <p class="text-lg md:text-xl text-darkaqua mb-10 max-w-2xl mx-auto font-medium">Temukan cara baru untuk mencapai tujuan Anda dengan layanan ahli kami.</p>
+            <a href="#" class="inline-block bg-khaki text-midnightgreen font-bold text-lg px-8 py-4 rounded-xl hover:bg-midnightgreen hover:text-krem transition-all shadow-lg hover:shadow-xl hover:-translate-y-1">Mulai Sekarang</a>
+        </div>
+    </section>
+
+    <!-- Fitur Utama -->
+    <section class="bg-darkaqua py-20 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold text-center text-krem mb-14" data-aos="fade-up">Fitur Utama Kami</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-midnightgreen p-8 rounded-2xl text-center shadow-xl border border-krem/10 hover:-translate-y-2 transition-transform" data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-5xl text-khaki mb-6"><i class="fa-solid fa-star"></i></div>
+                    <h3 class="text-xl font-bold text-krem mb-4">Kualitas Premium</h3>
+                    <p class="text-krem/80 leading-relaxed">Kami menjamin kualitas standar emas untuk setiap proyek, dengan perhatian pada setiap detail.</p>
+                </div>
+                <div class="bg-midnightgreen p-8 rounded-2xl text-center shadow-xl border border-krem/10 hover:-translate-y-2 transition-transform" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-5xl text-khaki mb-6"><i class="fa-solid fa-users"></i></div>
+                    <h3 class="text-xl font-bold text-krem mb-4">Tim Ahli</h3>
+                    <p class="text-krem/80 leading-relaxed">Dukungan penuh dari profesional berpengalaman dan berdedikasi di bidangnya.</p>
+                </div>
+                <div class="bg-midnightgreen p-8 rounded-2xl text-center shadow-xl border border-krem/10 hover:-translate-y-2 transition-transform" data-aos="fade-up" data-aos-delay="300">
+                    <div class="text-5xl text-khaki mb-6"><i class="fa-solid fa-lightbulb"></i></div>
+                    <h3 class="text-xl font-bold text-krem mb-4">Solusi Inovatif</h3>
+                    <p class="text-krem/80 leading-relaxed">Pendekatan kreatif dan teknis untuk memecahkan masalah yang kompleks secara efisien.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating Action Button (FAB) -->
+    <button id="fabPengaduan" class="fixed bottom-8 left-8 bg-darkaqua text-krem w-14 h-14 rounded-full flex items-center justify-center text-2xl shadow-xl hover:bg-khaki hover:text-midnightgreen hover:scale-110 transition-all z-50" title="Buka Form Pengaduan">
+        <i class="fa-solid fa-list-check"></i>
+    </button>
+
+    <!-- Dialog Box Form Pengaduan -->
+    <div id="dialogPengaduan" class="dialog-box fixed bottom-28 left-8 w-[90vw] md:w-[360px] bg-[#0D1B24]/95 backdrop-blur-md border border-white/10 rounded-2xl p-6 shadow-2xl z-50">
+        <div class="flex justify-between items-start mb-5">
+            <div class="flex items-start gap-4">
+                <i class="fa-solid fa-book-bookmark text-3xl text-khaki"></i>
+                <div>
+                    <h5 class="text-lg text-white font-bold mb-1">Pengaduan</h5>
+                    <p class="text-xs text-krem/70 leading-tight">Sampaikan kendala, lokasi, dan deskripsi masalah Anda.</p>
+                </div>
+            </div>
+            <button id="closeDialog" class="text-white/50 hover:text-white transition-colors">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+        </div>
+        <div>
+            <p class="text-xs text-krem/60 mb-4">Isi data di bawah agar pengaduan dapat diproses oleh tim terkait.</p>
+            <form action="#" method="POST">
+                <input type="text" class="w-full bg-white/5 border border-white/10 text-krem rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-khaki focus:ring-1 focus:ring-khaki placeholder-krem/40 transition-all mb-3" placeholder="Nama" required>
+                <input type="tel" class="w-full bg-white/5 border border-white/10 text-krem rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-khaki focus:ring-1 focus:ring-khaki placeholder-krem/40 transition-all mb-3" placeholder="No HP" required>
+                <input type="text" class="w-full bg-white/5 border border-white/10 text-krem rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-khaki focus:ring-1 focus:ring-khaki placeholder-krem/40 transition-all mb-3" placeholder="Lokasi" required>
+                <textarea class="w-full bg-white/5 border border-white/10 text-krem rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-khaki focus:ring-1 focus:ring-khaki placeholder-krem/40 transition-all mb-5" rows="3" placeholder="Jelaskan pengaduan Anda secara detail..." required></textarea>
+                <button type="submit" class="w-full bg-darkaqua text-krem font-bold tracking-wide rounded-lg py-3 hover:bg-khaki hover:text-midnightgreen transition-colors shadow-lg">KIRIM</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer id="footer" class="bg-midnightgreen/95 backdrop-blur-md border-t border-krem/15 text-krem mt-10" data-aos="fade-up">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10">
+                <div class="lg:col-span-4">
+                    <div class="flex items-center gap-3 mb-5">
+                        <img src="https://i.ibb.co.com/RpTQRCrn/logo.png" alt="Logo Balai NT2" class="h-12 w-auto object-contain">
+                        <div class="flex flex-col">
+                            <span class="font-bold text-lg leading-tight text-krem">SIBALAI NT II</span>
+                            <span class="text-[10px] font-bold text-khaki uppercase tracking-wider">Balai P3KP Nusa Tenggara II</span>
+                        </div>
+                    </div>
+                    <p class="text-sm text-krem/80 leading-relaxed mb-6">
+                        Konsultasikan rumah layak huni dan layanan perumahan yang Anda butuhkan kepada kami, Gratis!
+                    </p>
+                    <h6 class="font-bold mb-3 text-sm">Hasil Kerjasama:</h6>
+                    <div class="flex gap-3">
+                        <div class="bg-darkaqua/40 border border-krem/10 rounded-xl p-2 w-20 h-14 flex items-center justify-center">
+                            <img src="https://placehold.co/100x50/f0f0f0/666?text=Logo+1" alt="Logo 1" class="max-w-full max-h-full object-contain" onerror="this.style.display='none'">
+                        </div>
+                        <div class="bg-darkaqua/40 border border-krem/10 rounded-xl p-2 w-20 h-14 flex items-center justify-center">
+                            <img src="https://placehold.co/100x50/f0f0f0/666?text=Logo+2" alt="Logo 2" class="max-w-full max-h-full object-contain" onerror="this.style.display='none'">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-2">
+                    <h5 class="font-bold text-lg mb-5 text-white">Layanan</h5>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="https://api.whatsapp.com/send/?phone=6285180598023" class="text-krem/80 hover:text-khaki hover:pl-1 transition-all">Konsultasi</a></li>
+                        <li><a href="#" class="text-krem/80 hover:text-khaki hover:pl-1 transition-all">Masukan dan Saran</a></li>
+                        <li><a href="#dialogPengaduan" class="text-krem/80 hover:text-khaki hover:pl-1 transition-all">Pengaduan</a></li>
+                        <li><a href="#" class="text-krem/80 hover:text-khaki hover:pl-1 transition-all">FAQ</a></li>
+                        <li><a href="#" class="text-krem/80 hover:text-khaki hover:pl-1 transition-all">Pejabat Struktural</a></li>
+                    </ul>
+                </div>
+
+                <div class="lg:col-span-3">
+                    <h5 class="font-bold text-lg mb-5 text-white">Kontak</h5>
+                    <ul class="space-y-4 text-sm mb-6">
+                        <li>
+                            <a href="https://maps.app.goo.gl/NM493g5q8EJCeFmm7" target="_blank" class="flex items-start gap-3 text-white/90 hover:text-khaki transition-colors">
+                                <i class="fa-solid fa-location-dot text-khaki text-xl"></i>
+                                <span>Balai P3KP Nusa Tenggara II</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://api.whatsapp.com/send/?phone=6285180598023" target="_blank" class="flex items-center gap-3 text-white/90 hover:text-khaki transition-colors">
+                                <i class="fa-solid fa-phone text-khaki text-xl"></i>
+                                <span>+62 851 8059 8023</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="mailto:pkpnustra2@pkp.go.id" class="flex items-center gap-3 text-white/90 hover:text-khaki transition-colors">
+                                <i class="fa-solid fa-envelope text-khaki text-xl"></i>
+                                <span>pkpnustra2@pkp.go.id</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="flex gap-4">
+                        <a href="#" class="text-xl text-krem hover:text-khaki hover:-translate-y-1 transition-all"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="text-xl text-krem hover:text-khaki hover:-translate-y-1 transition-all"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="#" class="text-xl text-krem hover:text-khaki hover:-translate-y-1 transition-all"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#" class="text-xl text-krem hover:text-khaki hover:-translate-y-1 transition-all"><i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-3 flex justify-center lg:justify-end items-center">
+                    <img src="https://i.ibb.co.com/Fq3FNy1f/Logo-Khaki.png" alt="Logo PKP" class="h-40 w-auto opacity-80">
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-black/20 border-t border-krem/10 py-4">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-3">
+                <p class="text-xs text-krem/70 m-0">&copy; 2026 SIBALAI P3KP NUSA TENGGARA II. All Rights Reserved.</p>
+                <div class="flex flex-wrap justify-center gap-4 text-xs">
+                    <a href="#" class="text-krem/70 hover:text-khaki transition-colors">Developer Team</a>
+                    <a href="#" class="text-krem/70 hover:text-khaki transition-colors">Support</a>
+                    <a href="#" class="text-krem/70 hover:text-khaki transition-colors">Terms and Condition</a>
+                    <a href="#" class="text-krem/70 hover:text-khaki transition-colors">Privacy and Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

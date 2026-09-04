@@ -1,0 +1,75 @@
+/* Import Font */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================
+   HEADER / GLASS EFFECT (sig.html)
+   ========================================== */
+.glass-header { 
+    background: linear-gradient(135deg, #093C4F 0%, #0E5975 100%); 
+}
+
+/* ==========================================
+   ANIMASI DIALOG BOX PENGADUAN
+   ========================================== */
+.dialog-box {
+    transform: translateY(20px) scale(0.95);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transform-origin: bottom left;
+}
+.dialog-box.show {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ==========================================
+   KUSTOMISASI LEAFLET MAP
+   ========================================== */
+#map { 
+    height: 520px; 
+    width: 100%; 
+    border-radius: 1rem; 
+    z-index: 10; 
+}
+.info-legend { 
+    padding: 12px 16px; 
+    font: 12px/16px 'Plus Jakarta Sans', sans-serif; 
+    background: rgba(255, 255, 255, 0.95); 
+    box-shadow: 0 0 15px rgba(0,0,0,0.15); 
+    border-radius: 8px; 
+    color: #334155; 
+    max-width: 280px; 
+    opacity: 0.95; 
+    transition: opacity 0.3s ease, background 0.3s ease; 
+}
+.info-legend:hover { 
+    opacity: 1 !important; 
+    background: rgba(255, 255, 255, 0.98) !important; 
+}
+.legend-i { 
+    width: 16px; 
+    height: 16px; 
+    float: left; 
+    margin-right: 8px; 
+    opacity: 0.9; 
+    border-radius: 3px; 
+}
+.custom-map-label { 
+    background: transparent; 
+    border: none; 
+}
+
+/* ==========================================
+   KUSTOMISASI SCROLLBAR
+   ========================================== */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #F1F5F9; }
+::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
