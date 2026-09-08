@@ -1,0 +1,4860 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pelaporan RTLH - Balai P3KP</title>
+  <!-- Tailwind CSS & FontAwesome Icons -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              teal: '#0E5975',
+              darkteal: '#093C4F',
+              gold: '#CBA355',
+              lightgold: '#E0C17B',
+              bg: '#F8F9FA',
+              card: '#FFFFFF'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #F3F5F7;
+      background-image: radial-gradient(#0E5975 0.75px, transparent 0.75px), radial-gradient(#0E5975 0.75px, #F3F5F7 0.75px);
+      background-size: 30px 30px;
+      background-position: 0 0, 15px 15px;
+    }
+    
+    .glass-header {
+      background: linear-gradient(135deg, #093C4F 0%, #0E5975 100%);
+    }
+
+    .dropzone {
+      border: 2px dashed #CBD5E1;
+      transition: all 0.25s ease;
+    }
+    .dropzone:hover {
+      border-color: #0E5975;
+      background-color: #F0F7FA;
+    }
+
+    .combobox-list {
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F1F5F9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #CBD5E1;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="font-sans min-h-screen text-slate-800 pb-12 antialiased">
+
+  <!-- HEADER -->
+  <header class="bg-midnightgreen/95 backdrop-blur-md border-b-4 border-khaki text-krem sticky top-0 z-50 transition-all shadow-md mb-4 glass-header text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center py-3">
+        <div class="flex items-center gap-5">
+          <a href="#" class="flex items-center shrink-0">
+            <img src="https://i.ibb.co.com/Gf4rz3Yn/BALAI-NT-II-8.png" alt="Maskot SiBalai" class="w-[180px] h-auto object-contain">
+          </a>
+          <a href="index.html" class="text-white/80 hover:text-brand-gold transition-all text-sm font-medium flex items-center gap-1 px-2 py-1.5 rounded-lg hover:bg-white/10 border border-transparent hover:border-white/20 mt-2.5">
+            <i class="fa-solid fa-arrow-left"></i> Kembali
+          </a>
+        </div>
+        <div class="hidden md:flex space-x-1 font-medium">
+          <span class="px-4 py-3 bg-white/10 rounded-lg text-white"><i class="fa-solid fa-house-chimney-crack mr-2"></i>Lapor Rumah Tidak Layak Huni</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- FORM CONTAINER -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-6">
+    <div class="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden">
+      
+      <!-- Intro Notice -->
+      <div class="bg-gradient-to-r from-sky-50 to-amber-50 p-5 sm:p-6 border-b border-slate-200/80 flex items-start gap-4">
+        <div class="w-10 h-10 rounded-2xl bg-brand-teal text-white flex items-center justify-center flex-shrink-0 shadow-md">
+          <i class="fa-solid fa-file-pen text-lg"></i>
+        </div>
+        <div class="text-sm text-slate-600 leading-relaxed">
+          <p class="font-bold text-slate-800 text-base mb-0.5">Petunjuk Pengisian Form:</p>
+          Isilah data identitas, lokasi, dan unggah berkas foto kondisi rumah secara valid. Pastikan <span class="font-semibold text-brand-teal">NIK & KK tepat 16 digit</span>, serta <span class="font-semibold text-brand-teal">RT/RW & No HP masing-masing 11 karakter</span>. Berkas akan tersimpan aman di Google Drive.
+        </div>
+      </div>
+
+      <form id="rtlhForm" onsubmit="submitForm(event)" class="p-6 sm:p-10 space-y-10">
+        
+        <!-- SECTION 1: IDENTITAS PEMILIK RUMAH -->
+        <section class="space-y-6">
+          <div class="flex items-center gap-3 border-b-2 border-brand-gold/30 pb-3">
+            <span class="w-8 h-8 rounded-xl bg-brand-teal text-white font-bold text-sm flex items-center justify-center shadow">1</span>
+            <h2 class="text-lg font-bold text-brand-darkteal uppercase tracking-wide">Data Identitas Pemilik Rumah</h2>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div class="sm:col-span-2">
+              <label class="block text-sm font-semibold text-slate-700 mb-2">
+                Nama Pemilik Rumah <span class="text-rose-500">*</span>
+              </label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                  <i class="fa-solid fa-user"></i>
+                </div>
+                <input type="text" id="namaPemilik" required placeholder="Masukkan nama lengkap sesuai KTP"
+                  class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-teal focus:border-brand-teal outline-none transition text-sm">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">
+                NIK Pemilik Rumah (16 Digit) <span class="text-rose-500">*</span>
+              </label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                  <i class="fa-solid fa-address-card"></i>
+                </div>
+                <input type="text" id="nik" required maxlength="16" pattern="[0-9]{16}" placeholder="530XXXXXXXXXXXXXXXX"
+                  oninput="validateDigitOnly(this, 16, 'nikError')"
+                  class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-teal focus:border-brand-teal outline-none transition text-sm font-mono tracking-wider">
+              </div>
+              <p id="nikError" class="text-xs text-rose-500 mt-1 hidden"><i class="fa-solid fa-circle-exclamation mr-1"></i>NIK harus tepat 16 digit angka.</p>
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">
+                Nomor Kartu Keluarga (16 Digit) <span class="text-rose-500">*</span>
+              </label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                  <i class="fa-solid fa-users"></i>
+                </div>
+                <input type="text" id="kk" required maxlength="16" pattern="[0-9]{16}" placeholder="530XXXXXXXXXXXXXXXX"
+                  oninput="validateDigitOnly(this, 16, 'kkError')"
+                  class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-teal focus:border-brand-teal outline-none transition text-sm font-mono tracking-wider">
+              </div>
+              <p id="kkError" class="text-xs text-rose-500 mt-1 hidden"><i class="fa-solid fa-circle-exclamation mr-1"></i>Nomor KK harus tepat 16 digit angka.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 2: ALAMAT LOKASI RUMAH -->
+        <section class="space-y-6">
+          <div class="flex items-center gap-3 border-b-2 border-brand-gold/30 pb-3">
+            <span class="w-8 h-8 rounded-xl bg-brand-teal text-white font-bold text-sm flex items-center justify-center shadow">2</span>
+            <h2 class="text-lg font-bold text-brand-darkteal uppercase tracking-wide">Lokasi & Alamat Rumah (Sesuai KTP)</h2>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <!-- Kabupaten/Kota -->
+            <div class="relative">
+              <label class="block text-sm font-semibold text-slate-700 mb-2">
+                Kabupaten/Kota <span class="text-rose-500">*</span>
+              </label>
+              <div class="relative">
+                <input type="text" id="kabupaten" required readonly placeholder="Pilih Kabupaten..."
+                  onclick="toggleCombobox('kabDropdown')"
+                  class="w-full pl-10 pr-8 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-teal focus:border-brand-teal outline-none transition text-sm cursor-pointer">
+                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                  <i class="fa-solid fa-map-location-dot"></i>
+                </div>
+                <div class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer text-slate-400" onclick="toggleCombobox('kabDropdown')">
+                  <i class="fa-solid fa-chevron-down text-xs"></i>
+                </div>
+              </div>
+              <ul id="kabDropdown" class="combobox-list hidden absolute z-50 left-0 right-0 mt-1 bg-white border border-slate-200 rounded-xl shadow-xl py-2 text-sm"></ul>
+            </div>
+
+            <!-- Kecamatan -->
+            <div class="relative">
+              <label class="block text-sm font-semibold text-slate-700 mb-2">
+                Kecamatan <span class="text-rose-500">*</span>
+              </label>
+              <div class="relative">
+                <input type="text" id="kecamatan" required readonly placeholder="Pilih Kecamatan..."
+                  onclick="toggleCombobox('kecDropdown')"
+                  class="w-full pl-10 pr-8 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-teal focus:border-brand-teal outline-none transition text-sm cursor-pointer">
+                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                  <i class="fa-solid fa-building"></i>
+                </div>
+                <div class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer text-slate-400" onclick="toggleCombobox('kecDropdown')">
+                  <i class="fa-solid fa-chevron-down text-xs"></i>
+                </div>
+              </div>
+              <ul id="kecDropdown" class="combobox-list hidden absolute z-50 left-0 right-0 mt-1 bg-white border border-slate-200 rounded-xl shadow-xl py-2 text-sm"></ul>
+            </div>
+
+            <!-- Desa/Kelurahan -->
+            <div class="relative">
+              <label class="block text-sm font-semibold text-slate-700 mb-2">
+                Desa/Kelurahan <span class="text-rose-500">*</span>
+              </label>
+              <div class="relative">
+                <input type="text" id="desa" required readonly placeholder="Pilih Desa..."
+                  onclick="toggleCombobox('desaDropdown')"
+                  class="w-full pl-10 pr-8 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-teal focus:border-brand-teal outline-none transition text-sm cursor-pointer">
+                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                  <i class="fa-solid fa-house-chimney"></i>
+                </div>
+                <div class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer text-slate-400" onclick="toggleCombobox('desaDropdown')">
+                  <i class="fa-solid fa-chevron-down text-xs"></i>
+                </div>
+              </div>
+              <ul id="desaDropdown" class="combobox-list hidden absolute z-50 left-0 right-0 mt-1 bg-white border border-slate-200 rounded-xl shadow-xl py-2 text-sm"></ul>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">
+                RT / RW (Maks 11 Karakter) <span class="text-rose-500">*</span>
+              </label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                  <i class="fa-solid fa-hashtag"></i>
+                </div>
+                <input type="text" id="rtRw" required maxlength="11" placeholder="Maks 11 Karakter"
+                  oninput="validateLengthOnly(this, 11, 'rtRwError')"
+                  class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-teal focus:border-brand-teal outline-none transition text-sm">
+              </div>
+              <p id="rtRwError" class="text-xs text-rose-500 mt-1 hidden"><i class="fa-solid fa-circle-exclamation mr-1"></i>RT/RW maksimal 11 karakter.</p>
+            </div>
+
+            <div class="sm:col-span-2">
+              <label class="block text-sm font-semibold text-slate-700 mb-2">
+                Alamat Rumah Lengkap <span class="text-rose-500">*</span>
+              </label>
+              <div class="relative">
+                <div class="absolute top-3.5 left-0 pl-3.5 flex items-start pointer-events-none text-slate-400">
+                  <i class="fa-solid fa-location-dot"></i>
+                </div>
+                <textarea id="alamatLengkap" required rows="2" placeholder="Nama Jalan, No. Rumah, Patokan Lokasi..."
+                  class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-teal focus:border-brand-teal outline-none transition text-sm"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div class="sm:col-span-2 p-4 bg-blue-50 border border-blue-100 rounded-xl">
+              <label class="block text-sm font-semibold text-slate-700 mb-2">
+                Koordinat Titik Lokasi Rumah <span class="text-xs text-slate-500 font-normal">(Opsional namun sangat disarankan)</span>
+              </label>
+              <div class="flex flex-col sm:flex-row gap-3">
+                <div class="relative flex-grow">
+                  <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-blue-400">
+                    <i class="fa-solid fa-location-crosshairs"></i>
+                  </div>
+                  <input type="text" id="koordinat" readonly placeholder="Klik tombol di samping untuk deteksi lokasi otomatis"
+                    class="w-full pl-10 pr-4 py-3 bg-white border border-blue-200 rounded-xl outline-none transition text-sm text-slate-600">
+                </div>
+                <button type="button" id="btn-location" onclick="getLocation()" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-sm font-semibold transition whitespace-nowrap shadow-md">
+                  <i class="fa-solid fa-map-pin mr-2"></i>Dapatkan Titik Lokasi
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 3: KONTAK KOMUNIKASI -->
+        <section class="space-y-6">
+          <div class="flex items-center gap-3 border-b-2 border-brand-gold/30 pb-3">
+            <span class="w-8 h-8 rounded-xl bg-brand-teal text-white font-bold text-sm flex items-center justify-center shadow">3</span>
+            <h2 class="text-lg font-bold text-brand-darkteal uppercase tracking-wide">Nomor Kontak Whatsapp / HP (11 Karakter)</h2>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">
+                No HP/Whatsapp Pemilik Rumah<span class="text-rose-500">*</span>
+              </label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                  <i class="fa-brands fa-whatsapp text-lg"></i>
+                </div>
+                <input type="tel" id="noHpPemilik" required maxlength="11" placeholder="08XXXXXXXXXXX"
+                  oninput="validateDigitOnly(this, 13, 'hpPemilikError')"
+                  class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-teal focus:border-brand-teal outline-none transition text-sm font-mono tracking-wider">
+              </div>
+              <p id="hpPemilikError" class="text-xs text-rose-500 mt-1 hidden"><i class="fa-solid fa-circle-exclamation mr-1"></i>Nomor HP harus tepat 11 digit angka.</p>
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-slate-700 mb-2">
+                No HP/Whatsapp Perangkat Desa<span class="text-rose-500">*</span>
+              </label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                  <i class="fa-solid fa-phone"></i>
+                </div>
+                <input type="tel" id="noHpKades" required maxlength="11" placeholder="08XXXXXXXXXXX"
+                  oninput="validateDigitOnly(this, 13, 'hpKadesError')"
+                  class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-teal focus:border-brand-teal outline-none transition text-sm font-mono tracking-wider">
+              </div>
+              <p id="hpKadesError" class="text-xs text-rose-500 mt-1 hidden"><i class="fa-solid fa-circle-exclamation mr-1"></i>Nomor HP harus tepat 11 digit angka.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 4: UNGGAH DOKUMEN & FOTO -->
+        <section class="space-y-6">
+          <div class="flex items-center gap-3 border-b-2 border-brand-gold/30 pb-3">
+            <span class="w-8 h-8 rounded-xl bg-brand-teal text-white font-bold text-sm flex items-center justify-center shadow">4</span>
+            <h2 class="text-lg font-bold text-brand-darkteal uppercase tracking-wide">Unggah Berkas Dokumen & Foto Rumah</h2>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <!-- Foto Pemilik Latar Belakang Rumah -->
+            <div class="dropzone p-4 rounded-2xl bg-slate-50 text-center relative flex flex-col items-center justify-center min-h-[160px]">
+              <i class="fa-solid fa-camera text-2xl text-brand-teal mb-2"></i>
+              <p class="text-xs font-bold text-slate-700">Foto Pemilik dengan Latar Rumah <span class="text-rose-500">*</span></p>
+              <p class="text-[11px] text-slate-500 mt-1 mb-3">Format JPG/PNG (Maks 10MB)</p>
+              <input type="file" id="fotoPemilik" accept="image/*" required onchange="handleFileSelect(this, 'previewPemilik')" class="hidden">
+              <button type="button" onclick="document.getElementById('fotoPemilik').click()" class="px-4 py-1.5 bg-brand-teal text-white rounded-lg text-xs font-semibold hover:bg-brand-darkteal transition shadow-sm">
+                Pilih Foto
+              </button>
+              <div id="previewPemilik" class="mt-2 text-xs text-slate-600 font-medium truncate max-w-full"></div>
+            </div>
+
+            <!-- Foto / Scan KTP -->
+            <div class="dropzone p-4 rounded-2xl bg-slate-50 text-center relative flex flex-col items-center justify-center min-h-[160px]">
+              <i class="fa-solid fa-id-card text-2xl text-brand-teal mb-2"></i>
+              <p class="text-xs font-bold text-slate-700">Foto/Scan KTP Pemilik Rumah <span class="text-rose-500">*</span></p>
+              <p class="text-[11px] text-slate-500 mt-1 mb-3">Format JPG/PNG/PDF (Maks 10MB)</p>
+              <input type="file" id="fotoKtp" accept="image/*,application/pdf" required onchange="handleFileSelect(this, 'previewKtp')" class="hidden">
+              <button type="button" onclick="document.getElementById('fotoKtp').click()" class="px-4 py-1.5 bg-brand-teal text-white rounded-lg text-xs font-semibold hover:bg-brand-darkteal transition shadow-sm">
+                Pilih Berkas
+              </button>
+              <div id="previewKtp" class="mt-2 text-xs text-slate-600 font-medium truncate max-w-full"></div>
+            </div>
+
+            <!-- Foto / Scan Kartu Keluarga -->
+            <div class="dropzone p-4 rounded-2xl bg-slate-50 text-center relative flex flex-col items-center justify-center min-h-[160px]">
+              <i class="fa-solid fa-folder-open text-2xl text-brand-teal mb-2"></i>
+              <p class="text-xs font-bold text-slate-700">Foto/Scan Kartu Keluarga <span class="text-rose-500">*</span></p>
+              <p class="text-[11px] text-slate-500 mt-1 mb-3">Format JPG/PNG/PDF (Maks 10MB)</p>
+              <input type="file" id="fotoKk" accept="image/*,application/pdf" required onchange="handleFileSelect(this, 'previewKk')" class="hidden">
+              <button type="button" onclick="document.getElementById('fotoKk').click()" class="px-4 py-1.5 bg-brand-teal text-white rounded-lg text-xs font-semibold hover:bg-brand-darkteal transition shadow-sm">
+                Pilih Berkas
+              </button>
+              <div id="previewKk" class="mt-2 text-xs text-slate-600 font-medium truncate max-w-full"></div>
+            </div>
+
+            <!-- Surat Kepemilikan Lahan -->
+            <div class="dropzone p-4 rounded-2xl bg-slate-50 text-center relative flex flex-col items-center justify-center min-h-[160px]">
+              <i class="fa-solid fa-file-contract text-2xl text-brand-teal mb-2"></i>
+              <p class="text-xs font-bold text-slate-700">Surat Kepemilikan Lahan <span class="text-rose-500">*</span></p>
+              <p class="text-[11px] text-slate-500 mt-1 mb-1">Sertifikat / Letter C / AJB / Surat Desa</p>
+              <input type="file" id="suratLahan" accept="image/*,application/pdf" required onchange="handleFileSelect(this, 'previewLahan')" class="hidden">
+              <button type="button" onclick="document.getElementById('suratLahan').click()" class="px-4 py-1.5 bg-brand-teal text-white rounded-lg text-xs font-semibold hover:bg-brand-darkteal transition shadow-sm mt-1">
+                Pilih Berkas
+              </button>
+              <div id="previewLahan" class="mt-2 text-xs text-slate-600 font-medium truncate max-w-full"></div>
+            </div>
+
+            <!-- Foto Kondisi Kerusakan Rumah -->
+            <div class="sm:col-span-2 dropzone p-6 rounded-2xl bg-slate-50 relative flex flex-col items-center justify-center border-2 border-brand-gold/50 border-dashed">
+              <i class="fa-solid fa-images text-3xl text-brand-gold mb-2"></i>
+              <p class="text-sm font-bold text-slate-800">Foto Kondisi Kerusakan Rumah <span class="text-rose-500">*</span></p>
+              <p class="text-xs text-slate-500 mt-1 mb-4 text-center">
+                Pilih foto kondisi kerusakan rumah dari galeri perangkat Anda. Anda dapat memilih beberapa foto sekaligus.
+              </p>
+              
+              <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto justify-center">
+                <input type="file" id="fotoRumah" accept="image/*" multiple onchange="handleMultiFileSelect(this, 'previewRumah')" class="hidden">
+                <button type="button" onclick="document.getElementById('fotoRumah').click()" class="px-6 py-3 bg-brand-teal text-white rounded-xl text-xs font-bold hover:bg-brand-darkteal transition shadow-md flex items-center justify-center gap-2">
+                  <i class="fa-solid fa-folder-open"></i> Unggah Foto dari Galeri
+                </button>
+              </div>
+            
+              <div id="previewRumah" class="mt-4 w-full max-w-md space-y-2"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SUBMIT BUTTON -->
+        <div class="pt-4">
+          <button type="submit" id="btnSubmit" class="w-full py-4 bg-gradient-to-r from-brand-teal to-brand-darkteal hover:from-brand-darkteal hover:to-slate-900 text-white rounded-2xl font-bold text-base sm:text-lg shadow-xl hover:shadow-2xl transition transform active:scale-[0.99] flex items-center justify-center gap-3 border border-brand-gold/30">
+            <i class="fa-solid fa-paper-plane"></i>
+            <span>Kirim Pelaporan RTLH</span>
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </main>
+
+  <!-- LOADING MODAL -->
+  <div id="loadingModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden flex flex-col items-center justify-center text-white p-4">
+    <div class="w-16 h-16 border-4 border-brand-gold border-t-transparent rounded-full animate-spin mb-4"></div>
+    <h3 class="text-lg font-bold text-white">Mengunggah & Menyimpan Data...</h3>
+    <p class="text-xs text-slate-300 mt-1">Mohon tunggu lebih lama, proses mengunggah berkas ke Google Drive sedang berlangsung.</p>
+  </div>
+
+  <!-- SUCCESS MODAL -->
+  <div id="successModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full text-center space-y-4 shadow-2xl border-t-8 border-emerald-500">
+      <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-2xl shadow-inner">
+        <i class="fa-solid fa-check"></i>
+      </div>
+      <h3 class="text-xl font-bold text-slate-800">Laporan Berhasil Terkirim!</h3>
+      <p id="successMsg" class="text-sm text-slate-600 leading-relaxed"></p>
+      <button onclick="closeSuccessModal()" class="w-full py-3 bg-brand-teal text-white font-bold rounded-xl text-sm hover:bg-brand-darkteal transition shadow">
+        Isi Form Baru
+      </button>
+    </div>
+  </div>
+
+  <!-- SCRIPT LOGIC -->
+  <script>
+    // ==========================================
+    // DATA WILAYAH (Silakan masukkan data wilayah Anda di bawah ini)
+    // Format: { "Kabupaten": { "Kecamatan": ["Desa 1", "Desa 2"] } }
+    // ==========================================
+    const DATA_WILAYAH = {
+        "Kota Kupang": {
+        "Alak": [
+            "Naioni",
+            "Manulai II",
+            "Batuplat",
+            "Alak",
+            "Manutapen",
+            "Mantasi",
+            "Fatufeto",
+            "Nunhila",
+            "Nunbaun Delha",
+            "Nunbaun Sabu",
+            "Namosain",
+            "Penkase-Oeleta"
+        ],
+        "Maulafa": [
+            "Fatukoa",
+            "Sikumana",
+            "Bello",
+            "Kolhua",
+            "Penfui",
+            "Naimata",
+            "Maulafa",
+            "Oepura",
+            "Naikolan"
+        ],
+        "Oebobo": [
+            "Oetete",
+            "Oebobo",
+            "Fatululi",
+            "Oebufu",
+            "Tuak Daun Merah",
+            "Kayu Putih",
+            "Liliba"
+        ],
+        "Kota Raja": [
+            "Bakunase",
+            "Bakunase II",
+            "Air Nona",
+            "Naikoten I",
+            "Naikoten II",
+            "Kuanino",
+            "Nunleu",
+            "Fontein"
+        ],
+        "Kelapa Lima": [
+            "Kelapa Lima",
+            "Oesapa",
+            "Oesapa Barat",
+            "Oesapa Selatan",
+            "Lasiana"
+        ],
+        "Kota Lama": [
+            "Air Mata",
+            "Lahilai Bissi Kopan",
+            "Bonipoi",
+            "Merdeka",
+            "Solor",
+            "Todekisar",
+            "Oeba",
+            "Fatubesi",
+            "Nefonaek",
+            "Pasir Panjang"
+        ]
+    },
+    "Kupang": {
+        "Semau": [
+            "Bokonusan",
+            "Otan",
+            "Uitao",
+            "Huilelot",
+            "Uiasa",
+            "Hansisi",
+            "Batuinan",
+            "Letbaun"
+        ],
+        "Semau Selatan": [
+            "Naikean",
+            "Akle",
+            "Uitiuh Ana",
+            "Onansila",
+            "Uitiuhtuan",
+            "Uiboa"
+        ],
+        "Kupang Barat": [
+            "Tablolong",
+            "Lifuleo",
+            "Tesabela",
+            "Sumlili",
+            "Oemat Nunu",
+            "Kuanheum",
+            "Bolok",
+            "Nitneo",
+            "Batakte",
+            "Manulai I",
+            "Oenesu",
+            "Oenaek"
+        ],
+        "Nekamese": [
+            "Bone",
+            "Taloetan",
+            "Usapisonbai",
+            "Oepaha",
+            "Tasikona",
+            "Oenif",
+            "Oemasi",
+            "Oelomin",
+            "Tunfeu",
+            "Oben",
+            "Besmarak"
+        ],
+        "Kupang Tengah": [
+            "Oelnasi",
+            "Oelpuah",
+            "Oebelo",
+            "Noelbaki",
+            "Tarus",
+            "Penfui Timur",
+            "Tanah Merah",
+            "Mata Air"
+        ],
+        "Taebenu": [
+            "Oeletsala",
+            "Kuaklalo",
+            "Bokong",
+            "Baumata Timur",
+            "Oeltua",
+            "Baumata",
+            "Baumata Barat",
+            "Baumata Utara"
+        ],
+        "Amarasi": [
+            "Oesena",
+            "Nonbes",
+            "Kotabes",
+            "Ponain",
+            "Tesbatan",
+            "Apren",
+            "Oenoni",
+            "Tesbatan Ii",
+            "Oenoni Ii"
+        ],
+        "Amarasi Barat": [
+            "Nekbaun",
+            "Merbaun",
+            "Erbaun",
+            "Teunbaun",
+            "Tunbaun",
+            "Soba",
+            "Niukbaun",
+            "Toobaun"
+        ],
+        "Amarasi Selatan": [
+            "Sahraen",
+            "Retraen",
+            "Buraen",
+            "Nekmese",
+            "Sonraen"
+        ],
+        "Amarasi Timur": [
+            "Pakubaun",
+            "Oebesi",
+            "Rabeka",
+            "Enoraen"
+        ],
+        "Kupang Timur": [
+            "Oefafi",
+            "Tuatuka",
+            "Pukdale",
+            "Oesao",
+            "Naibonat",
+            "Nunkurus",
+            "Babau",
+            "Merdeka",
+            "Tuapukan",
+            "Manusak",
+            "Oesao Ii",
+            "Oelatimo",
+            "Tanah Putih"
+        ],
+        "Amabi Oefeto Timur": [
+            "Pathau",
+            "Muke",
+            "Oemolo",
+            "Oemofa",
+            "Seki",
+            "Nunmafo",
+            "Oenunutono",
+            "Oeniko",
+            "Enolanan",
+            "Oenaunu"
+        ],
+        "Amabi Oefeto": [
+            "Kuanheum",
+            "Fatuknutu",
+            "Kairane",
+            "Niunbaun",
+            "Raknamo",
+            "Fatuteta",
+            "Oefeto"
+        ],
+        "Sulamu": [
+            "Sulamu",
+            "Pitai",
+            "Pariti",
+            "Oeteta",
+            "Bipolo",
+            "Pantulan",
+            "Pantai Beringin"
+        ],
+        "Fatuleu": [
+            "Camplong Ii",
+            "Camplong I",
+            "Naunu",
+            "Oebola",
+            "Sillu",
+            "Ekateta",
+            "Tolnaku",
+            "Kuimasi",
+            "Oebola Dalam",
+            "Kiuoni"
+        ],
+        "Fatuleu Tengah": [
+            "Nunsaen",
+            "Oelbiteno",
+            "Passi",
+            "Nonbaun"
+        ],
+        "Fatuleu Barat": [
+            "Kalali",
+            "Poto",
+            "Naitae",
+            "Nuataus",
+            "Tuakau"
+        ],
+        "Takari": [
+            "Takari",
+            "Noelmina",
+            "Benu",
+            "Hueknutu",
+            "Kauniki",
+            "Oelnaineno",
+            "Tanini",
+            "Oesusu",
+            "Tuapanaf",
+            "Fatukona"
+        ],
+        "Amfoang Selatan": [
+            "Fatusuki",
+            "Fatumetan",
+            "Ohaem I",
+            "Leloboko",
+            "Lelogama",
+            "Oelbanu",
+            "Ohaem Ii"
+        ],
+        "Amfoang Barat Daya": [
+            "Manubelon",
+            "Nefoneut",
+            "Letkole",
+            "Bioba Barutaen"
+        ],
+        "Amfoang Tengah": [
+            "Fatumonas",
+            "Binafun",
+            "Bonmuti",
+            "Bitobe"
+        ],
+        "Amfoang Utara": [
+            "Afoan",
+            "Naikliu",
+            "Fatunaus",
+            "Kolabe",
+            "Bakuin",
+            "Lilmus"
+        ],
+        "Amfoang Barat Laut": [
+            "Saukibe",
+            "Faumes",
+            "Timau",
+            "Honuk",
+            "Oelfatu",
+            "Soliu"
+        ],
+        "Amfoang Timur": [
+            "Nunuanah",
+            "Kifu",
+            "Netemnanu Selatan",
+            "Netemnanu Utara",
+            "Netemnanu"
+        ]
+    },
+    "Timor Tengah Selatan": {
+        "Mollo Utara": [
+            "Leloboko",
+            "Nefokoko",
+            "Lelobatan",
+            "Netpala",
+            "Obesi",
+            "Eon Besi",
+            "Bosen",
+            "Sebot",
+            "Ajaobaki",
+            "Bijaepunu",
+            "Halme",
+            "Tunua",
+            "Fatukoto",
+            "Iusmollo",
+            "Kokfeu",
+            "Tomanat",
+            "Tofen",
+            "Taiftob"
+        ],
+        "Fatumnasi": [
+            "Fatumnasi",
+            "Nenas",
+            "Nuapin",
+            "Kuanoel",
+            "Mutis"
+        ],
+        "Tobu": [
+            "Tobu",
+            "Tutem",
+            "Tune",
+            "Bonleu",
+            "Huetalan",
+            "Pubasu",
+            "Bestobe",
+            "Saubalan"
+        ],
+        "Nunbena": [
+            "Noebesi",
+            "Liliana",
+            "Nunbena",
+            "Taneotop",
+            "Fetomone",
+            "Tunbes"
+        ],
+        "Mollo Selatan": [
+            "Tuasene",
+            "Biloto",
+            "Bisene",
+            "Bikekneno",
+            "Kesetnana",
+            "Oinlasi",
+            "Klani/noinbila"
+        ],
+        "Polen": [
+            "Laob",
+            "Konbaki",
+            "Puna",
+            "Loli",
+            "Mnesatbubak",
+            "Bijeli",
+            "Usapimnasi",
+            "Fatumnutu",
+            "Oelnunuh",
+            "Balu",
+            "Sainoni"
+        ],
+        "Mollo Barat": [
+            "Besana",
+            "Fatukoko",
+            "Koa",
+            "Salbait",
+            "Oeuban"
+        ],
+        "Mollo Tengah": [
+            "Binaus",
+            "Oelbubuk",
+            "Kualeu",
+            "Neke Mani Feto",
+            "Oelekam",
+            "Pika"
+        ],
+        "Kota Soe": [
+            "Cendana",
+            "So E",
+            "Oebesa",
+            "Kobekamusa",
+            "Nunumeu",
+            "Oekefan",
+            "Taubneno",
+            "Kampung Baru",
+            "Karang Siri",
+            "Nonohonis",
+            "Kota Baru",
+            "Kuatae",
+            "Noemeto"
+        ],
+        "Amanuban Barat": [
+            "Tubuhue",
+            "Haumenibaki",
+            "Mnelalete",
+            "Pusu",
+            "Nulle",
+            "Tublopo/meometan",
+            "Nusa",
+            "Nifukani"
+        ],
+        "Batu Putih": [
+            "Oebobo",
+            "Tuppan",
+            "Boentuka",
+            "Oehala",
+            "Tuakole",
+            "Hane",
+            "Benlutu"
+        ],
+        "Kuatnana": [
+            "Lakat",
+            "Supul",
+            "Tetaf",
+            "Enoneontes",
+            "Naukae",
+            "Oof",
+            "Tubmonas",
+            "Oe Ue"
+        ],
+        "Amanuban Selatan": [
+            "Pollo",
+            "Bena",
+            "Oebelo",
+            "Noemuke",
+            "Oekiu",
+            "Batnun",
+            "Kiubaat",
+            "Linamnutu",
+            "Mio",
+            "Eno Netten"
+        ],
+        "Noebeba": [
+            "Oe Ekam",
+            "Teas",
+            "Oepliki",
+            "Naip",
+            "Fatutnana",
+            "Oebaki",
+            "Eno Nabuasa"
+        ],
+        "Kuan Fatu": [
+            "Kusi",
+            "Kuanfatu",
+            "Kelle",
+            "Basmuti",
+            "Kakan",
+            "Lasi",
+            "Olais",
+            "Kusi Utara",
+            "Kelle Tunan",
+            "Taupi",
+            "Oebo",
+            "Oehan",
+            "Noebeba"
+        ],
+        "Kualin": [
+            "Toineke",
+            "Tuafanu",
+            "Kiufatu",
+            "Kualin",
+            "Oni",
+            "Tuapakas",
+            "Nunusunu",
+            "Oemaman"
+        ],
+        "Amanuban Tengah": [
+            "Maunum Niki Niki",
+            "Taebesa",
+            "Nakfunu",
+            "Oeekam",
+            "Baki",
+            "Tumu",
+            "Noebesa",
+            "Nobi Nobi",
+            "Niki Niki",
+            "Bone",
+            "Sopo"
+        ],
+        "Kolbano": [
+            "Kolbano",
+            "Noesiu",
+            "Pene Selatan",
+            "Oetuke",
+            "Babuin",
+            "Oeleu",
+            "Sei",
+            "Nununamat",
+            "Pana",
+            "Haunobenak",
+            "Ofu",
+            "Spaha"
+        ],
+        "Oenino": [
+            "Neke",
+            "Pene Utara",
+            "Noe Noni",
+            "Hoi",
+            "Niki Niki Un",
+            "Oenino",
+            "Abi"
+        ],
+        "Amanuban Timur": [
+            "Mauleum",
+            "Oelet",
+            "Oe Ekam",
+            "Pisan",
+            "Mnelaanen",
+            "Teluk",
+            "Nifukiu",
+            "Billa",
+            "Sini",
+            "Tliu"
+        ],
+        "Fautmolo": [
+            "Sillu",
+            "Oeleon",
+            "Kaeneno",
+            "Nunuhakniti",
+            "Besleu",
+            "Bileon",
+            "Tunis"
+        ],
+        "Fatukopa": [
+            "Fatukopa",
+            "Besnam",
+            "Taebone",
+            "Nunfutu",
+            "Nifulinah",
+            "Elo",
+            "Kiki"
+        ],
+        "Kie": [
+            "Fatu Ulan",
+            "Tesi Ayofanu",
+            "Belle",
+            "Nekmese",
+            "Boti",
+            "Oenai",
+            "Oinlasi",
+            "Napi",
+            "Fallas",
+            "Pili",
+            "Enonapi",
+            "Naileu",
+            "Fatukusi"
+        ],
+        "Kot'olin": [
+            "Kot Olin",
+            "Nunbena",
+            "Fatuat",
+            "Hoibeti",
+            "Nualunat",
+            "Panite",
+            "O Obibi",
+            "Binenok"
+        ],
+        "Amanatun Selatan": [
+            "Oinlasi",
+            "Kokoi",
+            "Fatulunu",
+            "Nunleu",
+            "Kualeu",
+            "Fenun",
+            "Anin",
+            "Toi",
+            "Sunu",
+            "Lanu",
+            "Nifuleo",
+            "Fae",
+            "Netutnana"
+        ],
+        "Boking": [
+            "Sabun",
+            "Nano",
+            "Boking",
+            "Leonmeni",
+            "Meusin",
+            "Baus",
+            "Fatu Manufui"
+        ],
+        "Nunkolo": [
+            "Op",
+            "Saenam",
+            "Sahan",
+            "Nenoat",
+            "Nunkolo",
+            "Hoineno",
+            "Fat",
+            "Putun",
+            "Haumeni"
+        ],
+        "Noebana": [
+            "Suni",
+            "Noebana",
+            "Fatumnasi",
+            "Mella",
+            "Mnela Petu"
+        ],
+        "Santian": [
+            "Nenotes",
+            "Santian",
+            "Poli",
+            "Manufui",
+            "Naifatu"
+        ],
+        "Amanatun Utara": [
+            "Lilo",
+            "Tauanas",
+            "Fatilo",
+            "Nasi",
+            "Snok",
+            "Tumu",
+            "Fatuoni",
+            "Sono",
+            "Muna"
+        ],
+        "Toianas": [
+            "Oeleu",
+            "Skinu",
+            "Toianas",
+            "Sambet",
+            "Bokong",
+            "Tuataum",
+            "Lobus",
+            "Mili",
+            "Noeolin"
+        ],
+        "Kokbaun": [
+            "Lotas",
+            "Sabnala",
+            "Kol Oto",
+            "Obaki",
+            "Benahe",
+            "Niti"
+        ]
+    },
+    "Timor Tengah Utara": {
+        "Miomaffo Barat": [
+            "Noepesu",
+            "Fatuneno",
+            "Eban",
+            "Sallu",
+            "Suanae",
+            "Lemon",
+            "Fatunisuan",
+            "Haulasi",
+            "Noeltoko",
+            "Fatutasu",
+            "Manusasi",
+            "Saenam",
+            "Satab"
+        ],
+        "Miomaffo Tengah": [
+            "Tuabatan",
+            "Akomi",
+            "Bijaepasu",
+            "Noenasi",
+            "Nian",
+            "Tuabatan Barat"
+        ],
+        "Musi": [
+            "Oelneke",
+            "Oetulu",
+            "Ainan",
+            "Oeolo",
+            "Bisafe",
+            "Batnes"
+        ],
+        "Mutis": [
+            "Tasinifu",
+            "Naekake",
+            "Naekake",
+            "Noelelo"
+        ],
+        "Miomaffo Timur": [
+            "Oesena",
+            "Taekas",
+            "Femnasi",
+            "Jak",
+            "Tunoe",
+            "Tuntun",
+            "Bokon",
+            "Kaenbaun",
+            "Fatusene",
+            "Amol",
+            "Bitefa"
+        ],
+        "Noemuti": [
+            "Kiuola",
+            "Seo",
+            "Noebaun",
+            "Popnam",
+            "Nibaaf",
+            "Oenak",
+            "Nifuboke",
+            "Bijeli",
+            "Noemuti",
+            "Fatumuti",
+            "Banfanu",
+            "Oeperigi"
+        ],
+        "Bikomi Selatan": [
+            "Maurisu",
+            "Naiola",
+            "Oetalus",
+            "Oelami",
+            "Kiusili",
+            "Maurisu Utara",
+            "Maurisu Selatan",
+            "Tublopo",
+            "Maurisu Tengah",
+            "Naiola Timur"
+        ],
+        "Bikomi Tengah": [
+            "Nimasi",
+            "Kuanek",
+            "Buk",
+            "Oelbonak",
+            "Oenenu",
+            "Oenenu Utara",
+            "Oenenu Selatan",
+            "Sono"
+        ],
+        "Bikomi Nilulat": [
+            "Nilulat",
+            "Tubu",
+            "Haumeni Ana",
+            "Sunkaen",
+            "Nainaban",
+            "Inbate"
+        ],
+        "Bikomi Utara": [
+            "Faennake",
+            "Baas",
+            "Haumeni",
+            "Napan",
+            "Tes",
+            "Sainoni",
+            "Banain",
+            "Banain B",
+            "Banain C"
+        ],
+        "Naibenu": [
+            "Sunsea",
+            "Bakitolas",
+            "Benus",
+            "Manamas"
+        ],
+        "Noemuti Timur": [
+            "Naob",
+            "Haekto",
+            "Manikin",
+            "Kuaken"
+        ],
+        "Kota Kefamenanu": [
+            "Maubeli",
+            "Sasi",
+            "Tubuhue",
+            "Kefamenanu Selatan",
+            "Benpasi",
+            "Bansone",
+            "Kefamenanu Tengah",
+            "Aplasi",
+            "Kefamenanu Utara"
+        ],
+        "Insana": [
+            "Nansean",
+            "Susulaku",
+            "Ainiut",
+            "Loeram",
+            "Oinbit",
+            "Nunmafo",
+            "Manunain A",
+            "Manunain B",
+            "Tapenpah",
+            "Sekon",
+            "Susulaku B",
+            "Keun",
+            "Fatoin",
+            "Nansean Timur",
+            "Bitauni",
+            "Fatuana",
+            "Botof"
+        ],
+        "Insana Utara": [
+            "Humusu A",
+            "Fatumtasa",
+            "Humusu B",
+            "Oesoko",
+            "Humusu Wini"
+        ],
+        "Insana Barat": [
+            "Subun",
+            "Lapeom",
+            "Usapinonot",
+            "Unini",
+            "Letneo",
+            "Banae",
+            "Desa Admen",
+            "Subun Bestobe",
+            "Subun Tualele",
+            "Nifunenas",
+            "Oabikase",
+            "Letneo Selatan"
+        ],
+        "Insana Tengah": [
+            "Lanaus",
+            "Letmafo",
+            "Maubesi",
+            "Tainsala",
+            "Sone",
+            "Oehalo",
+            "Letmafo Timur"
+        ],
+        "Insana Fafinesu": [
+            "Oenain",
+            "Fafinesu B",
+            "Fafinesu A",
+            "Fafinesu C",
+            "Banuan",
+            "Fafinesu"
+        ],
+        "Biboki Selatan": [
+            "Pantae",
+            "Oenaem",
+            "Upfaon",
+            "Tautpah",
+            "Tokbesi",
+            "Supun",
+            "Sainiup",
+            "Tunbaen"
+        ],
+        "Biboki Tanpah": [
+            "T Eba",
+            "Oerinbesi",
+            "Oekopa",
+            "T Eba Timur"
+        ],
+        "Biboki Moenleu": [
+            "Tunbes",
+            "Luniup",
+            "Matabesi",
+            "Kaubele",
+            "Oepuah",
+            "Oepuah Utara",
+            "Oepuah Selatan"
+        ],
+        "Biboki Utara": [
+            "Sapaen",
+            "Taunbaen",
+            "Tualene",
+            "Biloe",
+            "Hauteas",
+            "Boronubaen",
+            "Lokomea",
+            "Taunbaen Timur",
+            "Hauteas Barat",
+            "Boronubaen Timur"
+        ],
+        "Biboki Anleu": [
+            "Sifaniha",
+            "Motadik",
+            "Nonatbatan",
+            "Tuamese",
+            "Maukabatan",
+            "Kotafoun",
+            "Ponu",
+            "Oemanu",
+            "Nifutasi"
+        ],
+        "Biboki Feotleu": [
+            "Manumean",
+            "Kuluan",
+            "Naku",
+            "Makun",
+            "Birunatun"
+        ]
+    },
+    "Belu": {
+        "Rai Manuk": [
+            "Tasain",
+            "Teun",
+            "Renrua",
+            "Mandeu Raimanus",
+            "Faturika",
+            "Rafae",
+            "Duakoran",
+            "Mandeu",
+            "Leuntolu"
+        ],
+        "Tasifeto Barat": [
+            "Rinbesihat",
+            "Naitimu",
+            "Lawalutolus",
+            "Lookeu",
+            "Derok Faturene",
+            "Bakustulama",
+            "Naekasa",
+            "Tukuneno"
+        ],
+        "Kakuluk Mesak": [
+            "Fatukety",
+            "Kabuna",
+            "Kenebibi",
+            "Jenilu",
+            "Leosama",
+            "Dualaus"
+        ],
+        "Nanaet Duabesi": [
+            "Dubesi",
+            "Nanaet",
+            "Fohoeka",
+            "Nanaenoe"
+        ],
+        "Atambua": [
+            "Fatubenao",
+            "Atambua",
+            "Manumutin",
+            "Tenukiik"
+        ],
+        "Atambua Barat": [
+            "Beirafu",
+            "Berdao",
+            "Tulamalae",
+            "Umanen"
+        ],
+        "Atambua Selatan": [
+            "Fatukbot",
+            "Lidak",
+            "Manuaman",
+            "Rinbesi"
+        ],
+        "Tasifeto Timur": [
+            "Fatuba A",
+            "Dafala",
+            "Takirin",
+            "Manleten",
+            "Umaklaran",
+            "Tulakadi",
+            "Silawan",
+            "Sadi",
+            "Sarabau",
+            "Bauho",
+            "Halimodok",
+            "Tialai"
+        ],
+        "Raihat": [
+            "Asumanu",
+            "Tohe",
+            "Raifatus",
+            "Aitoun",
+            "Maumutin",
+            "Tohe Leten"
+        ],
+        "Lasiolat": [
+            "Lasiolat",
+            "Maneikun",
+            "Fatulotu",
+            "Lakanmau",
+            "Raiulun",
+            "Dualasi",
+            "Baudaok"
+        ],
+        "Lamaknen": [
+            "Maudemu",
+            "Dirun",
+            "Leowalu",
+            "Duarato",
+            "Fulur",
+            "Kewar",
+            "Mahuitas",
+            "Makir",
+            "Lamak Senulu"
+        ],
+        "Lamaknen Selatan": [
+            "Debululik",
+            "Lutha Rato",
+            "Henes",
+            "Lakmaras",
+            "Nualain",
+            "Ekin",
+            "Loonuna",
+            "Sisi Fatuberal"
+        ]
+    },
+    "Malaka": {
+        "Wewiku": [
+            "Lamea",
+            "Alkani",
+            "Weseben",
+            "Seserai",
+            "Lorotolus",
+            "Biris",
+            "Weulun",
+            "Weoe",
+            "Badarai",
+            "Webriamata",
+            "Rabasa Biris",
+            "Halibasar"
+        ],
+        "Malaka Barat": [
+            "Rabasa",
+            "Rabasa Haerain",
+            "Loofoun",
+            "Raimataus",
+            "Rabasahain",
+            "Umalor",
+            "Umatoos",
+            "Motaain",
+            "Oan Mane",
+            "Fafoe",
+            "Sikun",
+            "Lasaen",
+            "Besikama",
+            "Maktihan",
+            "Naas",
+            "Motaulun"
+        ],
+        "Weliman": [
+            "Taaba",
+            "Leunklot",
+            "Umalawain",
+            "Bonetasea",
+            "Haliklaran",
+            "Lakulo",
+            "Kleseleon",
+            "Laleten",
+            "Wesey",
+            "Haitimuk",
+            "Angkaes",
+            "Wederok",
+            "Lamudur",
+            "Forekmodok"
+        ],
+        "Rinhat": [
+            "Saenama",
+            "Raisamane",
+            "Wekmidar",
+            "Muke",
+            "Lotas",
+            "Naiusu",
+            "Nanin",
+            "Webetun",
+            "Weain",
+            "Biudukfoho",
+            "Nabutaek",
+            "Niti",
+            "Tafuli I",
+            "Boen",
+            "Wekeke",
+            "Tafuli",
+            "Naet",
+            "Wekmurak",
+            "Alala",
+            "Nanebot"
+        ],
+        "Io Kufeu": [
+            "Fatoin",
+            "Bani Bani",
+            "Tunmat",
+            "Ikan Tuanbeis",
+            "Kufeu",
+            "Tunabesi",
+            "Biau"
+        ],
+        "Sasita Mean": [
+            "Manumutin Silole",
+            "Fatuaruin",
+            "Builaran",
+            "Naibone",
+            "Beaneno",
+            "Manulea",
+            "Umutnana",
+            "As Manulea",
+            "Naisau"
+        ],
+        "Malaka Tengah": [
+            "Barene",
+            "Kakaniuk",
+            "Bakiruk",
+            "Wehali",
+            "Umanenlawalu",
+            "Bereliku",
+            "Naimana",
+            "Fahiluka",
+            "Lawalu",
+            "Railor Tahak",
+            "Suai",
+            "Kletek",
+            "Umakatahan",
+            "Harekakae",
+            "Kamanasa",
+            "Barada",
+            "Kateri"
+        ],
+        "Botin Leobele": [
+            "Babotin Selatan",
+            "Babotin",
+            "Babotin Maemina",
+            "Takarai",
+            "Kereana"
+        ],
+        "Laen Manen": [
+            "Besesmus",
+            "Uabau",
+            "Bonibais",
+            "Naekekusa",
+            "Oenaek",
+            "Kapitanmeo",
+            "Tniumanu",
+            "Tesa",
+            "Meotroy"
+        ],
+        "Malaka Timur": [
+            "Numponi",
+            "Sanleo",
+            "Dirma",
+            "Wemeda",
+            "Raiulun",
+            "Kusa"
+        ],
+        "Kobalima": [
+            "Lakekun Barat",
+            "Lakekun",
+            "Lakekun Utara",
+            "Litamali",
+            "Rainawe",
+            "Sisi",
+            "Babulu Selatan",
+            "Babulu"
+        ],
+        "Kobalima Timur": [
+            "Alas Selatan",
+            "Alas",
+            "Kotabiru",
+            "Alas Utara"
+        ]
+    },
+    "Alor": {
+        "Pantar": [
+            "Baolang",
+            "Bandar",
+            "Madar",
+            "Bouweli",
+            "Munaseli",
+            "Helandohi",
+            "Bana",
+            "Pandai",
+            "Bukitmas",
+            "Wailawar",
+            "Kabir"
+        ],
+        "Pantar Barat": [
+            "Kalondama",
+            "Leer",
+            "Blang Merang",
+            "Baraler",
+            "Baranusa",
+            "Piring Sina",
+            "Illu"
+        ],
+        "Pantar Timur": [
+            "Treweng",
+            "Lalafang",
+            "Nule",
+            "Kaleb",
+            "Bunga Bali",
+            "Kaera",
+            "Lekom",
+            "Mawar",
+            "Ombay",
+            "Merdeka",
+            "Batu"
+        ],
+        "Pantar Barat Laut": [
+            "Marisa",
+            "Allumang",
+            "Kayang",
+            "Lamma",
+            "Beang Onong",
+            "Kalondama Barat",
+            "Kalondama Tengah"
+        ],
+        "Pantar Tengah": [
+            "Tube",
+            "Tude",
+            "Delaki",
+            "Mauta",
+            "Eka Jaya",
+            "Aramaba",
+            "Toang",
+            "Tamakh",
+            "Muriabang",
+            "Bagang"
+        ],
+        "Alor Barat Daya": [
+            "Halerman",
+            "Kafelulang",
+            "Pintu Mas",
+            "Probur",
+            "Probur Utara",
+            "Wolwal Barat",
+            "Wolwal Selatan",
+            "Wolwal Tengah",
+            "Wolwal",
+            "Moru",
+            "Moramam",
+            "Morba",
+            "Pailelang"
+        ],
+        "Mataru": [
+            "Lakatuli",
+            "Mataru Selatan",
+            "Kamaifui",
+            "Taman Mataru",
+            "Mataru Timur",
+            "Mataru Utara",
+            "Mataru Barat"
+        ],
+        "Abad Selatan": [
+            "Margeta",
+            "Manatang",
+            "Tribur",
+            "Kuifana",
+            "Wakapsir",
+            "Wakapsir Timur",
+            "Orgen"
+        ],
+        "Alor Selatan": [
+            "Padang Alang",
+            "Maikang",
+            "Sidabui",
+            "Kiraman",
+            "Kuneman",
+            "Lella",
+            "Manmas",
+            "Silaipui",
+            "Tamanapui",
+            "Kelaisi Timur",
+            "Subo",
+            "Kelaisi Tengah",
+            "Kelaisi Barat",
+            "Malaipea"
+        ],
+        "Alor Timur": [
+            "Elok",
+            "Maritaing",
+            "Kolana Selatan",
+            "Kolana Utara",
+            "Mausamang",
+            "Tanglapui Timur",
+            "Tanglapui",
+            "Belemana",
+            "Padang Panjang",
+            "Maukuru"
+        ],
+        "Alor Timur Laut": [
+            "Pido",
+            "Lippang",
+            "Kenarimbala",
+            "Nailang",
+            "Waisika",
+            "Kamot",
+            "Air Mancur",
+            "Taramana"
+        ],
+        "Pureman": [
+            "Langkuru",
+            "Kailesa",
+            "Purnama",
+            "Langkuru Utara"
+        ],
+        "Teluk Mutiara": [
+            "Teluk Kenari",
+            "Kalabahi Barat",
+            "Adang Buom",
+            "Binongko",
+            "Motongbang",
+            "Kalabahi Kota",
+            "Wetabua",
+            "Nusa Kenari",
+            "Lendola",
+            "Air Kenari",
+            "Kalabahi Tengah",
+            "Kalabahi Timur",
+            "Mutiara",
+            "Welai Timur",
+            "Welai Barat",
+            "Fanating"
+        ],
+        "Kabola": [
+            "Lawahing",
+            "Kopidil",
+            "Kabola",
+            "Pante Deera",
+            "Alila Timur"
+        ],
+        "Alor Barat Laut": [
+            "Alor Kecil",
+            "Lefokisu",
+            "Ampera",
+            "Lewalu",
+            "Bampalola",
+            "Dulolong Barat",
+            "Dulolong",
+            "Hulnani",
+            "Alor Besar",
+            "Ternate Selatan",
+            "Ternate",
+            "Pulau Buaya",
+            "O Amate",
+            "Aimoli",
+            "Alaang",
+            "Adang",
+            "Alila",
+            "Otvai",
+            "Alila Selatan"
+        ],
+        "Alor Tengah Utara": [
+            "Alim Mebung",
+            "Petleng",
+            "Manetwati",
+            "Lembur Tengah",
+            "Lakwati",
+            "Fuisama",
+            "Nurbenlelang",
+            "Lembur Barat",
+            "Fungafeng",
+            "Likuwatang",
+            "Kafakbeka",
+            "Dapitau",
+            "Welai Selatan",
+            "Tominuku"
+        ],
+        "Pulau Pura": [
+            "Pura Barat",
+            "Pura Selatan",
+            "Maru",
+            "Pura Timur",
+            "Pura",
+            "Pura Utara"
+        ],
+        "Lembur": [
+            "Talwai",
+            "Waimi",
+            "Tasi",
+            "Tulleng",
+            "Lembur Timur",
+            "Luba"
+        ]
+    },
+    "Lembata": {
+        "Nagawutung": [
+            "Pasir Putih",
+            "Lolong",
+            "Babokerong",
+            "Duawutun",
+            "Wuakerong",
+            "Penikene",
+            "Atawai",
+            "Lusiduawutun",
+            "Belabaja",
+            "Labalimut",
+            "Ile Boli",
+            "Baobolak",
+            "Tewaowutung",
+            "Bolibean",
+            "Ria Bao",
+            "Idalolong",
+            "Warawatung",
+            "Liwulagang"
+        ],
+        "Wulandoni": [
+            "Lelata",
+            "Lamalera A",
+            "Lamalera B",
+            "Imulolong",
+            "Puor",
+            "Belobao",
+            "Wulandoni",
+            "Pantai Harapan",
+            "Atakera",
+            "Leworaja",
+            "Alap Atadei",
+            "Posiwatu",
+            "Tapobali",
+            "Puor B",
+            "Ataili"
+        ],
+        "Atadei": [
+            "Lusilame",
+            "Dulir",
+            "Lerek",
+            "Atakore",
+            "Nubahaeraka",
+            "Lebaata",
+            "Ile Kerbau",
+            "Dori Pewut",
+            "Ile Kimok",
+            "Tubuk Rajan",
+            "Katakeja",
+            "Nuba Atalojo",
+            "Nogo Doni",
+            "Lewogroma",
+            "Nubaboli"
+        ],
+        "Ile Ape": [
+            "Kolontobo",
+            "Laranwuntun",
+            "Muruona",
+            "Watodiri",
+            "Napasabok",
+            "Bungamuda",
+            "Amakaka",
+            "Tanjung Batu",
+            "Petuntawa",
+            "Waowala",
+            "Tagawiti",
+            "Dulitukan",
+            "Kolipadan",
+            "Palilolon",
+            "Lamawara",
+            "Beutaran",
+            "Riangbao"
+        ],
+        "Ile Ape Timur": [
+            "Todanara",
+            "Jontona",
+            "Lamawolo",
+            "Lamatokan",
+            "Lamaau",
+            "Aulesa",
+            "Waimatan",
+            "Lamagute",
+            "Bao Lali Duli"
+        ],
+        "Lebatukan": [
+            "Lamatuka",
+            "Baopana",
+            "Merdeka",
+            "Hadakewa",
+            "Lerahinga",
+            "Waienga",
+            "Tapobaran",
+            "Dikesare",
+            "Lamadale",
+            "Lewoeleng",
+            "Lodotodokowa",
+            "Seranggorang",
+            "Balurebong",
+            "Lamalela",
+            "Tapolangu",
+            "Banitobo",
+            "Atakowa"
+        ],
+        "Nubatukan": [
+            "Belobatang",
+            "Udak Melomata",
+            "Baolangu",
+            "Nuba Mado",
+            "Paobokol",
+            "Watokobu",
+            "Waijarang",
+            "Lewoleba Barat",
+            "Lewoleba Utara",
+            "Lewoleba",
+            "Lewoleba Tengah",
+            "Lewoleba Timur",
+            "Liteulumado",
+            "Pada",
+            "Bakalerek",
+            "Lewoleba Selatan",
+            "Selandoro",
+            "Bour"
+        ],
+        "Omesuri": [
+            "Nilanapo",
+            "Leubatang",
+            "Walangsawah",
+            "Peusawah",
+            "Mahal",
+            "Mahal Ii",
+            "Normal",
+            "Leudanung",
+            "Leuwayang",
+            "Roma",
+            "Hoelea Ii",
+            "Hoelea",
+            "Dolulolong",
+            "Hingalamamengi",
+            "Meluwiting",
+            "Aramengi",
+            "Balauring",
+            "Lebewala",
+            "Wailolong",
+            "Wowong",
+            "Normal I",
+            "Meluwiting I"
+        ],
+        "Buyasari": [
+            "Panama",
+            "Bean",
+            "Benihading",
+            "Benihading Ii",
+            "Atulaleng",
+            "Tubung Walang",
+            "Roho",
+            "Loyobohor",
+            "Leuburi",
+            "Tobotani",
+            "Kalikur Wl",
+            "Kaohua",
+            "Umaleu",
+            "Buriwutung",
+            "Mampir",
+            "Leuwohung",
+            "Bareng",
+            "Kalikur",
+            "Rumang",
+            "Atu Walupang"
+        ]
+    },
+    "Flores Timur": {
+        "Wulanggitang": [
+            "Ojan Detun",
+            "Hewa",
+            "Pantai Oa",
+            "Waiula",
+            "Nawokote",
+            "Boru Kedang",
+            "Boru",
+            "Hokeng Jaya",
+            "Pululera",
+            "Nileknoheng",
+            "Klatanlo"
+        ],
+        "Titehena": [
+            "Adabang",
+            "Kobasoma",
+            "Tenawahang",
+            "Konga",
+            "Ile Gerong",
+            "Lewolaga",
+            "Lewoingu",
+            "Tuakepa",
+            "Leraboleng",
+            "Watowara",
+            "Serinuho",
+            "Dun Tana Lewoingu",
+            "Bokang Wolomatang",
+            "Duli Jaya"
+        ],
+        "Ilebura": [
+            "Riangbaring",
+            "Lewoawang",
+            "Lewotobi",
+            "Nurabelen",
+            "Nobo",
+            "Riang Rita",
+            "Dulipali"
+        ],
+        "Tanjung Bunga": [
+            "Kolaka",
+            "Lewobunga",
+            "Sinamalaka",
+            "Ratu Lodong",
+            "Sina Hadigala",
+            "Bandona",
+            "Bahinga",
+            "Waibao",
+            "Nusanipa",
+            "Lamatutu",
+            "Laton Liwo",
+            "Patisirawalang",
+            "Gekeng Deran",
+            "Aran Sina",
+            "Lamanabi",
+            "Laton Liwo Ii"
+        ],
+        "Lewo Lema": [
+            "Lewobele",
+            "Ile Padung",
+            "Bantala",
+            "Riangkotek",
+            "Sinar Hading",
+            "Painapang",
+            "Baluk Hering"
+        ],
+        "Larantuka": [
+            "Mokantarak",
+            "Lamawalang",
+            "Waibalun",
+            "Lewolere",
+            "Pantai Besar",
+            "Larantuka",
+            "Balela",
+            "Pohon Sirih",
+            "Lohayong",
+            "Lokea",
+            "Postoh",
+            "Amagarapati",
+            "Ekasapta",
+            "Puken Tobi Wangi Bao",
+            "Sarotari",
+            "Weri",
+            "Pohon Bao",
+            "Waihali",
+            "Sarotari Tengah",
+            "Sarotari Timur"
+        ],
+        "Ile Mandiri": [
+            "Lewoloba",
+            "Wailolong",
+            "Riang Kemie",
+            "Lewohala",
+            "Halakodanuan",
+            "Watotutu",
+            "Mudakeputu",
+            "Tiwatobi"
+        ],
+        "Demon Pagong": [
+            "Lamika",
+            "Kawalelo",
+            "Watotika Ile",
+            "Lewokluok",
+            "Blepanawa",
+            "Bama",
+            "Lewomuda"
+        ],
+        "Solor Barat": [
+            "Tanah Lein",
+            "Lamaole",
+            "Lewotanah Ole",
+            "Lamawohong",
+            "Kalelu",
+            "Karawatung",
+            "Ongalereng",
+            "Pamakayo",
+            "Balaweling I",
+            "Balaweling Ii",
+            "Dani Wato",
+            "Nurhalolon",
+            "Ritaebang",
+            "Titehena",
+            "Lewonama"
+        ],
+        "Solor Selatan": [
+            "Sulengwaseng",
+            "Kenere",
+            "Lemanu",
+            "Kalike",
+            "Kalike Aimatan",
+            "Lewograran",
+            "Bubu Atagamu"
+        ],
+        "Solor Timur": [
+            "Watanhura Ii",
+            "Watanhura",
+            "Lebao",
+            "Liwo",
+            "Lamawai",
+            "Watohari",
+            "Tanah Werang",
+            "Motonwutun",
+            "Watobuku",
+            "Labelen",
+            "Kawuta",
+            "Menanga",
+            "Lewogeka",
+            "Lohayong",
+            "Lohayong Ii",
+            "Wulublolong",
+            "Lewohedo"
+        ],
+        "Adonara Barat": [
+            "Wureh",
+            "Bugalima",
+            "Kima Kamak",
+            "Ilepati",
+            "Danibao",
+            "Pajinian",
+            "Hurung",
+            "Waiwadan",
+            "Tonuwotan",
+            "Bukit Seburi",
+            "Bukit Seburi Ii",
+            "Homa",
+            "Duwanur",
+            "Nimun Dani Bao",
+            "Wato Baya",
+            "Wai Tukan",
+            "Riang Padu",
+            "Woloklibang"
+        ],
+        "Wotan Ulu Mado": [
+            "Wailebe",
+            "Tobilota",
+            "Wotanulumado",
+            "Tanah Tukan",
+            "Samasoge",
+            "Nayubaya",
+            "Oyangbarang",
+            "Kawela",
+            "Bliko",
+            "Klukengnuking",
+            "Pandai",
+            "Demondein"
+        ],
+        "Adonara Tengah": [
+            "Kokotobo",
+            "Baya",
+            "Lewobele",
+            "Horowura",
+            "Lite",
+            "Kenotan",
+            "Nubalema",
+            "Bidara",
+            "Wewit",
+            "Lewopao",
+            "Hoko Horowura",
+            "Oe Sayang",
+            "Nubalema Dua"
+        ],
+        "Adonara Timur": [
+            "Bloto",
+            "Terong",
+            "Dawataa",
+            "Bilal",
+            "Ipiebang",
+            "Lamahala Jaya",
+            "Waiwerang Kota",
+            "Waiburak",
+            "Narasaosina",
+            "Lewobunga",
+            "Lamalota",
+            "Kiwang Ona",
+            "Karinglamalouk",
+            "Tuawolo",
+            "Lamatewelu",
+            "Tapobali",
+            "Puhu",
+            "Kwaelaga Lamawato",
+            "Gelong",
+            "Lelen Bala",
+            "Saosina"
+        ],
+        "Ile Boleng": [
+            "Lewo Keleng",
+            "Bedalewun",
+            "Nihaone",
+            "Bungalawan",
+            "Lewobelolong",
+            "Lamawolo",
+            "Helanlangowuyo",
+            "Lewopao",
+            "Harubala",
+            "Nelelamadiken",
+            "Boleng",
+            "Gayak",
+            "Neleblolong",
+            "Nele Lamawangi",
+            "Duablolong",
+            "Lamabayung",
+            "Lewat",
+            "Dokeng",
+            "Bajuntaa",
+            "Nobo",
+            "Nele Lamawangi Ii"
+        ],
+        "Witihama": [
+            "Watololong",
+            "Tuwagoetobi",
+            "Riangduli",
+            "Pledo",
+            "Watoone",
+            "Weranggere",
+            "Oringbele",
+            "Waiwuring",
+            "Tobitika",
+            "Sandosi",
+            "Balaweling",
+            "Lamablawa",
+            "Lewopulo",
+            "Lamaleka",
+            "Baobage",
+            "Balaweling Noten"
+        ],
+        "Kelubagolit": [
+            "Horinara",
+            "Nisakarang",
+            "Muda",
+            "Sukutokan",
+            "Lamapaha",
+            "Hinga",
+            "Redontena",
+            "Adobala",
+            "Pepak Geka",
+            "Lamabunga",
+            "Mangaaleng",
+            "Keluwain"
+        ],
+        "Adonara": [
+            "Tikatukang",
+            "Lamahoda",
+            "Kolilanang",
+            "Sagu",
+            "Adonara",
+            "Nisa Nulan",
+            "Koli Masang",
+            "Kolipetung"
+        ]
+    },
+    "Sikka": {
+        "Paga": [
+            "Wolowiro",
+            "Mauloo",
+            "Mbengu",
+            "Paga",
+            "Lenandareta",
+            "Masebewa",
+            "Wolorega",
+            "Wolowona",
+            "Lowolabo",
+            "Aebubu",
+            "Regapu'u",
+            "Rejo",
+            "Begu",
+            "Kotandelu"
+        ],
+        "Mego": [
+            "Korobhera",
+            "Dobo",
+            "Bhera",
+            "Wolodhesa",
+            "Gera",
+            "Liakutu",
+            "Parabubu",
+            "Dobo Nua Puu",
+            "Kowi",
+            "Napu Gera",
+            "Ratekalo",
+            "Ndaimbere"
+        ],
+        "Tana Wawo": [
+            "Bu Selatan",
+            "Detubinga",
+            "Bu Utara",
+            "Bu Watuweti",
+            "Loke",
+            "Renggarasi",
+            "Poma",
+            "Tuwa",
+            "Bu Barat",
+            "Bu Nuapu'u"
+        ],
+        "Lela": [
+            "Kolidetung",
+            "Korowuwu",
+            "Hepang",
+            "Lela",
+            "Watutedang",
+            "Sikka",
+            "Iligai",
+            "Baopaat",
+            "Du"
+        ],
+        "Bola": [
+            "Hokor",
+            "Wolonwalu",
+            "Wolokoli",
+            "Bola",
+            "Umauta",
+            "Ipir",
+            "Watukrus",
+            "Bura Bekor"
+        ],
+        "Doreng": [
+            "Wolomotong",
+            "Kloangpopot",
+            "Watumerak",
+            "Wogalirit",
+            "Waihawa",
+            "Nen Bura",
+            "Wolonterang",
+            "Pelibaler",
+            "Mahe Tanah"
+        ],
+        "Mapitara": [
+            "Natakoli",
+            "Hebing",
+            "Hale",
+            "Egon Gahar"
+        ],
+        "Talibura": [
+            "Nangahale",
+            "Talibura",
+            "Darat Gunung",
+            "Darat Pantai",
+            "Nebe",
+            "Hikong",
+            "Kringa",
+            "Ojang",
+            "Wailamung",
+            "Lewomada",
+            "Timutawa",
+            "Baang Koor",
+            "Watu Omok",
+            "Mamai",
+            "Henga",
+            "Watubaing",
+            "Likonggete",
+            "Udek Du'en",
+            "Waipaar",
+            "Baokremot"
+        ],
+        "Waigete": [
+            "Pogon",
+            "Aibura",
+            "Wairbleler",
+            "Hoder",
+            "Egon",
+            "Nangatobong",
+            "Wairterang",
+            "Watudiran",
+            "Runut",
+            "Mahe Kelan",
+            "Egon Buluk"
+        ],
+        "Waiblama": [
+            "Natarmage",
+            "Pruda",
+            "Werang",
+            "Tanarawa",
+            "Ilinmedo",
+            "Tua Bao",
+            "Watu Moning"
+        ],
+        "Kewapante": [
+            "Umagera",
+            "Ian Tena",
+            "Kopong",
+            "Seusina",
+            "Namangkewa",
+            "Waiara",
+            "Geliting",
+            "Wairkoja",
+            "Watukobu"
+        ],
+        "Hewokloang": [
+            "Hewokloang",
+            "Heopuat",
+            "Wolomapa",
+            "Rubit",
+            "Kajowair",
+            "Baomekot",
+            "Munerana"
+        ],
+        "Kangae": [
+            "Tekaiku",
+            "Mekendetun",
+            "Blatatatin",
+            "Kokowahor",
+            "Watumilok",
+            "Tanaduen",
+            "Watuliwung",
+            "Habi",
+            "Langir"
+        ],
+        "Palue": [
+            "Nitunglea",
+            "Lidi",
+            "Reruwairere",
+            "Maluriwu",
+            "Kesokoja",
+            "Ladolaka",
+            "Tuanggeo",
+            "Rokirole"
+        ],
+        "Koting": [
+            "Koting C",
+            "Koting D",
+            "Paubekor",
+            "Koting B",
+            "Koting A",
+            "Ribang",
+            "Watu Repa"
+        ],
+        "Nelle": [
+            "Nelle Wutung",
+            "Nelle Lorang",
+            "Manubura",
+            "Nelle Barat",
+            "Nelle Urung"
+        ],
+        "Nita": [
+            "Tilang",
+            "Lusitada",
+            "Bloro",
+            "Tebuk",
+            "Nita",
+            "Takaplager",
+            "Nitakloang",
+            "Wuliwutik",
+            "Ladogahar",
+            "Riit",
+            "Nirangkliung",
+            "Mahebora",
+            "Kara Kabu",
+            "Tada Lado",
+            "Nangablo"
+        ],
+        "Magepanda": [
+            "Kolisia",
+            "Magepanda",
+            "Reroroja",
+            "Kolisia B",
+            "Done",
+            "Waturia",
+            "Woda Mude",
+            "Legu Woda"
+        ],
+        "Alok": [
+            "Kota Uneng",
+            "Nangalimang",
+            "Madawat",
+            "Kabor",
+            "Pemana",
+            "Gunung Sari",
+            "Samparong"
+        ],
+        "Alok Barat": [
+            "Wuring",
+            "Hewuli",
+            "Wailiti",
+            "Wolomarang"
+        ],
+        "Alok Timur": [
+            "Kota Baru",
+            "Beru",
+            "Nangameting",
+            "Wairotang",
+            "Waioti",
+            "Watugong",
+            "Kojadoi",
+            "Kojagete",
+            "Parumaan",
+            "Lepolima",
+            "Gong Bekor"
+        ]
+    },
+    "Ende": {
+        "Nangapanda": [
+            "Ondorea",
+            "Kel. Ndorurea",
+            "Zozozea",
+            "Nggorea",
+            "Raporendu",
+            "Rapowawo",
+            "Bheramari",
+            "Kerirea",
+            "Tendarea",
+            "Watumite",
+            "Tendambepa",
+            "Ondorea Barat",
+            "Tiwe Rea",
+            "Ndorurea I",
+            "Ndeturea",
+            "Sanggarhorho",
+            "Penggajawa",
+            "Jegharangga",
+            "Uzu Zozo",
+            "Embuzozo",
+            "Anaraja",
+            "Kekandere",
+            "Tanazozo",
+            "Jemburea",
+            "Timbazia",
+            "Romarea",
+            "Mbobhenga",
+            "Malawaru",
+            "Tenda Ondo"
+        ],
+        "Pulau Ende": [
+            "Ndoriwoy",
+            "Rendoraterua",
+            "Paderape",
+            "Aejeti",
+            "Puutara",
+            "Rorurangga",
+            "Redorori",
+            "Kazo Kapo",
+            "Renga Menge"
+        ],
+        "Maukaro": [
+            "Kebirangga Selatan",
+            "Kamubheka",
+            "Kebirangga",
+            "Boafeo",
+            "Magekapa",
+            "Nabe",
+            "Kobaleba",
+            "Mundinggasa",
+            "Kolikapa",
+            "Kebirangga Tengah",
+            "Natanangge"
+        ],
+        "Ende": [
+            "Ndetundora I",
+            "Randotonda",
+            "Raburia",
+            "Tomberabu I",
+            "Tomberabu Ii",
+            "Tinabani",
+            "Wologai",
+            "Mbotutenda",
+            "Jamokeasa",
+            "Ndetundora Ii",
+            "Emburia",
+            "Riaraja",
+            "Wolokaro",
+            "Rukuramba",
+            "Nakuramba",
+            "Ndetundora Iii",
+            "Tonggopapa",
+            "Uzuramba",
+            "Randorama",
+            "Tendambonggi",
+            "Wologai Dua",
+            "Worhopapa",
+            "Nuaja",
+            "Embu Ngena",
+            "Embutheru",
+            "Wawonato",
+            "Jejaraja",
+            "Wajakea Jaya",
+            "Nemboramba",
+            "Ranoramba",
+            "Peozakaramba",
+            "Uzuramba Barat"
+        ],
+        "Ende Selatan": [
+            "Kel. Paupanda",
+            "Kel. Rukunlima",
+            "Kel. Mbongawani",
+            "Kel. Tetandara",
+            "Kel. Tanjung"
+        ],
+        "Ende Timur": [
+            "Kel. Mautapaga",
+            "Kel. Rewarangga",
+            "Kedebodu",
+            "Ndungga",
+            "Tiwutewa",
+            "Kel. Rewarangga Selatan"
+        ],
+        "Ende Tengah": [
+            "Kel. Potulando",
+            "Kel. Onekore",
+            "Kel. Kelimutu",
+            "Kel. Paupire"
+        ],
+        "Ende Utara": [
+            "Kel. Kotaraja",
+            "Kel. Kotaratu",
+            "Kel. Roworena",
+            "Gheoghoma",
+            "Borokanda",
+            "Watusipi",
+            "Kel. Roworena Barat",
+            "Mbomba",
+            "Embundoa",
+            "Raterua"
+        ],
+        "Ndona": [
+            "Nanganesa",
+            "Kel. Onelako",
+            "Manulondo",
+            "Wolotopo",
+            "Wolotopo Timur",
+            "Ngalupolo",
+            "Kekasewa",
+            "Nila",
+            "Ngaluroga",
+            "Puutuga",
+            "Kel. Lokoboko",
+            "Reka",
+            "Wolokota",
+            "Kelikiku"
+        ],
+        "Ndona Timur": [
+            "Kurulimbu",
+            "Sokoria",
+            "Demulaka",
+            "Roga",
+            "Kurulimbu Selatan",
+            "Ngguwa",
+            "Sokoria Selatan"
+        ],
+        "Wolowaru": [
+            "Mbuliwaralau Utara",
+            "Mbuliwaralau",
+            "Wolosoko",
+            "Bokasape Timur",
+            "Bokasape",
+            "Wolokoli",
+            "Jopu",
+            "Mbuliloo",
+            "Rindiwawo",
+            "Lisedetu",
+            "Nualise",
+            "Liselowobora",
+            "Likanaka",
+            "Nakambara",
+            "Niramesi",
+            "Tana Loo",
+            "Lise Puu"
+        ],
+        "Wolojita": [
+            "Nuamuli",
+            "Nggela",
+            "Pora",
+            "Kel. Wolojita",
+            "Tenda",
+            "Wiwipemo"
+        ],
+        "Lio Timur": [
+            "Hobatuwa",
+            "Kel. Watuneso",
+            "Wolosambi",
+            "Liabeke",
+            "Wololele A",
+            "Detupera",
+            "Woloaro",
+            "Fatamari",
+            "Tanaroga",
+            "Mbewawora",
+            "Ranggatalo",
+            "Nualima",
+            "Bu Tanalagu"
+        ],
+        "Kelimutu": [
+            "Pemo",
+            "Woloara",
+            "Koanara",
+            "Nuamuri",
+            "Nuamuri Barat",
+            "Nduaria",
+            "Waturaka",
+            "Detuena",
+            "Wolokelo"
+        ],
+        "Ndori": [
+            "Serandori",
+            "Maubasa",
+            "Maubasa Timur",
+            "Wonda",
+            "Kelisamba",
+            "Maubasa Barat",
+            "Lunggaria",
+            "Aebara",
+            "Ratemangga",
+            "Mole"
+        ],
+        "Maurole": [
+            "Ranokolo Selatan",
+            "Ranokolo",
+            "Keliwumbu",
+            "Mausambi",
+            "Maurole",
+            "Watukamba",
+            "Aewora",
+            "Otogedu",
+            "Detuwulu",
+            "Woloau",
+            "Uludala",
+            "Niranusa",
+            "Ngalukoja"
+        ],
+        "Kotabaru": [
+            "Hangalande",
+            "Tou Timur",
+            "Tou",
+            "Niopanda",
+            "Loboniki",
+            "Ndondo",
+            "Kotabaru",
+            "Liselande",
+            "Tou Barat",
+            "Rangalaka",
+            "Pise",
+            "Nuanaga",
+            "Neotonda"
+        ],
+        "Detukeli": [
+            "Wolomuku",
+            "Detumbewa",
+            "Nggesa",
+            "Detukeli",
+            "Kebesani",
+            "Kanganara",
+            "Nida",
+            "Watunggere",
+            "Maurole Selatan",
+            "Unggu",
+            "Nggesa Biri",
+            "Watunggere Marilonga",
+            "Jeo Dua"
+        ],
+        "Lepembusu Kelisoke": [
+            "Wologai Timur",
+            "Nggumbelaka",
+            "Mukureku",
+            "Kuru",
+            "Ndenggarongge",
+            "Tanalangi",
+            "Taniwoda",
+            "Detuara",
+            "Tiwusora",
+            "Ndikosapu",
+            "Kuru Sare",
+            "Mukureku Saate",
+            "Lisekuru",
+            "Rutujeja"
+        ],
+        "Detusoko": [
+            "Nuaone",
+            "Ranga",
+            "Wolomage",
+            "Golulada",
+            "Rateroru",
+            "Dile",
+            "Roa",
+            "Wolotolo",
+            "Wolotolo Tengah",
+            "Randoria",
+            "Wolomasi",
+            "Saga",
+            "Ndito",
+            "Niowula",
+            "Wolofeo",
+            "Sipijena",
+            "Detusoko Barat",
+            "Kel. Detusoko",
+            "Wologai",
+            "Wologai Tengah",
+            "Turunalu"
+        ],
+        "Wewaria": [
+            "Mbotulaka",
+            "Mautenda Barat",
+            "Ratewati",
+            "Mukusaki",
+            "Aemuri",
+            "Ekoae",
+            "Wewaria",
+            "Mautenda",
+            "Fataatu",
+            "Fataatu Timur",
+            "Nuangenda",
+            "Welamosa",
+            "Tanali",
+            "Detubela",
+            "Numba",
+            "Kelitembu",
+            "Aelipo",
+            "Ratewati Selatan",
+            "Waka",
+            "Wolooja",
+            "Ekolea",
+            "Ae Ndoko"
+        ]
+    },
+    "Nagekeo": {
+        "Mauponggo": [
+            "Aewoe",
+            "Bela",
+            "Wolokisa",
+            "Wuliwalo",
+            "Maukeli",
+            "Lokalaba",
+            "Wolotelu",
+            "Mauponggo",
+            "Sawu",
+            "Jawapogo",
+            "Lajawajo",
+            "Ululoga",
+            "Lodaolo",
+            "Woloede",
+            "Woewolo",
+            "Selalejo",
+            "Ua",
+            "Keliwatulewa",
+            "Kotagana",
+            "Wololelu",
+            "Selalejo Timur"
+        ],
+        "Keo Tengah": [
+            "Mbaenuamuri",
+            "Witurombaua",
+            "Kotowuji Timur",
+            "Kotowuji Barat",
+            "Udiworowatu",
+            "Pautola",
+            "Ladolima",
+            "Kotodirumali",
+            "Keli",
+            "Lewangera",
+            "Wajo",
+            "Ngera",
+            "Ladolima Timur",
+            "Ladolima Utara",
+            "Paumali",
+            "Wajo Timur"
+        ],
+        "Nangaroro": [
+            "Podenura",
+            "Tonggo",
+            "Riti",
+            "Wokodekororo",
+            "Degalea",
+            "Kotakeo",
+            "Pagomogo",
+            "Nangaroro",
+            "Nataute",
+            "Utetoto",
+            "Bidoa",
+            "Ulupulu",
+            "Woedoa",
+            "Ulupulu 1",
+            "Woewutu",
+            "Wokowoe",
+            "Kotakeo I",
+            "Kotakeo Ii",
+            "Odaute"
+        ],
+        "Boawae": [
+            "Rowa",
+            "Solo",
+            "Kelewae",
+            "Leguderu",
+            "Nagesapadhi",
+            "Rigi",
+            "Olakile",
+            "Natanage",
+            "Nageoga",
+            "Wolopogo",
+            "Rega",
+            "Mulakoli",
+            "Kelimado",
+            "Wea Au",
+            "Raja",
+            "Wolowea",
+            "Ratongamobo",
+            "Dhereisa",
+            "Gerodhere",
+            "Nagerawe",
+            "Focolodorawe",
+            "Alorawe",
+            "Natanage Timur",
+            "Raja Timur",
+            "Raja Selatan",
+            "Wolowea Barat",
+            "Wolowea Timur"
+        ],
+        "Aesesa Selatan": [
+            "Rendutenoe",
+            "Langedhawe",
+            "Tengatiba",
+            "Renduwawo",
+            "Rendu Butowe",
+            "Wajomara",
+            "Rendututubadha"
+        ],
+        "Aesesa": [
+            "Tedamude",
+            "Tedakisa",
+            "Dhawe",
+            "Labolewa",
+            "Olaia",
+            "Ngegedhawe",
+            "Lape",
+            "Danga",
+            "Nggolo Mbay",
+            "Towak",
+            "Nggolonio",
+            "Waekokak",
+            "Mbay Ii",
+            "Mbay I",
+            "Tonggu Rambang",
+            "Marapokot",
+            "Nangadhero",
+            "Aeramo"
+        ],
+        "Wolowae": [
+            "Anakoli",
+            "Natatoto",
+            "Totomala",
+            "Tendatoto",
+            "Tenda Kinde"
+        ]
+    },
+    "Ngada": {
+        "Aimere": [
+            "Foa",
+            "Aimere Timur",
+            "Aimere",
+            "Keligejo",
+            "Heawea",
+            "Lekogoko",
+            "Legelapu",
+            "Binawali",
+            "Kila",
+            "Waesae",
+            "Mawwo Kisa"
+        ],
+        "Jerebuu": [
+            "Dariwali",
+            "Naruwolo",
+            "Tiworiwu",
+            "Watumanu",
+            "Nenowea",
+            "Naruwolo I",
+            "Naruwolo Ii",
+            "Dariwali I",
+            "Nio Lewa",
+            "Tiworiwu I",
+            "Tiworiwu Ii",
+            "Batajawa",
+            "Wongawea",
+            "Bowaru"
+        ],
+        "Inerie": [
+            "Paupaga",
+            "Sebowuli",
+            "Inerie",
+            "Warupele Ii",
+            "Warupele I",
+            "Kelitei",
+            "Manubhara",
+            "Tiwurana",
+            "Waebela",
+            "Legeriwu",
+            "Ruto",
+            "Enabhara",
+            "Nagebaru"
+        ],
+        "Bajawa": [
+            "Bajawa",
+            "Faobata",
+            "Tanalodu",
+            "Kisanata",
+            "Jawameze",
+            "Trikora",
+            "Ngedukelu",
+            "Lebijaga",
+            "Susu",
+            "Beja",
+            "Bomari",
+            "Ubedolumolo",
+            "Beiwali",
+            "Wawowae",
+            "Naru",
+            "Borani",
+            "Langagedha",
+            "Pape",
+            "Bowali",
+            "Ngoranale",
+            "Bela",
+            "Ubedolumolo I",
+            "Langagedha I",
+            "Ubedolumolo Ii",
+            "Boradho",
+            "Mukuvoka",
+            "Ngadhamana",
+            "Bolonga"
+        ],
+        "Golewa": [
+            "Sarasedu",
+            "Malanuza",
+            "Todabelu",
+            "Ratogesa",
+            "Dadawea",
+            "Were I",
+            "Radabata",
+            "Mataloko",
+            "Sangadeto",
+            "Were",
+            "Were Iv",
+            "Sarasedu I",
+            "Malanuza I",
+            "Ulu Belu",
+            "Eko Roka",
+            "Wae Ia",
+            "Radabata I",
+            "Bodosare",
+            "Wogo",
+            "Kelimolo",
+            "Dolupore",
+            "Tiwo Toda"
+        ],
+        "Golewa Selatan": [
+            "Bawarani",
+            "Wogowela",
+            "Watusipi",
+            "Boba",
+            "Boba I",
+            "Were Ii",
+            "Were Iii",
+            "Kezewea",
+            "Nirmala",
+            "Takatunga",
+            "Sadha",
+            "Radamasa",
+            "Takatunga I",
+            "Sadha I",
+            "Kezewea I",
+            "Bobawa",
+            "Were V",
+            "Were Vi"
+        ],
+        "Golewa Barat": [
+            "Bea Pawe",
+            "Watunay",
+            "Rakateda I",
+            "Rakateda Ii",
+            "Dizi Gedha",
+            "Sobo",
+            "Sobo I",
+            "Rakalaba",
+            "Mangulewa",
+            "Turekisa",
+            "Sobo Ii",
+            "Rakalaba I",
+            "Bopoma"
+        ],
+        "Bajawa Utara": [
+            "Waewea",
+            "Uluwae",
+            "Inelika",
+            "Wololika",
+            "Inegena",
+            "Watukapu",
+            "Nabelena",
+            "Uluwae I",
+            "Uluwae Ii",
+            "Genamere",
+            "Tura Muri",
+            "Bowado"
+        ],
+        "Soa": [
+            "Tarawaja",
+            "Loa",
+            "Mengeruda",
+            "Piga",
+            "Masu",
+            "Seso",
+            "Waepana",
+            "Masu Kedhi",
+            "Ngabheo",
+            "Libunio",
+            "Meli Waru",
+            "Tarawali",
+            "Bogoboa",
+            "Piga I",
+            "Waepana I",
+            "Lokaweka"
+        ],
+        "Riung": [
+            "Taen Terong",
+            "Rawangkalo",
+            "Wangka",
+            "Lengkosambi",
+            "Tadho",
+            "Benteng Tengah",
+            "Nangamese",
+            "Latung",
+            "Sambinasi",
+            "Wangka Selatan",
+            "Lengkosambi Timur",
+            "Lengkosambi Barat",
+            "Taen Terong I",
+            "Taen Terong Ii",
+            "Lengkosambi Utara",
+            "Sambinasi Barat",
+            "Tadho Timur",
+            "Tadho Barat",
+            "Tadho Tengah",
+            "Rawangkalo I",
+            "Rawangkalo Ii",
+            "Wakamanga",
+            "Lengkosambi Barat Daya",
+            "Lengkosambi Tengah",
+            "Wangka Barat",
+            "Latung Barat",
+            "Sambinasi Tengah",
+            "Kota Raja",
+            "Ite Jaya"
+        ],
+        "Riung Barat": [
+            "Wolomeze",
+            "Ria",
+            "Lanamai",
+            "Benteng Tawa",
+            "Ngara",
+            "Ria I",
+            "Wolomeze I",
+            "Lanamai I",
+            "Benteng Tawa I",
+            "Wolomeze Ii",
+            "Benteng Tawa Ii",
+            "Benteng Tawa Iii",
+            "Benteng Tawa Iv",
+            "Benteng Tawa V",
+            "Nili Waru Sae",
+            "Wate",
+            "Ngara I",
+            "Kembang",
+            "Lanamai Ii"
+        ],
+        "Wolomeze": [
+            "Turaloa",
+            "Mainai",
+            "Denatana",
+            "Nginamanu",
+            "Nginamanu Selatan",
+            "Nginamanu Barat",
+            "Wue",
+            "Denatana Timur",
+            "Larilaki",
+            "Mulumese",
+            "Turaloa Timur"
+        ]
+    },
+    "Manggarai Timur": {
+        "Borong": [
+            "Nanga Labang",
+            "Golo Kantar",
+            "Rana Loba",
+            "Kota Ndora",
+            "Rana Masak",
+            "Ngampang Mas",
+            "Benteng Raja",
+            "Benteng Riwu",
+            "Poco Rii",
+            "Golo Lalong",
+            "Gurung Liwut",
+            "Compang Ndejing",
+            "Bangka Kantar",
+            "Satar Peot",
+            "Balus Permai",
+            "Compang Tenda",
+            "Waling",
+            "Golo Leda"
+        ],
+        "Rana Mese": [
+            "Bea Ngencung",
+            "Satar Lahing",
+            "Golo Meleng",
+            "Golo Rutuk",
+            "Golo Loni",
+            "Sita",
+            "Torok Golo",
+            "Golo Ros",
+            "Sano Lokom",
+            "Rondo Woing",
+            "Lidi",
+            "Satar Lenda",
+            "Lalang",
+            "Wae Nggori",
+            "Compang Kantar",
+            "Bangka Kempo",
+            "Compang Teber",
+            "Compang Loni",
+            "Compang Kempo",
+            "Watu Mori",
+            "Bangka Masa"
+        ],
+        "Kota Komba": [
+            "Tanah Rata",
+            "Bamo",
+            "Rongga Koe",
+            "Komba",
+            "Watu Nggene",
+            "Gunung Mute",
+            "Rana Kolong",
+            "Mbengan",
+            "Lembur",
+            "Ruan",
+            "Pong Ruan"
+        ],
+        "Kota Komba Utara": [
+            "Golo Tolang",
+            "Paan Leleng",
+            "Mokel",
+            "Golomeni",
+            "Rana Mbeling",
+            "Golo Nderu",
+            "Gunung Baru",
+            "Golo Ndele",
+            "Mokel Morid",
+            "Rana Mbata",
+            "Watu Pari"
+        ],
+        "Elar": [
+            "Golo Munde",
+            "Tiwu Kondo",
+            "Rana Gapang",
+            "Haju Ngendong",
+            "Lengko Namut",
+            "Sisir",
+            "Rana Kulan",
+            "Biting",
+            "Golo Lebo",
+            "Legur Lai",
+            "Golo Lijun",
+            "Wae Lokom",
+            "Compang Teo",
+            "Compang Soba",
+            "Kaju Wangi"
+        ],
+        "Elar Selatan": [
+            "Golo Wuas",
+            "Sipi",
+            "Paan Waru",
+            "Nanga Meje",
+            "Langgasai",
+            "Sangan Kalo",
+            "Golo Linus",
+            "Gising",
+            "Teno Mese",
+            "Lempang Paji",
+            "Nanga Pu Un",
+            "Mosi Ngaran",
+            "Wae Rasan",
+            "Benteng Pau"
+        ],
+        "Sambi Rampas": [
+            "Lada Mese",
+            "Nanga Baras",
+            "Nanga Mbaling",
+            "Pota",
+            "Nanga Mbaur",
+            "Golo Wangkung Utara",
+            "Kembang Mekar",
+            "Wela Lada",
+            "Ulung Baras",
+            "Nampar Sepang"
+        ],
+        "Congkar": [
+            "Compang Congkar",
+            "Rana Mese",
+            "Satar Nawang",
+            "Golo Ngawan",
+            "Buti",
+            "Golo Wangkung",
+            "Compang Lawi",
+            "Wea",
+            "Golo Pari",
+            "Golo Wangkung Barat"
+        ],
+        "Lamba Leda Selatan": [
+            "Golo Lobos",
+            "Bangka Kuleng",
+            "Mando Sawu",
+            "Bangka Pau",
+            "Nggalak Leleng",
+            "Golo Nderu",
+            "Pocolia",
+            "Gurung Turi",
+            "Compang Laho",
+            "Bea Waek",
+            "Satar Tesem",
+            "Lenang",
+            "Pocong",
+            "Watu Lanur",
+            "Leong",
+            "Melo",
+            "Golo Ndari",
+            "Compang Wesang",
+            "Bangka Leleng",
+            "Lento",
+            "Golo Rengket",
+            "Golo Wune",
+            "Deno",
+            "Compang Weluk"
+        ],
+        "Lamba Leda Timur": [
+            "Rende Nao",
+            "Ulu Wae",
+            "Ngkiong Dora",
+            "Wangkar Weli",
+            "Rengkam",
+            "Golo Lero",
+            "Tango Molas",
+            "Arus",
+            "Watu Arus",
+            "Benteng Rampas",
+            "Compang Wunis",
+            "Wejang Mali",
+            "Colol",
+            "Urung Dora",
+            "Compang Raci",
+            "Bangka Arus",
+            "Benteng Wunis",
+            "Wejang Mawe"
+        ],
+        "Lamba Leda": [
+            "Tengkulawar",
+            "Compang Necak",
+            "Compang Mekar",
+            "Tengku Leda",
+            "Compang Deru",
+            "Goreng Meni",
+            "Golo Munga",
+            "Golo Rentung",
+            "Golo Lembur",
+            "Golo Nimbung",
+            "Lamba Keli",
+            "Goreng Meni Utara",
+            "Golo Paleng"
+        ],
+        "Lamba Leda Utara": [
+            "Lencur",
+            "Golo Mangung",
+            "Satar Padut",
+            "Nampar Tabang",
+            "Liang Deruk",
+            "Satar Punda",
+            "Golo Munga Barat",
+            "Haju Wangi",
+            "Golo Wontong",
+            "Satar Kampas",
+            "Satar Punda Barat"
+        ]
+    },
+    "Manggarai": {
+        "Satar Mese": [
+            "Tal",
+            "Paka",
+            "Legu",
+            "Langgo",
+            "Tado",
+            "Koak",
+            "Lungar",
+            "Golo Muntas",
+            "Gara",
+            "Wae Ajang",
+            "Wewo",
+            "Mocok",
+            "Umung",
+            "Ponggeok",
+            "Papang",
+            "Pongkor",
+            "Ngkaer",
+            "Golo Lambo",
+            "Jaong",
+            "Iteng",
+            "Satar Loung",
+            "Ulu Belang",
+            "Lolang"
+        ],
+        "Satar Mese Barat": [
+            "Borik",
+            "Satar Ruwuk",
+            "Nuca Molas",
+            "Satar Lenda",
+            "Satar Luju",
+            "Ceka Luju",
+            "Terong",
+            "Hilihintir",
+            "Bea Kondo",
+            "Golo Ropong",
+            "Wongka",
+            "Cambir Leca"
+        ],
+        "Satar Mese Utara": [
+            "Renda",
+            "Todo",
+            "Gulung",
+            "Popo",
+            "Lia",
+            "Kole",
+            "Ling",
+            "Nao",
+            "Cireng",
+            "Ruang",
+            "Mata Wae"
+        ],
+        "Langke Rembong": [
+            "Golo Dukal",
+            "Pau",
+            "Waso",
+            "Watu",
+            "Tenda",
+            "Carep",
+            "Mbaumuku",
+            "Karot",
+            "Pitak",
+            "Lawir",
+            "Wali",
+            "Bangka Leda",
+            "Rowang",
+            "Bangka Nekang",
+            "Poco Mal",
+            "Satar Tacik",
+            "Laci Carep",
+            "Compang Carep",
+            "Tadong",
+            "Compang Tuke"
+        ],
+        "Ruteng": [
+            "Bulan",
+            "Pong Lao",
+            "Cumbi",
+            "Poco Likang",
+            "Pong Murung",
+            "Pong Leko",
+            "Belang Turi",
+            "Goloworok",
+            "Meler",
+            "Wae Belang",
+            "Rai",
+            "Benteng Kuwu",
+            "Kakor",
+            "Beo Rahong",
+            "Bangka Lao",
+            "Compang Dalo",
+            "Compang Namut",
+            "Pong Lale",
+            "Bea Kakor"
+        ],
+        "Wae Rii": [
+            "Lalong",
+            "Bangka Kenda",
+            "Ndehes",
+            "Bangka Jong",
+            "Wae Rii",
+            "Longko",
+            "Ranaka",
+            "Golo Mendo",
+            "Golo Cador",
+            "Compang Ndehes",
+            "Poco",
+            "Satar Ngkeling",
+            "Golo Wua",
+            "Golo Watu",
+            "Ranggi",
+            "Wae Mulu",
+            "Benteng Poco"
+        ],
+        "Lelak": [
+            "Urang",
+            "Ketang",
+            "Bangka Lelak",
+            "Gelong",
+            "Pong Umpu",
+            "Ndiwar",
+            "Nati",
+            "Bangka Dese",
+            "Lentang",
+            "Bangka Tonggur"
+        ],
+        "Rahong Utara": [
+            "Rahong Utara",
+            "Cibal",
+            "Cibal Barat",
+            "Reok",
+            "Reok Barat"
+        ],
+        "Cibal": [
+            "Nenu",
+            "Wudi",
+            "Rado",
+            "Welu",
+            "Barang",
+            "Pinggang",
+            "Golo",
+            "Pagal",
+            "Gapong",
+            "Perak",
+            "Bea Mese",
+            "Lando",
+            "Langkas",
+            "Kentol",
+            "Riung",
+            "Ladur",
+            "Golo Ncuang"
+        ],
+        "Cibal Barat": [
+            "Bere",
+            "Lenda",
+            "Compang Cibal",
+            "Bangka Ara",
+            "Wae Codi",
+            "Timbu",
+            "Golo Woi",
+            "Wae Renca",
+            "Latung",
+            "Golo Lanak"
+        ],
+        "Reok": [
+            "Watu Tango",
+            "Bajak",
+            "Ruis",
+            "Mata Air",
+            "Salama",
+            "Reo",
+            "Baru",
+            "Wangkung",
+            "Robek",
+            "Watu Baur"
+        ],
+        "Reok Barat": [
+            "Nggalak",
+            "Lante",
+            "Sambi",
+            "Loce",
+            "Torong Koe",
+            "Rura",
+            "Toe",
+            "Wae Kajong",
+            "Para Lando",
+            "Lemarang"
+        ]
+    },
+    "Manggarai Barat": {
+        "Komodo": [
+            "Komodo",
+            "Papa Garang",
+            "Pasir Panjang",
+            "Golo Mori",
+            "Warloka",
+            "Tiwu Nampar",
+            "Golo Pongkor",
+            "Macang Tanggar",
+            "Pasir Putih",
+            "Goron Talo",
+            "Golo Bilas",
+            "Nggorang",
+            "Watu Nggelek",
+            "Wae Kelambu",
+            "Batu Cermin",
+            "Labuan Bajo",
+            "Pantar",
+            "Seraya Maranu",
+            "Compang Longgo"
+        ],
+        "Boleng": [
+            "Pota Wangka",
+            "Golo Ketak",
+            "Mbuit",
+            "Golo Lujang",
+            "Sepang",
+            "Golo Sepang",
+            "Tanjung Pontianak",
+            "Batu Tiga",
+            "Tanjung Boleng",
+            "Golo Nobo",
+            "Beo Sepang"
+        ],
+        "Sano Nggoang": [
+            "Mata Wae",
+            "Wae Sano",
+            "Sano Nggoang",
+            "Golo Sengang",
+            "Golo Mbu",
+            "Golo Manting",
+            "Golo Ndaring",
+            "Golo Kempo",
+            "Nampar Macing",
+            "Golo Leleng",
+            "Wae Lolos",
+            "Pulau Nuncung",
+            "Golo Kondeng",
+            "Watu Panggal",
+            "Poco Golo Kempo"
+        ],
+        "Mbeliling": [
+            "Liang Ndara",
+            "Tondong Belang",
+            "Cunca Lolos",
+            "Golo Damu",
+            "Golo Desat",
+            "Kempo",
+            "Golo Tantong",
+            "Wae Jare",
+            "Watu Wangka",
+            "Golo Sembea",
+            "Golo Ndoal",
+            "Tiwu Riwung",
+            "Cunca Wulang",
+            "Compang Liang Ndara",
+            "Watu Galang"
+        ],
+        "Lembor": [
+            "Tangge",
+            "Siru",
+            "Wae Wako",
+            "Poco Rutang",
+            "Daleng",
+            "Pong Majok",
+            "Ngancar",
+            "Ponto Ara",
+            "Wae Bangka",
+            "Wae Kanta",
+            "Pondo",
+            "Poco Dedeng",
+            "Golo Ndeweng",
+            "Liang Sola",
+            "Wae Mowol"
+        ],
+        "Welak": [
+            "Galang",
+            "Pong Welak",
+            "Rehak",
+            "Orong",
+            "Gurung",
+            "Lale",
+            "Golo Ronggot",
+            "Watu Umpu",
+            "Dunta",
+            "Semang",
+            "Pengka",
+            "Racang Welak",
+            "Robo",
+            "Wewa",
+            "Golo Ndari",
+            "Sewar"
+        ],
+        "Lembor Selatan": [
+            "Nanga Bere",
+            "Benteng Dewa",
+            "Nanga Lili",
+            "Repi",
+            "Watu Waja",
+            "Surunumbeng",
+            "Munting",
+            "Lalong",
+            "Kakor",
+            "Wae Mose",
+            "Watu Tiri",
+            "Benteng Tado",
+            "Watu Rambung",
+            "Lendong",
+            "Modo"
+        ],
+        "Kuwus": [
+            "Golo Ruu",
+            "Benteng Curu",
+            "Compang Suka",
+            "Nantal",
+            "Coal",
+            "Sama",
+            "Lewur",
+            "Lawi",
+            "Pangga",
+            "Golo Pua",
+            "Suka Kiong",
+            "Bangka Lewat"
+        ],
+        "Ndoso": [
+            "Waning",
+            "Ndoso",
+            "Momol",
+            "Kasong",
+            "Raka",
+            "Tentang",
+            "Pong Narang",
+            "Wae Buka",
+            "Lumut",
+            "Golo Poleng",
+            "Pateng Lesu",
+            "Tehong",
+            "Golo Bore",
+            "Golo Rua",
+            "Golo Keli"
+        ],
+        "Kuwus Barat": [
+            "Golo Wedong",
+            "Ranggu",
+            "Sompang Kolang",
+            "Kolang",
+            "Tengku",
+            "Golo Lewe",
+            "Tueng",
+            "Wajur",
+            "Compang Kules",
+            "Golo Riwu"
+        ],
+        "Macang Pacar": [
+            "Wontong",
+            "Rego",
+            "Nggilat",
+            "Mbakung",
+            "Bari",
+            "Rokap",
+            "Raba",
+            "Nanga Kantor",
+            "Watu Baru",
+            "Lewat",
+            "Watu Manggar",
+            "Sarae Naru",
+            "Nanga Kantor Barat"
+        ],
+        "Pacar": [
+            "Loha",
+            "Compang",
+            "Pong Kolong",
+            "Waka",
+            "Golo Lajang Barat",
+            "Golo Lajang",
+            "Manong",
+            "Benteng Ndope",
+            "Romang",
+            "Pacar",
+            "Kombo Selatan",
+            "Kombo Tengah",
+            "Kombo"
+        ]
+    },
+    "Sumba Barat": {
+        "Lamboya": [
+            "Welibo",
+            "Patiala Bawa",
+            "Laboya Bawa",
+            "Watu Karere",
+            "Kabu Karudi",
+            "Laboya Dete",
+            "Sodana",
+            "Rajaka",
+            "Ringu Rara",
+            "Bodo Hula",
+            "Pala Moko"
+        ],
+        "Wanokaka": [
+            "Hoba Wawi",
+            "Rua",
+            "Pahola",
+            "Wai Hura",
+            "Bali Loku",
+            "Hupu Mada",
+            "Katiku Loku",
+            "Tara Manu",
+            "Prai Bakul",
+            "Mamodu",
+            "Rewa Rara",
+            "Ana Wolu",
+            "Wei Mangoma",
+            "Pari Rara"
+        ],
+        "Laboya Barat": [
+            "Wetana",
+            "Gaura",
+            "Patiala Dete",
+            "Harona Kala"
+        ],
+        "Loli": [
+            "Dede Kadu",
+            "Wee Karou",
+            "Soba Wawi",
+            "Ubu Pede",
+            "Bera Dolu",
+            "Doka Kaka",
+            "Tana Rara",
+            "Bali Ledo",
+            "Loda Pare",
+            "Wee Dabo",
+            "Dira Tana",
+            "Ubu Raya",
+            "Tema Tana",
+            "Manola"
+        ],
+        "Kota Waikabubak": [
+            "Wailiang",
+            "Maliti",
+            "Komerda",
+            "Kampung Baru",
+            "Kampung Sawah",
+            "Kodaka",
+            "Lapale",
+            "Tebara",
+            "Kalembu Kuni",
+            "Soba Rade",
+            "Pada Eweta",
+            "Modu Waimaringu",
+            "Puu Mawo"
+        ],
+        "Tana Righu": [
+            "Loko Ry",
+            "Lolo Wano",
+            "Ngadu Pada",
+            "Malata",
+            "Lingu Lango",
+            "Manu Kuku",
+            "Wee Patola",
+            "Kareka Nduku",
+            "Wanokaza",
+            "Bondo Tera",
+            "Zala Kadu",
+            "Lolo Tana",
+            "Kareka Nduku Utara",
+            "Kareka Nduku Selatan",
+            "Manu Mada",
+            "Elu Loda",
+            "Kalebu Ana Kaka",
+            "Tarona"
+        ]
+    },
+    "Sumba Timur": {
+        "Lewa": [
+            "Kondamara",
+            "Lewapaku",
+            "Tanarara",
+            "Kambata Wundut",
+            "Rakawatu",
+            "Kambu Hapang",
+            "Matawai Pawali",
+            "Bidi Hunga"
+        ],
+        "Nggaha Oriangu": [
+            "Pulu Panjang",
+            "Makamenggit",
+            "Prai Karang",
+            "Prai Paha",
+            "Praihambuli",
+            "Tandula Jangga",
+            "Tanatuku",
+            "Ngadu Langgi"
+        ],
+        "Lewa Tidahu": [
+            "Watumbelar",
+            "Umamanu",
+            "Kangeli",
+            "Lai Hawu",
+            "Mondu Lambi",
+            "Bidi Praing"
+        ],
+        "Katala Hamu Lingu": [
+            "Prai Bakul",
+            "Lai Lara",
+            "Kombapari",
+            "Mandahu",
+            "Matawai Amahu"
+        ],
+        "Tabundung": [
+            "Tarimbang",
+            "Tapil",
+            "Billa",
+            "Praing Kareha",
+            "Waikanabu",
+            "Karita",
+            "Wudi Pandak",
+            "Pindu Hurani",
+            "Kuki Talu",
+            "Bangga Watu"
+        ],
+        "Pinupahar": [
+            "Wahang",
+            "Tawui",
+            "Lailunggi",
+            "Wangga Bewa",
+            "Ramuk",
+            "Maha Niwa"
+        ],
+        "Paberiwai": [
+            "Kananggar",
+            "Karera Jangga",
+            "Mehang Mata",
+            "Prai Mbana",
+            "Pabera Manera",
+            "Winu Muru",
+            "Lai Taku"
+        ],
+        "Karera": [
+            "Prai Salura",
+            "Praimadita",
+            "Nggongi",
+            "Tandula Jangga",
+            "Nangga",
+            "Jangga Mangu",
+            "Ananjaki"
+        ],
+        "Matawai La Pawu": [
+            "Karipi",
+            "Wanggameti",
+            "Katikuwai",
+            "Katikutana",
+            "Prai Bokul",
+            "Katiku Luku"
+        ],
+        "Kahaungu Eti": [
+            "Mau Ramba",
+            "Kambata Bundung",
+            "Kamanggih",
+            "Kataka",
+            "Matawai Maringu",
+            "Matawai Katingga",
+            "Kotak Kawau",
+            "Lai Mbonga",
+            "Meo Rumba"
+        ],
+        "Mahu": [
+            "Patamawai",
+            "La Hiru",
+            "Wairara",
+            "Prai Kalala",
+            "Lulundilu",
+            "Haray"
+        ],
+        "Ngadu Ngala": [
+            "Prai Witu",
+            "Kakaha",
+            "Hamba Wutang",
+            "Kabanda",
+            "Prau Raming"
+        ],
+        "Pahunga Lodu": [
+            "Kuruwaki",
+            "Pamburu",
+            "Kaliuda",
+            "Tanamanang",
+            "Tamma",
+            "Lambakara",
+            "Mburukulu",
+            "Palanggai"
+        ],
+        "Wula Waijelu": [
+            "Lainjanji",
+            "La Tena",
+            "Lai Pandak",
+            "Lumbu Manggit",
+            "Paranda",
+            "Hadakamali",
+            "Wula"
+        ],
+        "Rindi": [
+            "Tamburi",
+            "Lai Lanjang",
+            "Hanggaroru",
+            "Kabaru",
+            "Heikatapu",
+            "Tanaraing",
+            "Rindi",
+            "Kayuri"
+        ],
+        "Umalulu": [
+            "Lairuru",
+            "Watu Puda",
+            "Umalulu",
+            "Lumbukore",
+            "Watu Hadang",
+            "Mutunggeding",
+            "Matawai Atu",
+            "Patawang",
+            "Wanga",
+            "Ngaru Kanoru"
+        ],
+        "Pandawai": [
+            "Kambata Tana",
+            "Mau Bokul",
+            "Kadumbul",
+            "Palakahembi",
+            "Watumbaka",
+            "Kawangu",
+            "Laindeha"
+        ],
+        "Kambata Mapambuhang": [
+            "Waimbidi",
+            "Luku Wingir",
+            "Marada Mundi",
+            "Maidang",
+            "Lai Meta",
+            "Mahu Bokul"
+        ],
+        "Kota Waingapu": [
+            "Kamalaputi",
+            "Matawai",
+            "Hambala",
+            "Kambajawa",
+            "Mbatakapidu",
+            "Pambotanjara",
+            "Luku Kamaru"
+        ],
+        "Kambera": [
+            "Kiritana",
+            "Malumbi",
+            "Lambanapu",
+            "Mauliru",
+            "Mau Hau",
+            "Kambaniru",
+            "Prailiu",
+            "Wangga"
+        ],
+        "Haharu": [
+            "Rambangaru",
+            "Prai Bakul",
+            "Mbatapuhu",
+            "Wunga",
+            "Napu",
+            "Kadahang",
+            "Kalamba"
+        ],
+        "Kanatang": [
+            "Ndapayami",
+            "Temu",
+            "Kuta",
+            "Hamba Praing",
+            "Mondu"
+        ]
+    },
+    "Rote Ndao": {
+        "Rote Barat Daya": [
+            "Oeseli",
+            "Oebou",
+            "Lalukoen",
+            "Oeteffu",
+            "Oehandi",
+            "Meoain",
+            "Oebaffok",
+            "Batutua",
+            "Dolasi",
+            "Lekik",
+            "Oebatu",
+            "Mbokak",
+            "Oelasin",
+            "Landu",
+            "Lentera",
+            "Sanggandolu",
+            "Sakubatun",
+            "Fuafuni",
+            "Dalek Esa"
+        ],
+        "Rote Barat Laut": [
+            "Temas",
+            "Modosinal",
+            "Busalangga",
+            "Oetutulu",
+            "Daudolu",
+            "Netenaen",
+            "Ingguinak",
+            "Tualima",
+            "Hundihuk",
+            "Saindule",
+            "Busalangga Timur",
+            "Busalangga Barat"
+        ],
+        "Loaholu": [
+            "Lidor",
+            "Mundek",
+            "Oebela",
+            "Balaoli",
+            "Boni",
+            "Tasilo",
+            "Oebole",
+            "Tolama",
+            "Holulai",
+            "Oelua"
+        ],
+        "Lobalain": [
+            "Kuli",
+            "Suelain",
+            "Bebalain",
+            "Kolobolon",
+            "Oematamboli",
+            "Helebeik",
+            "Oelunggu",
+            "Mokdale",
+            "Sanggaoen",
+            "Holoama",
+            "Tuanatuk",
+            "Baadale",
+            "Namodale",
+            "Metina",
+            "Lekunik",
+            "Loleoen",
+            "Kuli Aisele",
+            "Oeleka"
+        ],
+        "Rote Tengah": [
+            "Lidabesi",
+            "Limakoli",
+            "Suebela",
+            "Nggodimeda",
+            "Lidamanu",
+            "Maubesi",
+            "Onatali",
+            "Siomeda"
+        ],
+        "Rote Selatan": [
+            "Inaoe",
+            "Dodaek",
+            "Tebole",
+            "Daleholu",
+            "Lenguselu",
+            "Nggelodae",
+            "Pilasue"
+        ],
+        "Pantai Baru": [
+            "Nusakdale",
+            "Batulilok",
+            "Lenupetu",
+            "Sonimanu",
+            "Oebau",
+            "Oeledo",
+            "Keoen",
+            "Edalode",
+            "Olafulihaa",
+            "Tunganamo",
+            "Tesabela",
+            "Lekona",
+            "Oenggae",
+            "Fatelilo",
+            "Ofalangga"
+        ],
+        "Rote Timur": [
+            "Lakamola",
+            "Mukekuku",
+            "Faifua",
+            "Hundi Hopo",
+            "Londalusi",
+            "Serubeba",
+            "Matasio",
+            "Pengodua",
+            "Batefalu",
+            "Papela",
+            "Matanae"
+        ],
+        "Landu Leko": [
+            "Bolatena",
+            "Sotimori",
+            "Daiama",
+            "Lifuleo",
+            "Daurendale",
+            "Pukuafu",
+            "Tena Lai"
+        ],
+        "Rote Barat": [
+            "Oenggaut",
+            "Nemberala",
+            "Sedeoen",
+            "Boa",
+            "Oenitas",
+            "Oelolot",
+            "Mbueain"
+        ],
+        "Ndao Nuse": [
+            "Ndao Nuse",
+            "Mbiu Lombo",
+            "Mbali Lendeiki",
+            "Anarae",
+            "Nuse"
+        ]
+    },
+    "Sumba Tengah": {
+        "Katikutana": [
+            "Anakalang",
+            "Makata Keri",
+            "Umbu Riri",
+            "Mata Woga",
+            "Kabela Wuntu",
+            "Dewa Jara",
+            "Mata Redi"
+        ],
+        "Katikutana Selatan": [
+            "Wai Manu",
+            "Manurara",
+            "Dameka",
+            "Wai Lawa",
+            "Malinjak",
+            "Tana Modu",
+            "Konda Maloba",
+            "Dasa Elu",
+            "Oka Wacu"
+        ],
+        "Umbu Ratu Nggay Barat": [
+            "Umbu Langgang",
+            "Umbu Pabal",
+            "Umbu Mamijuk",
+            "Wai Rasa",
+            "Umbu Kawolu",
+            "Anajiaka",
+            "Pondok",
+            "Maderi",
+            "Prai Madeta",
+            "Umbu Pabal Selatan",
+            "Umbu Jodu",
+            "Anapalu",
+            "Daha Elu",
+            "Dewa Tana",
+            "Mata Waikajawi"
+        ],
+        "Umbu Ratu Nggay": [
+            "Mbilur Pangadu",
+            "Prai Karoku Jangga",
+            "Padira Tana",
+            "Soru",
+            "Lenang",
+            "Ngadu Mbolu",
+            "Tana Mbanas",
+            "Tana Mbanas Selatan",
+            "Tana Mbanas Barat",
+            "Ngadu Olu",
+            "Lenang Selatan"
+        ],
+        "Umbu Ratu Nggay Tengah": [
+            "Weluk Prai Memang",
+            "Maradesa",
+            "Bolubokat",
+            "Bolubokat Utara",
+            "Maradesa Timur",
+            "Maradesa Selatan",
+            "Bolubokat Barat",
+            "Sambali Loku",
+            "Wangga Waiyengu",
+            "Holur Kambata"
+        ],
+        "Mamboro": [
+            "Wee Luri",
+            "Wendewa Barat",
+            "Ole Ate",
+            "Cendana",
+            "Wendewa Selatan",
+            "Wendewa Utara",
+            "Manu Wolu",
+            "Wendewa Timur",
+            "Watu Asa",
+            "Bondo Sulla",
+            "Susu Wendewa",
+            "Ole Dewa",
+            "Cendana Barat"
+        ]
+    },
+    "Sumba Barat Daya": {
+        "Kodi Bangedo": [
+            "Umbu Ngedo",
+            "Walla Ndimu",
+            "Mata Kapore",
+            "Waikadada",
+            "Lete Loko",
+            "Dinjo",
+            "Rada Loko",
+            "Waipaddi",
+            "Delu Depa",
+            "Mere Kehe",
+            "Waikaninyo",
+            "Ana Goka",
+            "Maliti Bondo Ate",
+            "Ana Lewe",
+            "Bondo Balla"
+        ],
+        "Kodi Balaghar": [
+            "Kahale",
+            "Panenggo Ede",
+            "Waikarara",
+            "Wailangira",
+            "Waiha",
+            "Wainyapu",
+            "Karang Indah",
+            "Rada Malando",
+            "Waimaringi",
+            "Tana Mete",
+            "Waimakaha",
+            "Manu Toghi",
+            "Loko Tali",
+            "Waipakolo"
+        ],
+        "Kodi": [
+            "Kapaka Madeta",
+            "Koki",
+            "Hamonggo Lele",
+            "Bondo Kodi",
+            "Pero Batang",
+            "Wura Homba",
+            "Ate Dalo",
+            "Homba Rande",
+            "Kawango Hari",
+            "Mali Iha",
+            "Onggol",
+            "Pero Konda",
+            "Tanjung Karoso",
+            "Watu Wona",
+            "Ana Engge",
+            "Kadoki Horo",
+            "Homba Rica",
+            "Ana Kaka",
+            "Ole Ate"
+        ],
+        "Kodi Utara": [
+            "Hoha Wungo",
+            "Homba Karipit",
+            "Wailabubur",
+            "Noha",
+            "Waiholo",
+            "Kori",
+            "Kalena Rongo",
+            "Mangganipi",
+            "Kendu Wela",
+            "Bila Cenge",
+            "Bukambero",
+            "Waitaru",
+            "Homba Pare",
+            "Kadaghu Tana",
+            "Hameli Ate",
+            "Kadu Eta",
+            "Magho Linyo",
+            "Wee Wella",
+            "Nangga Mutu",
+            "Limbu Kembe",
+            "Moro Manduyo"
+        ],
+        "Wewewa Selatan": [
+            "Buru Kaghu",
+            "Denduka",
+            "Bondo Bela",
+            "Delo",
+            "Tena Teke",
+            "Bondo Ukka",
+            "Buru Deilo",
+            "Weri Lolo",
+            "Milla Ate",
+            "Rita Baru",
+            "Mandungo",
+            "Umbu Wangu",
+            "Wee Wulla",
+            "Wee Baghe"
+        ],
+        "Wewewa Barat": [
+            "Raba Ege",
+            "Kalimbu Tillu",
+            "Wee Kombaka",
+            "Menne Ate",
+            "Wali Ate",
+            "Kalembu Weri",
+            "Kabali Dana",
+            "Watu Labara",
+            "Waimangura",
+            "Reda Pada",
+            "Marokota",
+            "Kalembu Kanaika",
+            "Wee Kura",
+            "Laga Lete",
+            "Tawo Rara",
+            "Lua Koba",
+            "Kalaki Kambe",
+            "Sangu Ate",
+            "Pero",
+            "Lolo Ole"
+        ],
+        "Wewewa Timur": [
+            "Dangga Mangu",
+            "Dikira",
+            "Pada Eweta",
+            "Mareda Kalada",
+            "Tema Tana",
+            "Kalembu Ndara Mane",
+            "Wee Limbu",
+            "Lete Kamouna",
+            "Mata Pyawu",
+            "Wee Lima",
+            "Kadi Wone",
+            "Maliti Dari",
+            "Dede Pada",
+            "Kadi Wano",
+            "Nyura Lele",
+            "Mawo Dana",
+            "Mainda Ole",
+            "Lele Maya",
+            "Mata Wee Lima"
+        ],
+        "Wewewa Tengah": [
+            "Omba Rade",
+            "Eka Pata",
+            "Wee Rame",
+            "Wee Kokora",
+            "Kali Ngara",
+            "Lombu",
+            "Kanelu",
+            "Tanggaba",
+            "Wee Patando",
+            "Bolora",
+            "Kadi Roma",
+            "Bondo Delo",
+            "Tarra Mata",
+            "Mata Wee Karoro",
+            "Gollu Sapi",
+            "Mata Lombu",
+            "Limbu Watu",
+            "Mareda Wuni",
+            "Lete Wungana",
+            "Kiku Booko"
+        ],
+        "Wewewa Utara": [
+            "Wano Talla",
+            "Wee Paboba",
+            "Mataloko",
+            "Puu Potto",
+            "Wee Namba",
+            "Mali Mada",
+            "Mawo Maliti",
+            "Jela Manu",
+            "Bodo Ponda",
+            "Pandua Tana",
+            "Odi Paurata",
+            "Reda Wano"
+        ],
+        "Loura": [
+            "Ramma Dana",
+            "Karuni",
+            "Totok",
+            "Wee Manada",
+            "Lete Konda",
+            "Bondo Boghila",
+            "Wee Kambala",
+            "Payola Umbu",
+            "Pogo Tena",
+            "Loko Kalada",
+            "Lete Konda Selatan"
+        ],
+        "Kota Tambolaka": [
+            "Wee Londa",
+            "Langga Lero",
+            "Waitabula",
+            "Kalena Wano",
+            "Rada Mata",
+            "Wee Pangali",
+            "Kalembu Kaha",
+            "Wee Rena",
+            "Watu Kawula",
+            "Kadi Pada"
+        ]
+    },
+    "Sabu Raijua": {
+        "Raijua": [
+            "Kolorae",
+            "Bolua",
+            "Ledeke",
+            "Ledeunu",
+            "Ballu"
+        ],
+        "Hawu Mehara": [
+            "Lobohede",
+            "Ramedue",
+            "Ledeae",
+            "Gurimonearu",
+            "Lederaga",
+            "Molie",
+            "Daieko",
+            "Tanajawa",
+            "Pedarro",
+            "Wadumeddi"
+        ],
+        "Sabu Liae": [
+            "Dainao",
+            "Waduwala",
+            "Raerobo",
+            "Mehona",
+            "Eikare",
+            "Ledeke",
+            "Loborui",
+            "Eilogo",
+            "Halapaji",
+            "Kotahawu",
+            "Ledetalo",
+            "Deme"
+        ],
+        "Sabu Barat": [
+            "Teriwu",
+            "Raenalulu",
+            "Depe",
+            "Titinalede",
+            "Raemude",
+            "Raenyale",
+            "Raekore",
+            "Nadawawi",
+            "Delo",
+            "Menia",
+            "Raeloro",
+            "Roboaba",
+            "Mebba",
+            "Raemadia",
+            "Ledeana",
+            "Jadu",
+            "Ledekepaka",
+            "Raedewa"
+        ],
+        "Sabu Tengah": [
+            "Bebae",
+            "Tada",
+            "Matei",
+            "Eimmadake",
+            "Loboaju",
+            "Jiwuwu",
+            "Eilode",
+            "Eimau"
+        ],
+        "Sabu Timur": [
+            "Huwaga",
+            "Lobodei",
+            "Eiada",
+            "Keduru",
+            "Bolou",
+            "Limaggu",
+            "Loborai",
+            "Bodae",
+            "Kujiratu",
+            "Keliha"
+        ]
+    }
+
+};
+
+    // ==========================================
+    // LOGIKA DROPDOWN (READONLY MODE)
+    // ==========================================
+    window.onload = function() { 
+      populateKabupaten(); 
+    };
+
+    function populateKabupaten() {
+      const list = Object.keys(DATA_WILAYAH);
+      renderComboboxItems('kabDropdown', list, 'kabupaten', onKabupatenSelected);
+    }
+
+    function onKabupatenSelected(selectedKab) {
+      document.getElementById('kabupaten').value = selectedKab;
+      hideCombobox('kabDropdown');
+      document.getElementById('kecamatan').value = '';
+      document.getElementById('desa').value = '';
+      
+      const kecMap = DATA_WILAYAH[selectedKab] || {};
+      const kecList = Object.keys(kecMap);
+      renderComboboxItems('kecDropdown', kecList, 'kecamatan', onKecamatanSelected);
+    }
+
+    function onKecamatanSelected(selectedKec) {
+      document.getElementById('kecamatan').value = selectedKec;
+      hideCombobox('kecDropdown');
+      document.getElementById('desa').value = '';
+      
+      const selectedKab = document.getElementById('kabupaten').value;
+      const desaList = (DATA_WILAYAH[selectedKab] && DATA_WILAYAH[selectedKab][selectedKec]) ? DATA_WILAYAH[selectedKab][selectedKec] : [];
+      renderComboboxItems('desaDropdown', desaList, 'desa', function(val) {
+        document.getElementById('desa').value = val;
+        hideCombobox('desaDropdown');
+      });
+    }
+
+    function renderComboboxItems(elementId, items, inputId, onSelectCallback) {
+      const ul = document.getElementById(elementId);
+      ul.innerHTML = '';
+      if (!items || items.length === 0) {
+        ul.innerHTML = `<li class="px-4 py-3 text-xs text-rose-500 italic bg-rose-50">Pilih wilayah sebelumnya terlebih dahulu</li>`;
+        return;
+      }
+      items.forEach(item => {
+        const li = document.createElement('li');
+        li.className = "px-4 py-3 border-b border-slate-50 hover:bg-brand-teal hover:text-white cursor-pointer transition text-sm font-medium";
+        li.textContent = item;
+        li.onmousedown = function(e) {
+          e.preventDefault(); 
+          if (onSelectCallback) onSelectCallback(item);
+          else { document.getElementById(inputId).value = item; hideCombobox(elementId); }
+        };
+        ul.appendChild(li);
+      });
+    }
+
+    function toggleCombobox(id) {
+      const el = document.getElementById(id);
+      if (el.classList.contains('hidden')) {
+        document.querySelectorAll('.combobox-list').forEach(list => list.classList.add('hidden'));
+        el.classList.remove('hidden');
+      } else {
+        el.classList.add('hidden');
+      }
+    }
+
+    function hideCombobox(id) {
+      setTimeout(() => { const el = document.getElementById(id); if (el) el.classList.add('hidden'); }, 150);
+    }
+
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.relative')) document.querySelectorAll('.combobox-list').forEach(el => el.classList.add('hidden'));
+    });
+
+    // =========================================
+    // GPS LOKASI OTOMATIS (UNTUK TITIK RUMAH)
+    // =========================================
+    function getLocation() {
+      const btn = document.getElementById('btn-location');
+      const input = document.getElementById('koordinat');
+      
+      if (navigator.geolocation) {
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Mencari...';
+        btn.disabled = true;
+        
+        navigator.geolocation.getCurrentPosition(
+          function(position) {
+            const lat = position.coords.latitude;
+            const long = position.coords.longitude;
+            input.value = lat + ", " + long;
+            
+            btn.innerHTML = '<i class="fa-solid fa-check mr-2"></i>Lokasi Didapat';
+            btn.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+            btn.classList.add('bg-emerald-600', 'hover:bg-emerald-700');
+          },
+          function(error) {
+            input.value = '';
+            alert("Gagal mendapatkan lokasi. Pastikan izin lokasi aktif atau sinyal baik.");
+            btn.innerHTML = '<i class="fa-solid fa-rotate-right mr-2"></i>Coba Lagi';
+            btn.disabled = false;
+          },
+          { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+        );
+      } else {
+        alert("Browser/HP Anda tidak mendukung fitur GPS.");
+      }
+    }
+
+    // =========================================
+    // VALIDASI & FILE PREVIEW
+    // =========================================
+    function validateDigitOnly(input, targetLength, errorId) {
+      input.value = input.value.replace(/[^0-9]/g, '');
+      const errEl = document.getElementById(errorId);
+      if (input.value.length > 0 && input.value.length !== targetLength) {
+        errEl.classList.remove('hidden');
+      } else {
+        errEl.classList.add('hidden');
+      }
+    }
+
+    function validateLengthOnly(input, maxLength, errorId) {
+      if (input.value.length > maxLength) {
+        input.value = input.value.slice(0, maxLength);
+      }
+      const errEl = document.getElementById(errorId);
+      if (input.value.length > 0 && input.value.length > maxLength) {
+        errEl.classList.remove('hidden');
+      } else {
+        errEl.classList.add('hidden');
+      }
+    }
+
+    const fileBase64Map = {};
+
+    function handleFileSelect(input, previewId) {
+      const file = input.files[0];
+      const prevDiv = document.getElementById(previewId);
+      if (!file) return;
+
+      if (file.size > 10 * 1024 * 1024) {
+        alert("Ukuran berkas melebihi 10MB. Silakan pilih berkas yang lebih kecil.");
+        input.value = "";
+        return;
+      }
+
+      prevDiv.innerHTML = `<i class="fa-solid fa-file-circle-check text-emerald-600 mr-1"></i>${file.name} (${(file.size/1024/1024).toFixed(2)} MB)`;
+      
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const bytes = e.target.result.split(',')[1];
+        fileBase64Map[input.id] = {
+          name: file.name,
+          mimeType: file.type,
+          bytes: bytes
+        };
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function handleMultiFileSelect(input, previewId) {
+      const files = Array.from(input.files);
+      if (files.length === 0) return;
+
+      if (!fileBase64Map['fotoRumah']) fileBase64Map['fotoRumah'] = [];
+
+      files.forEach((file) => {
+        if (file.size > 10 * 1024 * 1024) {
+          alert(`Berkas ${file.name} melebihi 10MB!`);
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const bytes = e.target.result.split(',')[1];
+          fileBase64Map['fotoRumah'].push({
+            name: file.name,
+            mimeType: file.type,
+            bytes: bytes
+          });
+          updatePreviewRumah();
+        };
+        reader.readAsDataURL(file);
+      });
+      input.value = "";
+    }
+
+    function updatePreviewRumah() {
+      const prevDiv = document.getElementById('previewRumah');
+      prevDiv.innerHTML = '';
+      
+      if (fileBase64Map['fotoRumah'] && fileBase64Map['fotoRumah'].length > 0) {
+        fileBase64Map['fotoRumah'].forEach((f, idx) => {
+          const itemEl = document.createElement('div');
+          itemEl.className = "flex items-center justify-between p-3 bg-white rounded-xl border border-slate-200 shadow-sm text-xs font-medium text-slate-700";
+          itemEl.innerHTML = `
+            <div class="flex items-center gap-2 truncate">
+                <i class="fa-solid fa-image text-brand-teal"></i>
+                <span class="truncate">${f.name}</span>
+            </div>
+            <button type="button" onclick="removeFotoRumah(${idx})" class="text-rose-500 hover:text-rose-700 ml-2 p-1 bg-rose-50 rounded-md">
+                <i class="fa-solid fa-trash"></i>
+            </button>
+          `;
+          prevDiv.appendChild(itemEl);
+        });
+      }
+    }
+
+    function removeFotoRumah(index) {
+      fileBase64Map['fotoRumah'].splice(index, 1);
+      updatePreviewRumah();
+    }
+
+    // =========================================
+    // SUBMIT FORM KE GOOGLE APPS SCRIPT API
+    // =========================================
+    const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxmiJV-t80ntc5EwSEFjr9RVZJjiakMvQhQbsxHqvA11Vq4s5BjdyTcwaKMxbH1omamKw/exec";
+
+    function submitForm(e) {
+      e.preventDefault();
+
+      const nikVal = document.getElementById('nik').value;
+      const kkVal = document.getElementById('kk').value;
+      const rtRwVal = document.getElementById('rtRw').value;
+      const noHpPemilikVal = document.getElementById('noHpPemilik').value;
+      const noHpKadesVal = document.getElementById('noHpKades').value;
+
+      if (nikVal.length !== 16) {
+        alert("NIK Pemilik Rumah harus tepat 16 digit!");
+        document.getElementById('nik').focus();
+        return;
+      }
+
+      if (kkVal.length !== 16) {
+        alert("Nomor Kartu Keluarga harus tepat 16 digit!");
+        document.getElementById('kk').focus();
+        return;
+      }
+
+      if (rtRwVal.length > 11) {
+        alert("RT/RW maksimal 11 karakter!");
+        document.getElementById('rtRw').focus();
+        return;
+      }
+
+      if (noHpPemilikVal.length !== 11) {
+        alert("Nomor HP Pemilik Rumah harus tepat 11 digit!");
+        document.getElementById('noHpPemilik').focus();
+        return;
+      }
+
+      if (noHpKadesVal.length !== 11) {
+        alert("Nomor HP Perangkat Desa harus tepat 11 digit!");
+        document.getElementById('noHpKades').focus();
+        return;
+      }
+
+      document.getElementById('loadingModal').classList.remove('hidden');
+
+      const payload = {
+        namaPemilik: document.getElementById('namaPemilik').value,
+        nik: nikVal,
+        kk: kkVal,
+        kabupaten: document.getElementById('kabupaten').value,
+        kecamatan: document.getElementById('kecamatan').value,
+        desa: document.getElementById('desa').value,
+        rtRw: rtRwVal,
+        alamatLengkap: document.getElementById('alamatLengkap').value,
+        koordinat: document.getElementById('koordinat').value || 'Tidak diisi',
+        noHpPemilik: noHpPemilikVal,
+        noHpKades: noHpKadesVal,
+        fotoPemilik: fileBase64Map['fotoPemilik'],
+        fotoKtp: fileBase64Map['fotoKtp'],
+        fotoKk: fileBase64Map['fotoKk'],
+        suratLahan: fileBase64Map['suratLahan'],
+        fotoRumah: fileBase64Map['fotoRumah']
+      };
+
+      fetch(GAS_WEB_APP_URL, {
+        method: "POST",
+        body: JSON.stringify(payload)
+      })
+      .then(response => response.json())
+      .then(data => {
+        onSuccess(data);
+      })
+      .catch(error => {
+        onFailure(error);
+      });
+    }
+
+    function onSuccess(response) {
+      document.getElementById('loadingModal').classList.add('hidden');
+      if (response && response.status === 'success') {
+        document.getElementById('successMsg').innerText = response.message;
+        document.getElementById('successModal').classList.remove('hidden');
+      } else {
+        alert("Terjadi kesalahan: " + (response ? response.message : "Gagal mengunggah data."));
+      }
+    }
+
+    function onFailure(err) {
+      document.getElementById('loadingModal').classList.add('hidden');
+      alert("Gagal terhubung ke server. Pastikan koneksi internet stabil.");
+    }
+
+    function closeSuccessModal() {
+      document.getElementById('successModal').classList.add('hidden');
+      document.getElementById('rtlhForm').reset();
+      location.reload();
+    }
+  </script>
+</body>
+</html>
