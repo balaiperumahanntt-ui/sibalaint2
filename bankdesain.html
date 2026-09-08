@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Design Prototipe - Balai P3KP</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="https://i.ibb.co.com/RpTQRCrn/logo.png">
+  
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        krem: '#F2EEDF',
+                        khaki: '#D5C58A',
+                        darkaqua: '#0E5B73',
+                        midnightgreen: '#084C61',
+                        brand: { teal: '#0E5975', darkteal: '#093C4F', gold: '#CBA355', lightgold: '#E0C17B' },
+                        bgnavy: '#0F172A', 
+                        cardnavy: '#1E293B',
+                        btnteal: '#0D9488'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #0F172A; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    </style>
+</head>
+<body class="bg-[#F2EEDF] min-h-screen text-slate-800 antialiased flex flex-col">
+
+   <!-- HEADER -->
+    <header class="bg-midnightgreen/95 backdrop-blur-md border-b-4 border-khaki text-krem sticky top-0 z-50 transition-all shadow-md mb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-3">
+                <div class="flex items-center gap-5">
+                    <a href="#" class="flex items-center shrink-0">
+                        <img src="https://i.ibb.co.com/Gf4rz3Yn/BALAI-NT-II-8.png" alt="Maskot SiBalai" class="w-[180px] h-auto object-contain">
+                    </a>
+                    <a href="index.html" class="text-krem/80 hover:text-khaki transition-all text-sm font-medium flex items-center gap-1 px-2 py-1.5 rounded-lg hover:bg-krem/10 border border-transparent hover:border-krem/20 mt-2.5">
+                        <i class="fa-solid fa-arrow-left"></i> Kembali
+                    </a>
+                </div>
+                <div class="hidden md:flex space-x-1 font-medium">
+                    <span class="px-4 py-3 bg-darkaqua/50 rounded-lg text-krem"><i class="fa-solid fa-swatchbook mr-2"></i> Bank Design Prototipe</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow w-full text-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+            
+            <!-- HALAMAN UTAMA (LIST VIEW) -->
+            <div id="view-list" class="block">
+                
+                <!-- Filter & Search Bar -->
+                <div class="bg-cardnavy p-4 md:p-6 rounded-2xl flex flex-col md:flex-row justify-between items-center gap-4 mb-8 border border-slate-700/50 shadow-lg" data-aos="fade-down">
+                    <div class="relative w-full md:w-2/3">
+                        <i class="fa-solid fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400"></i>
+                        <input type="text" id="searchInput" placeholder="Cari desain prototipe berdasarkan nama atau detail..." class="w-full bg-bgnavy border border-slate-600 rounded-xl py-3 pl-12 pr-4 text-sm text-slate-200 focus:outline-none focus:border-btnteal transition-colors">
+                    </div>
+                    
+                    <div class="flex flex-col w-full md:w-auto text-right justify-center bg-bgnavy py-2 px-4 rounded-xl border border-slate-600">
+                        <span class="text-sm text-slate-400 font-medium">Total Hasil: <span id="totalData" class="text-white font-bold text-lg ml-1">0</span></span>
+                    </div>
+                </div>
+
+                <!-- Grid Kartu Prototipe -->
+                <div id="dataContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Kartu dirender di sini -->
+                </div>
+            </div>
+
+            <!-- HALAMAN DETAIL (DETAIL VIEW) -->
+            <div id="view-detail" class="hidden">
+                <button onclick="backToList()" class="mb-6 text-midnightgreen hover:text-darkaqua transition-colors flex items-center gap-2 text-sm font-bold cursor-pointer">
+                    <i class="fa-solid fa-arrow-left"></i> Kembali ke Daftar Desain
+                </button>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Kolom Utama -->
+                    <div class="lg:col-span-2 bg-cardnavy rounded-2xl p-6 border border-slate-700/50 shadow-xl" data-aos="fade-up">
+                        <div class="mb-6">
+                            <h1 id="detailJudul" class="text-2xl md:text-3xl font-extrabold text-white uppercase leading-tight">Judul Desain</h1>
+                        </div>
+                        
+                        <div class="w-full bg-white rounded-xl p-2 mb-6 shadow-inner flex justify-center items-center overflow-hidden" style="min-height: 300px;">
+                            <img id="detailGambar" src="" alt="Detail Gambar" class="w-full h-auto object-contain rounded-lg border border-slate-200" style="max-height: 500px;">
+                        </div>
+
+                        <div class="bg-bgnavy p-6 rounded-xl border border-slate-700">
+                            <h3 class="text-lg font-bold text-white mb-3"><i class="fa-solid fa-circle-info text-btnteal mr-2"></i> Penjelasan Desain</h3>
+                            <p id="detailDeskripsi" class="text-slate-300 text-sm leading-relaxed text-justify whitespace-pre-line mb-6">
+                                Deskripsi akan muncul di sini.
+                            </p>
+
+                            <!-- TOMBOL DOWNLOAD DI HALAMAN DETAIL -->
+                            <div id="detailDownloadContainer" class="flex flex-wrap gap-4 pt-4 border-t border-slate-700">
+                                <!-- Tombol render otomatis via JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Kolom Sidebar -->
+                    <div class="bg-cardnavy rounded-2xl p-6 border border-slate-700/50 shadow-xl flex flex-col max-h-[800px]" data-aos="fade-up" data-aos-delay="100">
+                        <h3 class="text-lg font-bold text-white mb-4">Desain Lainnya</h3>
+                        <div id="sidebarContainer" class="flex-1 overflow-y-auto custom-scrollbar space-y-4 pr-2">
+                            <!-- Sidebar list -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- LOADING MODAL -->
+    <div id="loadingModal" class="fixed inset-0 bg-bgnavy/90 backdrop-blur-sm z-[9999] flex flex-col items-center justify-center text-white p-4 transition-opacity">
+        <div class="w-16 h-16 border-4 border-btnteal border-t-transparent rounded-full animate-spin mb-4"></div>
+        <h3 class="text-lg font-bold text-white">Memuat Data Desain...</h3>
+        <p class="text-xs text-slate-400 mt-1">Mengambil dari spreadsheet.</p>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+
+        // ==========================================
+        // PASTE URL DARI GOOGLE APPS SCRIPT DI SINI
+        const API_URL = "https://script.google.com/macros/s/AKfycbyyepkipUs49MnlQ6oM_QhLMFiW_5jXcCSG6ebXve29YpaGBpAvaqK_4bHFMYqflb1S/exec"; 
+        // ==========================================
+        
+        let allData = []; 
+        
+        const loadingModal = document.getElementById('loadingModal');
+        const viewList = document.getElementById('view-list');
+        const viewDetail = document.getElementById('view-detail');
+        const dataContainer = document.getElementById('dataContainer');
+        const searchInput = document.getElementById('searchInput');
+        
+        // 1. Fetch Data
+        async function fetchData() {
+            try {
+                const response = await fetch(API_URL);
+                const result = await response.json();
+                
+                if (result.status === 'success') {
+                    allData = result.data.map(item => {
+                        let newItem = {};
+                        for (let key in item) {
+                            let cleanKey = key.toUpperCase().replace(/\s+/g, '');
+                            newItem[cleanKey] = item[key];
+                        }
+                        return newItem;
+                    });
+                    
+                    renderList(allData);
+                } else {
+                    alert('Gagal mengambil data: ' + result.message);
+                }
+            } catch (error) {
+                alert('Terjadi kesalahan koneksi. Pastikan link API benar.');
+                console.error(error);
+            } finally {
+                loadingModal.classList.add('opacity-0', 'pointer-events-none');
+                setTimeout(() => loadingModal.style.display = 'none', 300);
+            }
+        }
+
+        // 2. Render List Grid
+        function renderList(data) {
+            dataContainer.innerHTML = '';
+            document.getElementById('totalData').innerText = data.length;
+
+            if (data.length === 0) {
+                dataContainer.innerHTML = `<div class="col-span-full text-center py-10 text-slate-600">Tidak ada data ditemukan.</div>`;
+                return;
+            }
+
+            data.forEach(item => {
+                const imgUrl = item.LINKFOTO && item.LINKFOTO.trim() !== "" ? item.LINKFOTO : 'https://via.placeholder.com/600x400?text=Gambar+Belum+Tersedia';
+                const namaDesain = item.NAMADESAIN && item.NAMADESAIN.trim() !== "" ? item.NAMADESAIN : 'Tanpa Judul';
+                const detailDesain = item.DETAIL && item.DETAIL.trim() !== "" ? item.DETAIL : 'Deskripsi belum tersedia.';
+                
+                const card = `
+                <div class="bg-cardnavy rounded-xl border border-slate-700/50 overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col group" data-aos="fade-up">
+                    <div class="h-48 bg-white overflow-hidden relative flex items-center justify-center">
+                        <img src="${imgUrl}" alt="${namaDesain}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h3 class="font-bold text-white text-lg mb-2 line-clamp-2 uppercase">${namaDesain}</h3>
+                        <p class="text-xs text-slate-400 mb-4 line-clamp-2 flex-grow">${detailDesain}</p>
+                        
+                        <div class="flex items-center gap-2 mt-auto grid grid-cols-3">
+                            ${item.LINKPDFDESAIN && item.LINKPDFDESAIN.trim() !== "" ? `<a href="${item.LINKPDFDESAIN}" target="_blank" class="bg-btnteal hover:bg-teal-500 text-white text-xs font-bold py-2 px-2 rounded-lg text-center transition-colors flex items-center justify-center gap-1"><i class="fa-solid fa-download"></i> File</a>` : `<div class="opacity-30 bg-slate-800 text-white text-xs font-bold py-2 px-2 rounded-lg text-center cursor-not-allowed flex items-center justify-center gap-1" title="File belum tersedia"><i class="fa-solid fa-download"></i> File</div>`}
+                            
+                            ${item.LINKRAB && item.LINKRAB.trim() !== "" ? `<a href="${item.LINKRAB}" target="_blank" class="bg-slate-700 hover:bg-slate-600 text-white text-xs font-bold py-2 px-2 rounded-lg text-center transition-colors flex items-center justify-center gap-1"><i class="fa-solid fa-file-invoice-dollar"></i> RAB</a>` : `<div class="opacity-30 bg-slate-800 text-white text-xs font-bold py-2 px-2 rounded-lg text-center cursor-not-allowed flex items-center justify-center gap-1" title="RAB belum tersedia"><i class="fa-solid fa-file-invoice-dollar"></i> RAB</div>`}
+                            
+                            <button onclick="showDetail('${item.ID}')" class="bg-slate-900 hover:bg-black border border-slate-700 text-white text-xs font-bold py-2 px-2 rounded-lg text-center transition-colors flex items-center justify-center gap-1 cursor-pointer">
+                                <i class="fa-solid fa-eye"></i> Detail
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                `;
+                dataContainer.innerHTML += card;
+            });
+        }
+
+        // 3. Show Detail View
+        function showDetail(id) {
+            const item = allData.find(d => d.ID && d.ID.toString() === id.toString());
+            if(!item) return;
+
+            document.getElementById('detailJudul').innerText = item.NAMADESAIN && item.NAMADESAIN.trim() !== "" ? item.NAMADESAIN : 'Tanpa Judul';
+            document.getElementById('detailGambar').src = item.LINKFOTO && item.LINKFOTO.trim() !== "" ? item.LINKFOTO : 'https://via.placeholder.com/800x600?text=Gambar+Belum+Tersedia';
+            document.getElementById('detailDeskripsi').innerText = item.DETAIL && item.DETAIL.trim() !== "" ? item.DETAIL : 'Tidak ada penjelasan desain tersedia.';
+
+            // Render Tombol Download di Detail
+            const downloadContainer = document.getElementById('detailDownloadContainer');
+            let downloadHtml = '';
+
+            if (item.LINKPDFDESAIN && item.LINKPDFDESAIN.trim() !== "") {
+                downloadHtml += `<a href="${item.LINKPDFDESAIN}" target="_blank" class="bg-btnteal hover:bg-teal-500 text-white text-sm font-bold py-2.5 px-5 rounded-xl transition-colors shadow-md flex items-center gap-2"><i class="fa-solid fa-download"></i> Unduh File Desain</a>`;
+            } else {
+                downloadHtml += `<div class="opacity-40 bg-slate-800 text-white text-sm font-bold py-2.5 px-5 rounded-xl cursor-not-allowed flex items-center gap-2"><i class="fa-solid fa-download"></i> File Desain (Belum Ada)</div>`;
+            }
+
+            if (item.LINKRAB && item.LINKRAB.trim() !== "") {
+                downloadHtml += `<a href="${item.LINKRAB}" target="_blank" class="bg-slate-700 hover:bg-slate-600 text-white text-sm font-bold py-2.5 px-5 rounded-xl transition-colors shadow-md flex items-center gap-2"><i class="fa-solid fa-file-invoice-dollar"></i> Unduh RAB</a>`;
+            } else {
+                downloadHtml += `<div class="opacity-40 bg-slate-800 text-sm font-bold py-2.5 px-5 rounded-xl cursor-not-allowed flex items-center gap-2"><i class="fa-solid fa-file-invoice-dollar"></i> RAB (Belum Ada)</div>`;
+            }
+
+            downloadContainer.innerHTML = downloadHtml;
+
+            renderSidebar(id);
+
+            viewList.classList.add('hidden');
+            viewDetail.classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // 4. Render Sidebar
+        function renderSidebar(currentId) {
+            const sidebar = document.getElementById('sidebarContainer');
+            sidebar.innerHTML = '';
+
+            const otherData = allData.filter(d => d.ID && d.ID.toString() !== currentId.toString()).slice(0, 6);
+
+            otherData.forEach(item => {
+                const imgUrl = item.LINKFOTO && item.LINKFOTO.trim() !== "" ? item.LINKFOTO : 'https://via.placeholder.com/150x100?text=No+Img';
+                const card = `
+                <div onclick="showDetail('${item.ID}')" class="flex gap-3 bg-bgnavy p-3 rounded-xl border border-slate-700 hover:border-btnteal cursor-pointer transition-colors group">
+                    <div class="w-20 h-16 shrink-0 bg-white rounded-lg overflow-hidden flex items-center justify-center">
+                        <img src="${imgUrl}" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
+                    </div>
+                    <div class="flex flex-col justify-center">
+                        <h4 class="text-xs font-bold text-white line-clamp-2 uppercase">${item.NAMADESAIN || 'Tanpa Judul'}</h4>
+                    </div>
+                </div>
+                `;
+                sidebar.innerHTML += card;
+            });
+        }
+
+        // 5. Back to List
+        function backToList() {
+            viewDetail.classList.add('hidden');
+            viewList.classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // 6. Search Function
+        function applyFilters() {
+            const keyword = searchInput.value.toLowerCase();
+
+            const filteredData = allData.filter(item => {
+                const judul = item.NAMADESAIN ? item.NAMADESAIN.toLowerCase() : '';
+                const deskripsi = item.DETAIL ? item.DETAIL.toLowerCase() : '';
+                return judul.includes(keyword) || deskripsi.includes(keyword);
+            });
+
+            renderList(filteredData);
+        }
+
+        searchInput.addEventListener('input', applyFilters);
+
+        // Init
+        fetchData();
+    </script>
+</body>
+</html>
