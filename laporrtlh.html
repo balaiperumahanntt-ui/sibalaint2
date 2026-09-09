@@ -293,7 +293,7 @@
                 <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
                   <i class="fa-brands fa-whatsapp text-lg"></i>
                 </div>
-                <input type="tel" id="noHpPemilik" required maxlength="11" placeholder="08XXXXXXXXXXX"
+                <input type="tel" id="noHpPemilik" required maxlength="13" placeholder="08XXXXXXXXXXX"
                   oninput="validateDigitOnly(this, 13, 'hpPemilikError')"
                   class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-teal focus:border-brand-teal outline-none transition text-sm font-mono tracking-wider">
               </div>
@@ -308,7 +308,7 @@
                 <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
                   <i class="fa-solid fa-phone"></i>
                 </div>
-                <input type="tel" id="noHpKades" required maxlength="11" placeholder="08XXXXXXXXXXX"
+                <input type="tel" id="noHpKades" required maxlength="13" placeholder="08XXXXXXXXXXX"
                   oninput="validateDigitOnly(this, 13, 'hpKadesError')"
                   class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-teal focus:border-brand-teal outline-none transition text-sm font-mono tracking-wider">
               </div>
@@ -4789,13 +4789,13 @@
         return;
       }
 
-      if (noHpPemilikVal.length !== 11) {
+      if (noHpPemilikVal.length !== 13) {
         alert("Nomor HP Pemilik Rumah harus tepat 11 digit!");
         document.getElementById('noHpPemilik').focus();
         return;
       }
 
-      if (noHpKadesVal.length !== 11) {
+      if (noHpKadesVal.length !== 13) {
         alert("Nomor HP Perangkat Desa harus tepat 11 digit!");
         document.getElementById('noHpKades').focus();
         return;
