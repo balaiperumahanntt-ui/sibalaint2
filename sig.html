@@ -254,7 +254,7 @@
       allData.rusus.forEach(row => { let k=row[2], u=parseInt(row[3])||0; if(k) rususMap[normalizeName(k)] = (rususMap[normalizeName(k)]||0)+u; });
     }
 
-    function changeMode(mode) {
+   function changeMode(mode) {
       currentMode = mode;
       document.querySelectorAll('.btn-select').forEach(b => b.classList.remove('active'));
       document.getElementById('btn-'+mode).classList.add('active');
@@ -264,6 +264,19 @@
       pointLayerGroup.clearLayers();
       if(activeLegend) { map.removeControl(activeLegend); activeLegend = null; }
       map.closePopup();
+
+      if (geojsonBorderLayer) {
+        if (mode === 'rusun') {
+          if (map.hasLayer(geojsonBorderLayer)) map.removeLayer(geojsonBorderLayer);
+          if (map.hasLayer(labelLayerGroup)) map.removeLayer(labelLayerGroup);
+        } else {
+          if (!map.hasLayer(geojsonBorderLayer)) map.addLayer(geojsonBorderLayer);
+          if (!map.hasLayer(labelLayerGroup)) map.addLayer(labelLayerGroup);
+        }
+      }
+
+      // BARIS INI DITAMBAHKAN AGAR WARNA LAYER SEBELUMNYA OTOMATIS BERSIH/TERLEPAS
+      if (geojsonFillLayer) geojsonFillLayer.setStyle(styleFillFeature);
 
       if(mode === 'rtlh') {
           renderRTLH(); activeLegend = legendRTLH.addTo(map);
