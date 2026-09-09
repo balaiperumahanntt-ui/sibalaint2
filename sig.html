@@ -316,7 +316,7 @@
       renderBSPS();
     }
 
-    function renderBSPS() {
+   function renderBSPS() {
       let year = document.getElementById('bspsYearSelect').value;
       let tbody = '';
       let totalUnits = 0;
@@ -336,17 +336,23 @@
           // 0:NO BNBA, 1:NAMA, 2:KAB/KOTA, 3:KECAMATAN, 4:DESA/KELURAHAN, 5:TA, 6:KOORDINAT, 7:PROGRES, 8:TAHAPINVER, 9:FOTO
           let nobnba = row[0], nama = row[1], kab = row[2], kec = row[3], desa = row[4], ta = row[5];
           let koordinatStr = String(row[6] || "").trim();
-          let progres = parseFloat(row[7]), tahap = row[8], foto = row[9];
+          let progresRaw = String(row[7] || "").trim(); // Membaca teks progres dari spreadsheet
+          let tahap = row[8], foto = row[9];
 
           if(kab) {
             totalUnits++;
             kabCounts[kab] = (kabCounts[kab] || 0) + 1;
             bspsPolygonMap[normalizeName(kab)] = 1;
 
-            let color = '#ef4444'; // Merah
-            if (progres === 100) color = '#22c55e'; // Hijau
-            else if (progres >= 30 && progres < 100) color = '#eab308'; // Kuning
-            else if (progres === 30) color = '#f97316'; // Oranye
+            // Logika warna berdasarkan kategori teks di spreadsheet
+            let color = '#ef4444'; // Merah (default / 0)
+            if (progresRaw === '100') {
+              color = '#22c55e'; // Hijau
+            } else if (progresRaw === '30 - <100') {
+              color = '#eab308'; // Kuning
+            } else if (progresRaw === '30') {
+              color = '#f97316'; // Oranye
+            }
 
             let fotoBadge = foto ? `<a href="${foto}" target="_blank" class="text-brand-teal underline font-semibold"><i class="fa-solid fa-image"></i> Lihat</a>` : '-';
 
@@ -355,7 +361,7 @@
               <td class="py-2 px-4 text-xs">${nobnba||'-'}</td>
               <td class="py-2 px-4 font-bold text-brand-darkteal">${nama||'-'}</td>
               <td class="py-2 px-4">${desa||'-'}</td>
-              <td class="py-2 px-4 text-center"><span class="px-2 py-1 rounded text-white font-bold" style="background-color:${color}; font-size:11px;">${isNaN(progres)?0:progres}%</span></td>
+              <td class="py-2 px-4 text-center"><span class="px-2 py-1 rounded text-white font-bold" style="background-color:${color}; font-size:11px;">${progresRaw || '0'}</span></td>
               <td class="py-2 px-4 text-center text-xs">${tahap||'-'}</td>
               <td class="py-2 px-4 text-center">${fotoBadge}</td>
             </tr>`;
@@ -378,7 +384,7 @@
                     <hr style="margin:5px 0;">
                     <b>Kab/Kota:</b> ${kab}<br>
                     <b>Desa:</b> ${desa}<br>
-                    <b>Progres:</b> <span style="color:${color}; font-weight:bold;">${isNaN(progres)?0:progres}%</span><br>
+                    <b>Progres:</b> <span style="color:${color}; font-weight:bold;">${progresRaw || '0'}</span><br>
                     <b>Tahap:</b> ${tahap||'-'}
                     ${foto ? `<br><a href="${foto}" target="_blank" style="display:inline-block; margin-top:6px; color:#0E5975; font-weight:bold;">🔗 Buka Foto Lokasi</a>` : ''}
                   </div>
