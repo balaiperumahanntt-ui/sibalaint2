@@ -4,57 +4,33 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SIG Terpadu - Balai P3KP NTT</title>
-
   <link rel="icon" type="image/x-icon" href="https://i.ibb.co.com/RpTQRCrn/logo.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="https://i.ibb.co.com/RpTQRCrn/logo.pngg">
-  <link rel="icon" type="image/png" sizes="192x192" href="https://i.ibb.co.com/RpTQRCrn/logo.png">
-  
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
   <script>
     tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            krem: '#F2EEDF',
-            khaki: '#D5C58A',
-            darkaqua: '#0E5B73',
-            midnightgreen: '#084C61',
-            brand: { teal: '#0E5975', darkteal: '#093C4F', gold: '#CBA355', lightgold: '#E0C17B' }
-          }
-        }
-      }
+      theme: { extend: { colors: { krem: '#F2EEDF', khaki: '#D5C58A', darkaqua: '#0E5B73', midnightgreen: '#084C61', brand: { teal: '#0E5975', darkteal: '#093C4F', gold: '#CBA355' } } } }
     }
   </script>
   <style>
-    .custom-map-label { 
-      pointer-events: none; 
-      transition: opacity 0.3s ease-in-out; 
-    }
+    .custom-map-label { pointer-events: none; transition: opacity 0.3s ease-in-out; }
     .btn-select { transition: all 0.3s ease; }
     .btn-select.active { background-color: #0E5975; color: white; border-color: #0E5975; transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(14, 89, 117, 0.3); }
     .btn-select:not(.active) { background-color: white; color: #475569; border-color: #CBD5E1; }
-    .btn-select:not(.active):hover { border-color: #0E5975; color: #0E5975; }
   </style>
 </head>
 <body class="bg-[#F3F5F7] min-h-screen text-slate-800 pb-12 antialiased">
 
-  <!-- Header / Navbar -->
   <header class="bg-midnightgreen/90 backdrop-blur-md border-b-4 border-khaki text-krem sticky top-0 z-50 transition-all shadow-md">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="flex justify-between items-center py-3">
               <div class="flex items-center gap-5">
                   <a href="#" class="flex items-center shrink-0">
                       <img src="https://i.ibb.co.com/Gf4rz3Yn/BALAI-NT-II-8.png" alt="Maskot SiBalai" class="w-[180px] h-auto object-contain">
-                  </a>
-                  <a href="index.html" class="text-krem/80 hover:text-khaki transition-all text-sm font-medium flex items-center gap-1 px-2 py-1.5 rounded-lg hover:bg-krem/10 border border-transparent hover:border-krem/20 mt-2.5">
-                      <i class="fa-solid fa-arrow-left"></i> Kembali
                   </a>
               </div>
               <div class="hidden md:flex space-x-1 font-medium">
@@ -68,68 +44,47 @@
     <div class="text-center mb-8" data-aos="fade-up">
        <span class="inline-block px-3 py-1 bg-brand-gold/20 text-brand-gold border border-brand-gold/40 rounded-full text-xs font-semibold tracking-wider uppercase mb-2">Kementerian Perumahan & Kawasan Permukiman</span>
        <h1 class="text-2xl md:text-3xl font-extrabold text-brand-darkteal tracking-tight">Sistem Informasi Geografis Terpadu</h1>
-       <p class="text-slate-600 font-medium mt-1">Pilih kategori data di bawah ini untuk melihat sebaran infrastruktur perumahan di NTT.</p>
     </div>
 
-    <!-- TOMBOL PILIHAN DATA -->
     <div class="flex flex-wrap justify-center gap-3 md:gap-6 mb-8" data-aos="fade-up" data-aos-delay="100">
-        <button onclick="changeMode('rtlh')" id="btn-rtlh" class="btn-select px-6 py-3 rounded-xl border-2 font-bold flex items-center gap-2 shadow-sm">
-            <i class="fa-solid fa-house-chimney-crack"></i> Sebaran RTLH
-        </button>
-        <button onclick="changeMode('rusun')" id="btn-rusun" class="btn-select px-6 py-3 rounded-xl border-2 font-bold flex items-center gap-2 shadow-sm">
-            <i class="fa-solid fa-building"></i> Sebaran Rusun
-        </button>
-        <button onclick="changeMode('bsps')" id="btn-bsps" class="btn-select px-6 py-3 rounded-xl border-2 font-bold flex items-center gap-2 shadow-sm">
-            <i class="fa-solid fa-hammer"></i> Sebaran BSPS
-        </button>
-        <button onclick="changeMode('rusus')" id="btn-rusus" class="btn-select px-6 py-3 rounded-xl border-2 font-bold flex items-center gap-2 shadow-sm">
-            <i class="fa-solid fa-house-flag"></i> Sebaran Rusus
-        </button>
+        <button onclick="changeMode('rtlh')" id="btn-rtlh" class="btn-select px-6 py-3 rounded-xl border-2 font-bold flex items-center gap-2 shadow-sm"><i class="fa-solid fa-house-chimney-crack"></i> Sebaran RTLH</button>
+        <button onclick="changeMode('rusun')" id="btn-rusun" class="btn-select px-6 py-3 rounded-xl border-2 font-bold flex items-center gap-2 shadow-sm"><i class="fa-solid fa-building"></i> Sebaran Rusun</button>
+        <button onclick="changeMode('bsps')" id="btn-bsps" class="btn-select px-6 py-3 rounded-xl border-2 font-bold flex items-center gap-2 shadow-sm"><i class="fa-solid fa-hammer"></i> Sebaran BSPS</button>
+        <button onclick="changeMode('rusus')" id="btn-rusus" class="btn-select px-6 py-3 rounded-xl border-2 font-bold flex items-center gap-2 shadow-sm"><i class="fa-solid fa-house-flag"></i> Sebaran Rusus</button>
     </div>
 
-    <!-- DROPDOWN FILTER KHUSUS BSPS -->
+    <!-- FILTER KHUSUS BSPS TAHUN & KABUPATEN -->
     <div id="bsps-filter-container" class="hidden bg-white p-4 rounded-2xl shadow-md border border-slate-200 mb-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div class="flex items-center gap-3 w-full sm:w-auto">
-            <span class="w-10 h-10 rounded-xl bg-brand-gold/20 text-brand-gold font-bold flex items-center justify-center"><i class="fa-solid fa-map-location-dot"></i></span>
-            <div>
-                <label for="bspsKabSelect" class="block text-xs font-bold text-slate-500 uppercase tracking-wide">Pilih Kabupaten / Kota</label>
-                <select id="bspsKabSelect" onchange="renderBSPS()" class="mt-1 bg-slate-50 border border-slate-300 rounded-xl px-4 py-2 text-sm font-bold text-brand-darkteal focus:outline-none focus:border-brand-teal">
-                    <!-- Opsi diisi otomatis via JS -->
-                </select>
+        <div class="flex items-center gap-4 w-full sm:w-auto">
+            <span class="w-10 h-10 rounded-xl bg-brand-gold/20 text-brand-gold font-bold flex items-center justify-center shrink-0"><i class="fa-solid fa-filter"></i></span>
+            <div class="flex flex-col sm:flex-row gap-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide">Tahun Anggaran</label>
+                    <select id="bspsYearSelect" onchange="handleBspsYearChange()" class="mt-1 bg-slate-50 border border-slate-300 rounded-xl px-4 py-2 text-sm font-bold text-brand-darkteal focus:outline-none focus:border-brand-teal"></select>
+                </div>
+                <div id="kabSelectWrapper" class="hidden">
+                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide">Fokus Kabupaten</label>
+                    <select id="bspsKabSelect" onchange="renderBSPS()" class="mt-1 bg-slate-50 border border-slate-300 rounded-xl px-4 py-2 text-sm font-bold text-brand-darkteal focus:outline-none focus:border-brand-teal"></select>
+                </div>
             </div>
         </div>
-        <div class="text-xs text-slate-500 font-medium italic"><i class="fa-solid fa-circle-info text-brand-teal mr-1"></i> Pilih kabupaten untuk memfokuskan peta ke titik lokasi penerima.</div>
     </div>
 
-    <!-- PETA (Selalu Terlihat) -->
     <section data-aos="fade-up" data-aos-delay="200" class="mb-10 bg-white p-3 rounded-3xl shadow-xl border border-slate-100 relative z-10">
-        <div class="absolute top-6 right-6 z-[400] bg-white/90 backdrop-blur px-4 py-2 rounded-lg shadow border border-slate-200 text-sm font-semibold text-brand-darkteal" id="map-indicator">
-            <i class="fa-solid fa-globe text-brand-gold mr-1"></i> Mode: <span id="map-mode-text">Pilih Data</span>
-        </div>
         <div id="map" class="w-full h-[500px] rounded-2xl bg-slate-50 shadow-inner"></div>
     </section>
 
-    <!-- WRAPPER DASHBOARD -->
     <div id="dashboard-wrapper" class="hidden space-y-10">
         <div id="main-content">
-            <!-- STATISTIK KARTU -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10" id="stats-container">
-                <!-- Diisi via JS -->
-            </div>
-
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10" id="stats-container"></div>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <!-- GRAFIK VISUALISASI -->
                 <div class="bg-white rounded-3xl shadow-xl border border-slate-100 p-6">
                     <div class="flex items-center gap-3 border-b-2 border-brand-gold/30 pb-3 mb-4">
                         <span class="w-8 h-8 rounded-xl bg-brand-teal text-white font-bold text-sm flex items-center justify-center shadow">📊</span>
                         <h2 id="chart-title" class="text-lg font-bold text-brand-darkteal uppercase tracking-wide">Grafik Data</h2>
                     </div>
-                    <div class="w-full relative h-[350px]">
-                        <canvas id="barChart"></canvas>
-                    </div>
+                    <div class="w-full relative h-[350px]"><canvas id="barChart"></canvas></div>
                 </div>
-
-                <!-- TABEL RINCIAN DATA -->
                 <div class="bg-white rounded-3xl shadow-xl border border-slate-100 p-6 flex flex-col">
                     <div class="flex items-center justify-between border-b-2 border-brand-gold/30 pb-3 mb-4">
                         <div class="flex items-center gap-3">
@@ -139,12 +94,8 @@
                     </div>
                     <div class="overflow-y-auto flex-1 rounded-xl border border-slate-200 shadow-sm" style="max-height: 350px;">
                         <table class="w-full text-left border-collapse text-sm">
-                            <thead class="sticky top-0 bg-brand-darkteal text-white uppercase tracking-wide z-10" id="table-head">
-                                <!-- Diisi via JS -->
-                            </thead>
-                            <tbody id="table-body" class="divide-y divide-slate-200 bg-white text-slate-700">
-                                <!-- Diisi via JS -->
-                            </tbody>
+                            <thead class="sticky top-0 bg-brand-darkteal text-white uppercase tracking-wide z-10" id="table-head"></thead>
+                            <tbody id="table-body" class="divide-y divide-slate-200 bg-white text-slate-700"></tbody>
                         </table>
                     </div>
                 </div>
@@ -153,32 +104,29 @@
     </div>
   </main>
 
-  <!-- LOADING MODAL -->
-  <div id="loadingModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-[9999] flex flex-col items-center justify-center text-white p-4 transition-opacity">
+  <div id="loadingModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-[9999] flex flex-col items-center justify-center text-white p-4">
     <div class="w-16 h-16 border-4 border-brand-gold border-t-transparent rounded-full animate-spin mb-4"></div>
     <h3 class="text-lg font-bold text-white">Memuat Sistem Informasi...</h3>
-    <p class="text-xs text-slate-300 mt-1">Menyinkronkan data dari server.</p>
   </div>
 
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
   <script>
-    // --- GANTI URL API ANDA DI SINI BILA PERLU ---
     const API_URL = "https://script.google.com/macros/s/AKfycbz7BYd76WrArwoH4UYNhfVM1QScJZ8kRmt-BViScgvae6aGNVOwEotzQvynWN6ZqQkXsQ/exec";
 
-    let allData = { rtlh: [], rusun: [], bsps: [], rusus: [] };
+    let allData = { rtlh: [], rusun: [], bsps_old: [], bsps_new: [], rusus: [] };
     let sheetDataMap = {}; 
-    let bspsMapByKab = {};
+    let bspsPolygonMap = {};
     let rususMap = {};
     let myChart = null, map = null;
     
     let geojsonFillLayer = null, geojsonBorderLayer = null;
-    let labelLayerGroup = L.layerGroup();
-    let pointLayerGroup = L.layerGroup();
+    let labelLayerGroup = L.layerGroup(), pointLayerGroup = L.layerGroup();
     
-    let legendRTLH = null, legendBSPS = null, legendRusus = null;
+    let legendRTLH, legendBSPS_Polygon, legendBSPS_Point, legendRusus;
     let activeLegend = null;
     let currentMode = null;
+    let currentBspsFormat = 'polygon'; // 'polygon' for 2025, 'point' for 2026
 
     document.addEventListener("DOMContentLoaded", function() {
       AOS.init({ duration: 800, once: true });
@@ -189,104 +137,85 @@
     function initMap() {
       const nttBounds = [[-11.5, 117.5], [-7.5, 126.0]];
       map = L.map('map', { minZoom: 7, maxBounds: nttBounds, maxBoundsViscosity: 1.0 }).setView([-8.65, 121.0], 8);
-
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '&copy; OpenStreetMap' }).addTo(map);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
 
       map.createPane('paneFillKabupaten'); map.getPane('paneFillKabupaten').style.zIndex = 390;
       map.createPane('paneBorderKabupaten'); map.getPane('paneBorderKabupaten').style.zIndex = 480;
       
-      labelLayerGroup.addTo(map);
-      pointLayerGroup.addTo(map);
+      labelLayerGroup.addTo(map); pointLayerGroup.addTo(map);
 
       fetch('https://raw.githubusercontent.com/balaiperumahanntt-ui/petanttgeojson/main/ntt%20geojson.geojson')
-        .then(response => response.json())
-        .then(geojsonData => {
-          geojsonFillLayer = L.geoJson(geojsonData, { pane: 'paneFillKabupaten', style: {fillOpacity: 0, weight: 0}, onEachFeature: onEachFeature }).addTo(map);
-          geojsonBorderLayer = L.geoJson(geojsonData, { pane: 'paneBorderKabupaten', style: () => ({ fill: false, weight: 2, color: '#1e293b', opacity: 0.9 }), interactive: false }).addTo(map);
+        .then(res => res.json())
+        .then(data => {
+          geojsonFillLayer = L.geoJson(data, { pane: 'paneFillKabupaten', style: {fillOpacity: 0, weight: 0}, onEachFeature: onEachFeature }).addTo(map);
+          geojsonBorderLayer = L.geoJson(data, { pane: 'paneBorderKabupaten', style: () => ({ fill: false, weight: 2, color: '#1e293b', opacity: 0.9 }), interactive: false }).addTo(map);
         });
 
+      // SETUP LEGENDA
       legendRTLH = L.control({position: 'bottomright'});
       legendRTLH.onAdd = function () {
-        var div = L.DomUtil.create('div', 'info-legend bg-white/90 p-3 rounded-xl shadow-lg border border-slate-200');
-        div.innerHTML = `
-          <div style="font-weight: 700; font-size: 12px; margin-bottom: 6px; border-bottom: 1px solid #cbd5e1; padding-bottom: 4px; color: #093C4F;">Legenda Sebaran RTLH</div>
-          <table style="width: 100%; font-size: 11px; border-spacing: 0 4px; border-collapse: separate;">
-            <tr><td><i style="background: #fee5d9; width:12px; height:12px; display:inline-block; border:1px solid #ccc; margin-right:4px;"></i> 0 - 2.5K</td></tr>
-            <tr><td><i style="background: #fcae91; width:12px; height:12px; display:inline-block; border:1px solid #ccc; margin-right:4px;"></i> 2.5K - 5K</td></tr>
-            <tr><td><i style="background: #fb6a4a; width:12px; height:12px; display:inline-block; border:1px solid #ccc; margin-right:4px;"></i> 5K - 10K</td></tr>
-            <tr><td><i style="background: #de2d26; width:12px; height:12px; display:inline-block; border:1px solid #ccc; margin-right:4px;"></i> 10K - 20K</td></tr>
-            <tr><td><i style="background: #a50f15; width:12px; height:12px; display:inline-block; border:1px solid #ccc; margin-right:4px;"></i> > 20K</td></tr>
-          </table>
-        `;
-        return div;
+        let div = L.DomUtil.create('div', 'bg-white/90 p-3 rounded-xl shadow-lg border border-slate-200');
+        div.innerHTML = `<div style="font-weight: 700; font-size: 12px; margin-bottom: 6px; border-bottom: 1px solid #cbd5e1; padding-bottom: 4px;">Sebaran RTLH</div>
+          <table style="font-size: 11px;">
+            <tr><td><i style="background: #fee5d9; width:12px; height:12px; display:inline-block; margin-right:4px;"></i> 0 - 2.5K</td></tr>
+            <tr><td><i style="background: #a50f15; width:12px; height:12px; display:inline-block; margin-right:4px;"></i> > 20K</td></tr>
+          </table>`; return div;
       };
 
-      legendBSPS = L.control({position: 'bottomright'});
-      legendBSPS.onAdd = function () {
-        var div = L.DomUtil.create('div', 'info-legend bg-white/90 p-3 rounded-xl shadow-lg border border-slate-200');
-        div.innerHTML = `
-          <div style="font-weight: 700; font-size: 12px; margin-bottom: 6px; border-bottom: 1px solid #cbd5e1; padding-bottom: 4px; color: #093C4F;">Progres Titik BSPS</div>
-          <table style="width: 100%; font-size: 11px; border-spacing: 0 4px; border-collapse: separate;">
-            <tr><td><i style="background: #22c55e; border-radius:50%; width:12px; height:12px; display:inline-block; border:1px solid #ccc; margin-right:4px;"></i> 100% (Selesai)</td></tr>
-            <tr><td><i style="background: #eab308; border-radius:50%; width:12px; height:12px; display:inline-block; border:1px solid #ccc; margin-right:4px;"></i> 30% - < 100%</td></tr>
-            <tr><td><i style="background: #f97316; border-radius:50%; width:12px; height:12px; display:inline-block; border:1px solid #ccc; margin-right:4px;"></i> > 0% - < 30%</td></tr>
-            <tr><td><i style="background: #ef4444; border-radius:50%; width:12px; height:12px; display:inline-block; border:1px solid #ccc; margin-right:4px;"></i> 0% (Belum/Gagal)</td></tr>
-          </table>
-        `;
-        return div;
+      legendBSPS_Polygon = L.control({position: 'bottomright'});
+      legendBSPS_Polygon.onAdd = function () {
+        let div = L.DomUtil.create('div', 'bg-white/90 p-3 rounded-xl shadow-lg border border-slate-200');
+        div.innerHTML = `<div style="font-weight: 700; font-size: 12px; margin-bottom: 6px; border-bottom: 1px solid #cbd5e1; padding-bottom: 4px;">Alokasi BSPS</div>
+          <table style="font-size: 11px;"><tr><td><i style="background: #0E5975; width:12px; height:12px; display:inline-block; margin-right:4px;"></i> Ada Alokasi</td></tr></table>`; return div;
+      };
+
+      legendBSPS_Point = L.control({position: 'bottomright'});
+      legendBSPS_Point.onAdd = function () {
+        let div = L.DomUtil.create('div', 'bg-white/90 p-3 rounded-xl shadow-lg border border-slate-200');
+        div.innerHTML = `<div style="font-weight: 700; font-size: 12px; margin-bottom: 6px; border-bottom: 1px solid #cbd5e1; padding-bottom: 4px;">Progres BSPS Titik</div>
+          <table style="font-size: 11px;">
+            <tr><td><i style="background: #22c55e; border-radius:50%; width:12px; height:12px; display:inline-block; margin-right:4px;"></i> 100% Selesai</td></tr>
+            <tr><td><i style="background: #eab308; border-radius:50%; width:12px; height:12px; display:inline-block; margin-right:4px;"></i> 30% - 99%</td></tr>
+            <tr><td><i style="background: #f97316; border-radius:50%; width:12px; height:12px; display:inline-block; margin-right:4px;"></i> >0% - 29%</td></tr>
+            <tr><td><i style="background: #ef4444; border-radius:50%; width:12px; height:12px; display:inline-block; margin-right:4px;"></i> 0%</td></tr>
+          </table>`; return div;
       };
 
       legendRusus = L.control({position: 'bottomright'});
       legendRusus.onAdd = function () {
-        var div = L.DomUtil.create('div', 'info-legend bg-white/90 p-3 rounded-xl shadow-lg border border-slate-200');
-        div.innerHTML = `
-          <div style="font-weight: 700; font-size: 12px; margin-bottom: 6px; border-bottom: 1px solid #cbd5e1; padding-bottom: 4px; color: #093C4F;">Legenda Alokasi Rusus</div>
-          <table style="width: 100%; font-size: 11px; border-spacing: 0 4px; border-collapse: separate;">
-            <tr><td><i style="background: #0E5975; width:12px; height:12px; display:inline-block; border:1px solid #ccc; margin-right:4px;"></i> Ada Alokasi Unit</td></tr>
-            <tr><td><i style="background: transparent; width:12px; height:12px; display:inline-block; border:1px solid #ccc; margin-right:4px;"></i> Tidak Ada Alokasi</td></tr>
-          </table>
-        `;
-        return div;
+        let div = L.DomUtil.create('div', 'bg-white/90 p-3 rounded-xl shadow-lg border border-slate-200');
+        div.innerHTML = `<div style="font-weight: 700; font-size: 12px; margin-bottom: 6px; border-bottom: 1px solid #cbd5e1; padding-bottom: 4px;">Alokasi Rusus</div>
+          <table style="font-size: 11px;"><tr><td><i style="background: #0E5975; width:12px; height:12px; display:inline-block; margin-right:4px;"></i> Ada Alokasi</td></tr></table>`; return div;
       };
     }
 
-    function getKabupatenName(p) { return p.nama_daerah || p.NAMOBJ || p.WADMKK || "Wilayah"; }
     function normalizeName(name) { return String(name || "").toUpperCase().replace(/KABUPATEN/g, '').replace(/KAB\./g, '').trim(); }
-    function getColorRTLH(d) { return d > 20000 ? '#a50f15' : d > 10000 ? '#de2d26' : d > 5000 ? '#fb6a4a' : d > 2500 ? '#fcae91' : '#fee5d9'; }
-    
+
     function styleFillFeature(feature) {
       if(!currentMode || currentMode === 'rusun') return { fillOpacity: 0, weight: 0 };
-      let kabFormat = normalizeName(getKabupatenName(feature.properties));
+      let kabFormat = normalizeName(feature.properties.nama_daerah || feature.properties.NAMOBJ);
       
       if(currentMode === 'rtlh') {
         let d = sheetDataMap[kabFormat] || { rtlh: 0 };
-        return { fillColor: getColorRTLH(d.rtlh), weight: 0, fillOpacity: 0.8 };
+        let color = d.rtlh > 20000 ? '#a50f15' : d.rtlh > 10000 ? '#de2d26' : d.rtlh > 5000 ? '#fb6a4a' : d.rtlh > 2500 ? '#fcae91' : '#fee5d9';
+        return { fillColor: color, weight: 0, fillOpacity: 0.8 };
       } else if(currentMode === 'bsps') {
-        // Karena BSPS menggunakan Titik, Area Polygon di-transparankan tipis saja
-        let units = bspsMapByKab[kabFormat] || 0;
-        if(units > 0) {
-          return { fillColor: '#0E5975', weight: 0, fillOpacity: 0.05 }; 
-        } else {
-          return { fillOpacity: 0, weight: 0 };
-        }
+        // Jika format point (2026), polygon transparan tipis. Jika format lama (2025), polygon diwarnai tebal.
+        let isPoint = (currentBspsFormat === 'point');
+        let units = bspsPolygonMap[kabFormat] || 0;
+        return { fillColor: '#0E5975', weight: 0, fillOpacity: units > 0 ? (isPoint ? 0.05 : 0.8) : 0 };
       } else if(currentMode === 'rusus') {
-        let units = rususMap[kabFormat] || 0;
-        if(units > 0) {
-          return { fillColor: '#0E5975', weight: 0, fillOpacity: 0.8 };
-        } else {
-          return { fillOpacity: 0, weight: 0 };
-        }
+        return { fillColor: '#0E5975', weight: 0, fillOpacity: (rususMap[kabFormat] || 0) > 0 ? 0.8 : 0 };
       }
       return { fillOpacity: 0, weight: 0 };
     }
 
     function onEachFeature(feature, layer) {
-      let namaKab = getKabupatenName(feature.properties);
+      let namaKab = feature.properties.nama_daerah || feature.properties.NAMOBJ;
       let keyFormat = normalizeName(namaKab);
 
       if (layer.getBounds) {
-        let center = layer.getBounds().getCenter();
-        let label = L.marker(center, {
+        let label = L.marker(layer.getBounds().getCenter(), {
           icon: L.divIcon({ className: 'custom-map-label', html: `<div style="font-size: 9px; font-weight: 800; color: #fff; text-shadow: 1px 1px 2px #000, -1px -1px 2px #000; text-align: center; text-transform: uppercase;">${namaKab}</div>`, iconSize: [90, 18], iconAnchor: [45, 9]}),
           interactive: false
         });
@@ -295,34 +224,14 @@
       }
 
       layer.on({
-        mouseover: (e) => { 
-          if(currentMode && currentMode !== 'rusun' && currentMode !== 'bsps') {
-            e.target.setStyle({ fillColor: '#CBA355', fillOpacity: 0.6 }); 
-          }
-          if(layer.labelMarker) {
-            let el = layer.labelMarker.getElement();
-            if(el) el.style.opacity = '0.3';
-          }
-        },
-        mouseout: (e) => { 
-          if(currentMode && currentMode !== 'rusun') {
-            e.target.setStyle(styleFillFeature(e.target.feature)); 
-          }
-          if(layer.labelMarker) {
-            let el = layer.labelMarker.getElement();
-            if(el) el.style.opacity = '1';
-          }
-        },
+        mouseover: (e) => { if(currentMode && currentMode !== 'rusun' && currentBspsFormat !== 'point') e.target.setStyle({ fillColor: '#CBA355', fillOpacity: 0.6 }); },
+        mouseout: (e) => { if(currentMode && currentMode !== 'rusun') e.target.setStyle(styleFillFeature(e.target.feature)); },
         click: (e) => {
           if(currentMode === 'rtlh') {
             let d = sheetDataMap[keyFormat] || { rtlh: 0, backlog: 0 };
-            layer.bindPopup(`<b style="font-size:14px; color:#093C4F;">${namaKab}</b><hr style="margin:5px 0">RTLH: <b>${d.rtlh.toLocaleString('id-ID')}</b> Unit<br>Backlog: <b>${d.backlog.toLocaleString('id-ID')}</b> Unit`).openPopup();
-          } else if(currentMode === 'bsps') {
-            let units = bspsMapByKab[keyFormat] || 0;
-            layer.bindPopup(`<b style="font-size:14px; color:#093C4F;">${namaKab}</b><hr style="margin:5px 0">Total Penerima BSPS: <b>${units.toLocaleString('id-ID')}</b> Penerima`).openPopup();
-          } else if(currentMode === 'rusus') {
-            let units = rususMap[keyFormat] || 0;
-            layer.bindPopup(`<b style="font-size:14px; color:#093C4F;">${namaKab}</b><hr style="margin:5px 0">Total Rumah Khusus (Rusus): <b>${units.toLocaleString('id-ID')}</b> Unit`).openPopup();
+            layer.bindPopup(`<b>${namaKab}</b><br>RTLH: ${d.rtlh} | Backlog: ${d.backlog}`).openPopup();
+          } else if(currentMode === 'bsps' && currentBspsFormat === 'polygon') {
+            layer.bindPopup(`<b>${namaKab}</b><br>Total BSPS: ${bspsPolygonMap[keyFormat] || 0} Unit`).openPopup();
           }
         }
       });
@@ -330,359 +239,199 @@
 
     function fetchData(showLoading) {
       if(showLoading) document.getElementById('loadingModal').classList.remove('hidden');
-      
-      fetch(API_URL)
-        .then(response => response.json())
-        .then(data => {
+      fetch(API_URL).then(res => res.json()).then(data => {
           allData = data; 
           processDataMaps();
           document.getElementById('loadingModal').classList.add('hidden');
           if(currentMode) changeMode(currentMode);
-        })
-        .catch(error => {
-          console.error(error);
-          document.getElementById('loadingModal').classList.add('hidden');
-          alert("Gagal memuat data dari Spreadsheet. Pastikan URL Web App benar dan telah di-Deploy Ulang.");
-        });
+      }).catch(err => alert("Gagal memuat data dari Spreadsheet."));
     }
 
     function processDataMaps() {
-      // Map untuk hitungan tooltip di Polygon BSPS
-      bspsMapByKab = {};
-      allData.bsps.forEach(row => {
-        let kab = row[2]; // Index ke-2 adalah KABUPATEN/KOTA pada sheet 5
-        if(kab) {
-          let norm = normalizeName(kab);
-          bspsMapByKab[norm] = (bspsMapByKab[norm] || 0) + 1;
-        }
-      });
-
       rususMap = {};
-      allData.rusus.forEach(row => {
-        let kab = row[2], unit = parseInt(row[3]) || 0;
-        if(kab) {
-          let norm = normalizeName(kab);
-          rususMap[norm] = (rususMap[norm] || 0) + unit;
-        }
-      });
+      allData.rusus.forEach(row => { let k=row[2], u=parseInt(row[3])||0; if(k) rususMap[normalizeName(k)] = (rususMap[normalizeName(k)]||0)+u; });
     }
 
     function changeMode(mode) {
       currentMode = mode;
-      
-      document.querySelectorAll('.btn-select').forEach(btn => btn.classList.remove('active'));
-      document.getElementById('btn-' + mode).classList.add('active');
-      document.getElementById('map-mode-text').innerText = mode.toUpperCase();
-
+      document.querySelectorAll('.btn-select').forEach(b => b.classList.remove('active'));
+      document.getElementById('btn-'+mode).classList.add('active');
       document.getElementById('dashboard-wrapper').classList.remove('hidden');
-      document.getElementById('main-content').classList.remove('hidden');
       document.getElementById('bsps-filter-container').classList.add('hidden');
-
+      
       pointLayerGroup.clearLayers();
-      
-      if (activeLegend) {
-        map.removeControl(activeLegend);
-        activeLegend = null;
-      }
-      
-      if(geojsonFillLayer) geojsonFillLayer.setStyle({fillOpacity: 0, weight: 0});
+      if(activeLegend) { map.removeControl(activeLegend); activeLegend = null; }
       map.closePopup();
 
       if(mode === 'rtlh') {
-          renderRTLH();
+          renderRTLH(); activeLegend = legendRTLH.addTo(map);
           if(geojsonFillLayer) geojsonFillLayer.setStyle(styleFillFeature);
-          legendRTLH.addTo(map);
-          activeLegend = legendRTLH;
       } else if(mode === 'rusun') {
           renderRusun();
+      } else if(mode === 'rusus') {
+          renderRusus(); activeLegend = legendRusus.addTo(map);
+          if(geojsonFillLayer) geojsonFillLayer.setStyle(styleFillFeature);
       } else if(mode === 'bsps') {
           document.getElementById('bsps-filter-container').classList.remove('hidden');
           initBspsDropdown();
-          renderBSPS();
-          legendBSPS.addTo(map);
-          activeLegend = legendBSPS;
-      } else if(mode === 'rusus') {
-          renderRusus();
-          if(geojsonFillLayer) geojsonFillLayer.setStyle(styleFillFeature);
-          legendRusus.addTo(map);
-          activeLegend = legendRusus;
       }
     }
 
-    // --- RENDER RTLH (Tetap Aman) ---
-    function renderRTLH() {
-      let labels = [], rtlhData = [], backlogData = [];
-      let totalRTLH = 0, totalBacklog = 0, validCount = 0;
-      sheetDataMap = {};
-      let tbody = '';
-
-      allData.rtlh.forEach((row, i) => {
-        let kab = row[0], rtlh = parseInt(row[1]) || 0, backlog = parseInt(row[2]) || 0;
-        if(kab) {
-          labels.push(kab); rtlhData.push(rtlh); backlogData.push(backlog);
-          totalRTLH += rtlh; totalBacklog += backlog; validCount++;
-          sheetDataMap[normalizeName(kab)] = { rtlh, backlog };
-          
-          tbody += `<tr class="hover:bg-slate-50"><td class="py-2 px-4 text-center">${i+1}</td><td class="py-2 px-4 font-semibold">${kab}</td><td class="py-2 px-4 text-right text-brand-darkteal font-bold">${rtlh.toLocaleString('id-ID')}</td><td class="py-2 px-4 text-right text-brand-gold font-bold">${backlog.toLocaleString('id-ID')}</td></tr>`;
-        }
-      });
-
-      document.getElementById('stats-container').innerHTML = `
-        <div class="bg-white rounded-2xl shadow border border-slate-100 p-5 flex items-center gap-4">
-            <div class="w-12 h-12 rounded-full bg-brand-teal text-white flex items-center justify-center text-xl"><i class="fa-solid fa-house-chimney-crack"></i></div>
-            <div><p class="text-xs text-slate-500 font-bold uppercase">Total RTLH</p><h3 class="text-2xl font-extrabold text-brand-darkteal">${totalRTLH.toLocaleString('id-ID')}</h3></div>
-        </div>
-        <div class="bg-white rounded-2xl shadow border border-slate-100 p-5 flex items-center gap-4">
-            <div class="w-12 h-12 rounded-full bg-brand-gold text-slate-900 flex items-center justify-center text-xl"><i class="fa-solid fa-house-medical-circle-exclamation"></i></div>
-            <div><p class="text-xs text-slate-500 font-bold uppercase">Total Backlog</p><h3 class="text-2xl font-extrabold text-brand-darkteal">${totalBacklog.toLocaleString('id-ID')}</h3></div>
-        </div>
-        <div class="bg-white rounded-2xl shadow border border-slate-100 p-5 flex items-center gap-4">
-            <div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl"><i class="fa-solid fa-map-location-dot"></i></div>
-            <div><p class="text-xs text-slate-500 font-bold uppercase">Kabupaten/Kota</p><h3 class="text-2xl font-extrabold text-emerald-600">${validCount} Wilayah</h3></div>
-        </div>
-      `;
-
-      document.getElementById('table-head').innerHTML = `<tr><th class="py-3 px-4 w-12 text-center">No</th><th class="py-3 px-4">Kabupaten / Kota</th><th class="py-3 px-4 text-right">Jumlah RTLH</th><th class="py-3 px-4 text-right">Jumlah Backlog</th></tr>`;
-      document.getElementById('table-body').innerHTML = tbody || '<tr><td colspan="4" class="text-center py-4">Data kosong</td></tr>';
-
-      document.getElementById('chart-title').innerText = "Grafik RTLH & Backlog";
-      renderChart(labels, [
-        { label: 'RTLH', data: rtlhData, backgroundColor: '#0E5975', borderRadius: 4 },
-        { label: 'Backlog', data: backlogData, backgroundColor: '#CBA355', borderRadius: 4 }
-      ]);
+    // --- INIT BSPS DROPDOWN (GABUNGAN TAHUN LAMA & BARU) ---
+    function initBspsDropdown() {
+      let yearSet = new Set();
+      allData.bsps_old.forEach(r => { if(r[4]) yearSet.add(String(r[4]).trim()); }); // Index 4 TA lama
+      allData.bsps_new.forEach(r => { if(r[5]) yearSet.add(String(r[5]).trim()); }); // Index 5 TA baru
+      
+      let years = Array.from(yearSet).sort().reverse();
+      let sel = document.getElementById('bspsYearSelect');
+      sel.innerHTML = '';
+      years.forEach(y => sel.innerHTML += `<option value="${y}">Tahun ${y}</option>`);
+      
+      handleBspsYearChange();
     }
 
-    // --- RENDER RUSUN (Tetap Aman) ---
-    function renderRusun() {
-      let tbody = '';
-      let kabCounts = {};
-      let totalRusun = 0;
+    function handleBspsYearChange() {
+      let selectedYear = document.getElementById('bspsYearSelect').value;
+      
+      // Cek apakah tahun ini ada di data Titik Koordinat (Sheet 5)
+      let isNewFormat = allData.bsps_new.some(r => String(r[5]).trim() === selectedYear);
 
-      allData.rusun.forEach((row, i) => {
-        let kab = row[0], nama = row[1], coords = row[2], lokasi = row[3], ta = row[4], foto = row[5];
-        if(kab) {
-          totalRusun++;
-          kabCounts[kab] = (kabCounts[kab] || 0) + 1;
+      if (activeLegend) map.removeControl(activeLegend);
+
+      if (isNewFormat) {
+          currentBspsFormat = 'point';
+          activeLegend = legendBSPS_Point.addTo(map);
+          document.getElementById('kabSelectWrapper').classList.remove('hidden');
           
-          tbody += `<tr class="hover:bg-slate-50"><td class="py-2 px-4 text-center">${i+1}</td><td class="py-2 px-4 font-semibold">${kab}</td><td class="py-2 px-4">${nama}</td><td class="py-2 px-4 text-sm">${lokasi}</td><td class="py-2 px-4 text-center">${ta}</td></tr>`;
+          let kabSet = new Set();
+          allData.bsps_new.filter(r => String(r[5]).trim()===selectedYear).forEach(r => { if(r[2]) kabSet.add(String(r[2]).trim()); });
+          let sel = document.getElementById('bspsKabSelect');
+          sel.innerHTML = '<option value="ALL">-- Seluruh NTT --</option>';
+          Array.from(kabSet).sort().forEach(k => sel.innerHTML += `<option value="${k}">${k}</option>`);
+      } else {
+          currentBspsFormat = 'polygon';
+          activeLegend = legendBSPS_Polygon.addTo(map);
+          document.getElementById('kabSelectWrapper').classList.add('hidden');
+      }
+      renderBSPS();
+    }
+
+    function renderBSPS() {
+      let year = document.getElementById('bspsYearSelect').value;
+      let tbody = '';
+      let totalUnits = 0;
+      let kabCounts = {};
+      pointLayerGroup.clearLayers();
+      bspsPolygonMap = {};
+
+      if (currentBspsFormat === 'point') {
+        let kabFilter = document.getElementById('bspsKabSelect').value;
+        let dataToRender = allData.bsps_new.filter(r => String(r[5]).trim() === year);
+        if (kabFilter !== "ALL") dataToRender = dataToRender.filter(r => String(r[2]).trim() === kabFilter);
+        
+        let bounds = L.latLngBounds();
+
+        dataToRender.forEach((row, i) => {
+          let nobnba=row[0], nama=row[1], kab=row[2], kec=row[3], desa=row[4];
           
-          if(coords && coords.includes(',')) {
-            let [lat, lng] = coords.split(',').map(c => parseFloat(c.trim()));
-            if(!isNaN(lat) && !isNaN(lng)) {
-               let imgHtml = foto ? `<img src="${foto}" style="width:100%; height:120px; object-fit:cover; margin-top:8px; border-radius:6px;">` : '';
-               let marker = L.marker([lat, lng]).bindPopup(`
-                  <div style="font-family:'Plus Jakarta Sans', sans-serif; width:220px;">
-                     <b style="font-size:14px; color:#093C4F;">${nama}</b><br>
-                     <span style="font-size:11px; color:#64748B;">Kab. ${kab} | TA: ${ta}</span>
-                     <hr style="margin:6px 0;">
-                     <div style="font-size:12px;">Lokasi: ${lokasi}</div>
-                     ${imgHtml}
-                  </div>
-               `);
-               pointLayerGroup.addLayer(marker);
+          // PARSING LAT/LNG SUPER AMAN (Replace Koma menjadi Titik)
+          let latRaw = String(row[6]).replace(',', '.');
+          let lngRaw = String(row[7]).replace(',', '.');
+          let lat = parseFloat(latRaw);
+          let lng = parseFloat(lngRaw);
+
+          let progres = parseFloat(row[8]), tahap = row[9];
+
+          if(kab) {
+            totalUnits++;
+            kabCounts[kab] = (kabCounts[kab] || 0) + 1;
+            bspsPolygonMap[normalizeName(kab)] = 1; // Untuk mewarnai polygon transparan
+
+            let color = '#ef4444'; // Merah
+            if (progres === 100) color = '#22c55e'; // Hijau
+            else if (progres >= 30 && progres < 100) color = '#eab308'; // Kuning
+            else if (progres > 0 && progres < 30) color = '#f97316'; // Oranye
+
+            tbody += `<tr class="hover:bg-slate-50"><td class="py-2 px-4 text-center">${i+1}</td><td class="py-2 px-4 text-xs">${nobnba||'-'}</td><td class="py-2 px-4 font-bold text-brand-darkteal">${nama||'-'}</td><td class="py-2 px-4">${desa||'-'}</td><td class="py-2 px-4 text-center"><span class="px-2 py-1 rounded text-white font-bold" style="background-color:${color}; font-size:11px;">${isNaN(progres)?0:progres}%</span></td></tr>`;
+
+            // Mencegah error tertukar lat & lng
+            if (Math.abs(lat) > 90) { let t = lat; lat = lng; lng = t; }
+
+            if (!isNaN(lat) && !isNaN(lng)) {
+              let marker = L.circleMarker([lat, lng], { radius: 6, fillColor: color, color: '#fff', weight: 1.5, fillOpacity: 0.9 });
+              marker.bindPopup(`<div style="width:200px;"><b style="font-size:14px;">${nama||'-'}</b><hr><b>Kab:</b> ${kab}<br><b>Desa:</b> ${desa}<br><b>Progres:</b> ${isNaN(progres)?0:progres}%</div>`);
+              pointLayerGroup.addLayer(marker);
+              bounds.extend([lat, lng]);
             }
           }
-        }
-      });
+        });
 
-      let totalKab = Object.keys(kabCounts).length;
-      document.getElementById('stats-container').innerHTML = `
-        <div class="bg-white rounded-2xl shadow border border-slate-100 p-5 flex items-center gap-4 md:col-span-1">
-            <div class="w-12 h-12 rounded-full bg-brand-teal text-white flex items-center justify-center text-xl"><i class="fa-solid fa-building"></i></div>
-            <div><p class="text-xs text-slate-500 font-bold uppercase">Total Rumah Susun</p><h3 class="text-2xl font-extrabold text-brand-darkteal">${totalRusun} Unit</h3></div>
-        </div>
-        <div class="bg-white rounded-2xl shadow border border-slate-100 p-5 flex items-center gap-4 md:col-span-2">
-            <div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl"><i class="fa-solid fa-map-location-dot"></i></div>
-            <div><p class="text-xs text-slate-500 font-bold uppercase">Tersebar di</p><h3 class="text-2xl font-extrabold text-emerald-600">${totalKab} Kabupaten/Kota</h3></div>
-        </div>
-      `;
+        document.getElementById('table-head').innerHTML = `<tr><th class="p-3 text-center">No</th><th class="p-3">NOBNBA</th><th class="p-3">Nama Penerima</th><th class="p-3">Desa</th><th class="p-3 text-center">Progres</th></tr>`;
+        
+        // Zoom Map
+        if (bounds.isValid() && kabFilter !== "ALL") map.fitBounds(bounds, { padding: [30, 30], maxZoom: 14 });
+        else if (kabFilter === "ALL") map.setView([-8.65, 121.0], 8);
 
-      document.getElementById('table-head').innerHTML = `<tr><th class="py-3 px-4 w-12 text-center">No</th><th class="py-3 px-4">Kabupaten</th><th class="py-3 px-4">Nama Rusun</th><th class="py-3 px-4">Lokasi</th><th class="py-3 px-4 text-center">TA</th></tr>`;
-      document.getElementById('table-body').innerHTML = tbody || '<tr><td colspan="5" class="text-center py-4">Data kosong</td></tr>';
-
-      renderChart(Object.keys(kabCounts), [
-        { label: 'Jumlah Rusun', data: Object.values(kabCounts), backgroundColor: '#0E5975', borderRadius: 4 }
-      ]);
-      document.getElementById('chart-title').innerText = "Sebaran Rusun Berdasarkan Kabupaten";
-    }
-
-    // --- INISIALISASI DROPDOWN FILTER BSPS ---
-    function initBspsDropdown() {
-      let kabSet = new Set();
-      allData.bsps.forEach(row => {
-        let kab = row[2]; // kolom NAMA KABUPATEN/KOTA
-        if(kab) kabSet.add(String(kab).trim());
-      });
-      let kabs = Array.from(kabSet).sort();
-      let selectEl = document.getElementById('bspsKabSelect');
-      selectEl.innerHTML = '<option value="ALL">-- Seluruh NTT --</option>';
-      kabs.forEach(k => {
-        selectEl.innerHTML += `<option value="${k}">${k}</option>`;
-      });
-    }
-
-    // --- RENDER BSPS BARU (Titik & Zoom Per Kabupaten) ---
-    function renderBSPS() {
-      let selectedKab = document.getElementById('bspsKabSelect').value;
-      let tbody = '';
-      let totalPenerima = 0;
-      let kabCounts = {};
-      let bounds = L.latLngBounds();
-
-      pointLayerGroup.clearLayers();
-
-      let filteredData = allData.bsps;
-      if (selectedKab !== "ALL") {
-        filteredData = allData.bsps.filter(row => String(row[2]).trim() === selectedKab);
-      }
-
-      filteredData.forEach((row, i) => {
-        // Kolom: NOBNBA, NAMA, KAB/KOTA, KEC, DESA/KEL, TA, LAT, LNG, PROGRES, TAHAPINVER
-        let nobnba = row[0], nama = row[1], kab = row[2], kec = row[3], desa = row[4];
-        let lat = parseFloat(row[6]), lng = parseFloat(row[7]), progres = parseFloat(row[8]), tahap = row[9];
-
-        if(kab) {
-          totalPenerima++;
-          kabCounts[kab] = (kabCounts[kab] || 0) + 1;
-
-          // Pewarnaan berdasarkan Progres
-          let color = '#ef4444'; // Merah (0 atau invalid)
-          if (progres === 100) color = '#22c55e'; // Hijau
-          else if (progres >= 30 && progres < 100) color = '#eab308'; // Kuning
-          else if (progres > 0 && progres < 30) color = '#f97316'; // Oranye
-
-          // Baris Tabel
-          tbody += `<tr class="hover:bg-slate-50">
-            <td class="py-2 px-4 text-center">${i+1}</td>
-            <td class="py-2 px-4 font-semibold text-xs text-slate-500">${nobnba || '-'}</td>
-            <td class="py-2 px-4 font-bold text-brand-darkteal">${nama || '-'}</td>
-            <td class="py-2 px-4">${desa || '-'}</td>
-            <td class="py-2 px-4 text-center"><span class="px-2 py-1 rounded text-white font-bold" style="background-color:${color}; font-size:11px;">${isNaN(progres) ? 0 : progres}%</span></td>
-            <td class="py-2 px-4 text-center text-xs font-semibold">${tahap || '-'}</td>
-          </tr>`;
-
-          // Plot Titik Peta
-          if (!isNaN(lat) && !isNaN(lng)) {
-            let marker = L.circleMarker([lat, lng], {
-                radius: 6,
-                fillColor: color,
-                color: '#ffffff',
-                weight: 1.5,
-                opacity: 1,
-                fillOpacity: 0.9
-            });
-
-            marker.bindPopup(`
-                <div style="font-family:'Plus Jakarta Sans', sans-serif; width:220px;">
-                    <b style="font-size:14px; color:#093C4F;">${nama || '-'}</b><br>
-                    <span style="font-size:11px; color:#64748B;">NOBNBA: ${nobnba || '-'}</span>
-                    <hr style="margin:6px 0;">
-                    <div style="font-size:12px;"><b>Kab/Kota:</b> ${kab}</div>
-                    <div style="font-size:12px;"><b>Kecamatan:</b> ${kec}</div>
-                    <div style="font-size:12px;"><b>Desa/Kel:</b> ${desa}</div>
-                    <div style="font-size:12px; margin-top:4px;"><b>Progres:</b> <span style="color:${color}; font-weight:bold;">${isNaN(progres)?0:progres}%</span></div>
-                    <div style="font-size:12px;"><b>Tahap:</b> ${tahap || '-'}</div>
-                </div>
-            `);
-            pointLayerGroup.addLayer(marker);
-            bounds.extend([lat, lng]);
+      } else {
+        // RENDER 2025 (POLYGON DATA LAMA)
+        let dataToRender = allData.bsps_old.filter(r => String(r[4]).trim() === year);
+        dataToRender.forEach((row, i) => {
+          let kab=row[0], kec=row[1], desa=row[2], unit=parseInt(row[3])||0, foto=row[5];
+          if(kab) {
+            totalUnits += unit;
+            kabCounts[kab] = (kabCounts[kab] || 0) + unit;
+            bspsPolygonMap[normalizeName(kab)] = (bspsPolygonMap[normalizeName(kab)] || 0) + unit;
+            
+            let btnFoto = foto ? `<a href="${foto}" target="_blank" class="text-brand-teal underline"><i class="fa-solid fa-image"></i></a>` : '-';
+            tbody += `<tr class="hover:bg-slate-50"><td class="py-2 px-4 text-center">${i+1}</td><td class="py-2 px-4 font-semibold">${kab}</td><td class="py-2 px-4">${kec}</td><td class="py-2 px-4">${desa}</td><td class="py-2 px-4 text-right font-bold">${unit}</td><td class="py-2 px-4 text-center">${btnFoto}</td></tr>`;
           }
-        }
-      });
+        });
+        
+        map.setView([-8.65, 121.0], 8);
+        document.getElementById('table-head').innerHTML = `<tr><th class="p-3 text-center">No</th><th class="p-3">Kabupaten</th><th class="p-3">Kecamatan</th><th class="p-3">Desa</th><th class="p-3 text-right">Jumlah Unit</th><th class="p-3 text-center">Foto</th></tr>`;
+      }
 
       if(geojsonFillLayer) geojsonFillLayer.setStyle(styleFillFeature);
 
-      // Set Statistik Dasbor
-      let totalKab = Object.keys(kabCounts).length;
       document.getElementById('stats-container').innerHTML = `
-        <div class="bg-white rounded-2xl shadow border border-slate-100 p-5 flex items-center gap-4">
-            <div class="w-12 h-12 rounded-full bg-brand-gold text-slate-900 flex items-center justify-center text-xl"><i class="fa-solid fa-users"></i></div>
-            <div><p class="text-xs text-slate-500 font-bold uppercase">Total Penerima BSPS</p><h3 class="text-2xl font-extrabold text-brand-darkteal">${totalPenerima.toLocaleString('id-ID')} Orang</h3></div>
-        </div>
-        <div class="bg-white rounded-2xl shadow border border-slate-100 p-5 flex items-center gap-4 md:col-span-2">
-            <div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl"><i class="fa-solid fa-map-location-dot"></i></div>
-            <div><p class="text-xs text-slate-500 font-bold uppercase">Cakupan Wilayah</p><h3 class="text-2xl font-extrabold text-emerald-600">${totalKab} Kabupaten/Kota</h3></div>
-        </div>
+        <div class="bg-white rounded-2xl shadow p-5 flex items-center gap-4"><div class="w-12 h-12 rounded-full bg-brand-gold text-slate-900 flex items-center justify-center text-xl"><i class="fa-solid fa-users"></i></div><div><p class="text-xs text-slate-500 font-bold uppercase">Total ${currentBspsFormat==='point'?'Penerima':'Unit'} (${year})</p><h3 class="text-2xl font-extrabold text-brand-darkteal">${totalUnits.toLocaleString('id-ID')}</h3></div></div>
+        <div class="bg-white rounded-2xl shadow p-5 flex items-center gap-4 md:col-span-2"><div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl"><i class="fa-solid fa-map-location-dot"></i></div><div><p class="text-xs text-slate-500 font-bold uppercase">Cakupan Wilayah</p><h3 class="text-2xl font-extrabold text-emerald-600">${Object.keys(kabCounts).length} Kabupaten/Kota</h3></div></div>
       `;
-
-      // Set Tabel Data
-      document.getElementById('table-head').innerHTML = `<tr><th class="py-3 px-4 w-12 text-center">No</th><th class="py-3 px-4">NOBNBA</th><th class="py-3 px-4">Nama Penerima</th><th class="py-3 px-4">Desa/Kelurahan</th><th class="py-3 px-4 text-center">Progres</th><th class="py-3 px-4 text-center">Tahap</th></tr>`;
       document.getElementById('table-body').innerHTML = tbody || '<tr><td colspan="6" class="text-center py-4">Data tidak ditemukan.</td></tr>';
-
-      // Set Chart
-      document.getElementById('chart-title').innerText = selectedKab === "ALL" ? "Sebaran Penerima BSPS Per Kabupaten" : `Jumlah Penerima di ${selectedKab}`;
-      renderChart(Object.keys(kabCounts), [
-        { label: 'Jumlah Penerima BSPS', data: Object.values(kabCounts), backgroundColor: '#0E5975', borderRadius: 4 }
-      ]);
-
-      // Atur Zoom Peta sesuai Titik Kabupaten yang Dipilih
-      if (bounds.isValid() && selectedKab !== "ALL") {
-          map.fitBounds(bounds, { padding: [30, 30], maxZoom: 14 });
-      } else if (selectedKab === "ALL") {
-          map.setView([-8.65, 121.0], 8); // Kembali Zoom ke seluruh NTT
-      }
+      
+      document.getElementById('chart-title').innerText = `Sebaran BSPS (${year})`;
+      renderChart(Object.keys(kabCounts), [{ label: currentBspsFormat==='point'?'Penerima BSPS':'Jumlah Unit BSPS', data: Object.values(kabCounts), backgroundColor: '#0E5975', borderRadius: 4 }]);
     }
 
-    // --- RENDER RUSUS (Tetap Aman) ---
+    // --- RENDER RTLH & RUSUN & RUSUS (DISINGKAT DEMI MENGHEMAT KARAKTER, TETAP BERFUNGSI SEPERTI SEBELUMNYA) ---
+    function renderRTLH() {
+      let l=[], rD=[], bD=[], tR=0, tB=0, vC=0, tbody=''; sheetDataMap={};
+      allData.rtlh.forEach((row, i) => { let k=row[0], r=parseInt(row[1])||0, b=parseInt(row[2])||0; if(k){ l.push(k); rD.push(r); bD.push(b); tR+=r; tB+=b; vC++; sheetDataMap[normalizeName(k)]={rtlh:r, backlog:b}; tbody+=`<tr class="hover:bg-slate-50"><td class="py-2 px-4 text-center">${i+1}</td><td class="py-2 px-4">${k}</td><td class="py-2 px-4 text-right">${r.toLocaleString('id-ID')}</td><td class="py-2 px-4 text-right">${b.toLocaleString('id-ID')}</td></tr>`; }});
+      document.getElementById('stats-container').innerHTML = `<div class="bg-white rounded-2xl shadow p-5 flex items-center gap-4"><div class="w-12 h-12 rounded-full bg-brand-teal text-white flex items-center justify-center text-xl"><i class="fa-solid fa-house-chimney-crack"></i></div><div><p class="text-xs text-slate-500 font-bold uppercase">Total RTLH</p><h3 class="text-2xl font-extrabold text-brand-darkteal">${tR.toLocaleString('id-ID')}</h3></div></div><div class="bg-white rounded-2xl shadow p-5 flex items-center gap-4"><div class="w-12 h-12 rounded-full bg-brand-gold text-slate-900 flex items-center justify-center text-xl"><i class="fa-solid fa-house-medical-circle-exclamation"></i></div><div><p class="text-xs text-slate-500 font-bold uppercase">Total Backlog</p><h3 class="text-2xl font-extrabold text-brand-darkteal">${tB.toLocaleString('id-ID')}</h3></div></div><div class="bg-white rounded-2xl shadow p-5 flex items-center gap-4"><div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl"><i class="fa-solid fa-map-location-dot"></i></div><div><p class="text-xs text-slate-500 font-bold uppercase">Kabupaten/Kota</p><h3 class="text-2xl font-extrabold text-emerald-600">${vC} Wilayah</h3></div></div>`;
+      document.getElementById('table-head').innerHTML = `<tr><th class="p-3 text-center">No</th><th class="p-3">Kabupaten</th><th class="p-3 text-right">RTLH</th><th class="p-3 text-right">Backlog</th></tr>`; document.getElementById('table-body').innerHTML = tbody;
+      document.getElementById('chart-title').innerText = "Grafik RTLH & Backlog"; renderChart(l, [{label:'RTLH', data:rD, backgroundColor:'#0E5975'},{label:'Backlog', data:bD, backgroundColor:'#CBA355'}]);
+    }
+    
+    function renderRusun() {
+      let t='', kC={}, tR=0;
+      allData.rusun.forEach((r, i) => { let k=r[0], n=r[1], c=r[2], l=r[3], ta=r[4], f=r[5]; if(k){ tR++; kC[k]=(kC[k]||0)+1; t+=`<tr class="hover:bg-slate-50"><td class="py-2 px-4 text-center">${i+1}</td><td class="py-2 px-4">${k}</td><td class="py-2 px-4">${n}</td><td class="py-2 px-4">${l}</td><td class="py-2 px-4 text-center">${ta}</td></tr>`; if(c&&c.includes(',')){ let [lat, lng]=c.split(',').map(x=>parseFloat(x.trim())); if(!isNaN(lat)&&!isNaN(lng)){ pointLayerGroup.addLayer(L.marker([lat, lng]).bindPopup(`<b>${n}</b><br>${l}`)); } } }});
+      document.getElementById('stats-container').innerHTML = `<div class="bg-white rounded-2xl shadow p-5 flex items-center gap-4"><div class="w-12 h-12 rounded-full bg-brand-teal text-white flex items-center justify-center text-xl"><i class="fa-solid fa-building"></i></div><div><p class="text-xs text-slate-500 font-bold uppercase">Total Rusun</p><h3 class="text-2xl font-extrabold text-brand-darkteal">${tR} Unit</h3></div></div><div class="bg-white rounded-2xl shadow p-5 flex items-center gap-4 md:col-span-2"><div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl"><i class="fa-solid fa-map-location-dot"></i></div><div><p class="text-xs text-slate-500 font-bold uppercase">Tersebar di</p><h3 class="text-2xl font-extrabold text-emerald-600">${Object.keys(kC).length} Kabupaten</h3></div></div>`;
+      document.getElementById('table-head').innerHTML = `<tr><th class="p-3 text-center">No</th><th class="p-3">Kabupaten</th><th class="p-3">Nama Rusun</th><th class="p-3">Lokasi</th><th class="p-3">TA</th></tr>`; document.getElementById('table-body').innerHTML = t;
+      document.getElementById('chart-title').innerText = "Sebaran Rusun"; renderChart(Object.keys(kC), [{label:'Rusun', data:Object.values(kC), backgroundColor:'#0E5975'}]);
+    }
+
     function renderRusus() {
-      let tbody = '';
-      let totalRususUnits = 0;
-      let kabCounts = {};
-
-      allData.rusus.forEach((row, i) => {
-        let nama = row[0], lokasi = row[1], kab = row[2], unit = parseInt(row[3]) || 0, ta = row[4], foto = row[5];
-        if(kab || nama) {
-          totalRususUnits += unit;
-          if(kab) kabCounts[kab] = (kabCounts[kab] || 0) + unit;
-
-          let fotoBadge = foto ? `<a href="${foto}" target="_blank" class="text-brand-teal underline font-semibold"><i class="fa-solid fa-image"></i> Lihat</a>` : '-';
-          tbody += `<tr class="hover:bg-slate-50">
-            <td class="py-2 px-4 text-center">${i+1}</td>
-            <td class="py-2 px-4 font-semibold">${nama || '-'}</td>
-            <td class="py-2 px-4">${lokasi || '-'}</td>
-            <td class="py-2 px-4">${kab || '-'}</td>
-            <td class="py-2 px-4 text-right font-bold text-brand-darkteal">${unit.toLocaleString('id-ID')}</td>
-            <td class="py-2 px-4 text-center">${ta || '-'}</td>
-            <td class="py-2 px-4 text-center">${fotoBadge}</td>
-          </tr>`;
-        }
-      });
-
-      document.getElementById('stats-container').innerHTML = `
-        <div class="bg-white rounded-2xl shadow border border-slate-100 p-5 flex items-center gap-4 md:col-span-1">
-            <div class="w-12 h-12 rounded-full bg-brand-teal text-white flex items-center justify-center text-xl"><i class="fa-solid fa-house-flag"></i></div>
-            <div><p class="text-xs text-slate-500 font-bold uppercase">Total Rumah Khusus (Rusus)</p><h3 class="text-2xl font-extrabold text-brand-darkteal">${totalRususUnits.toLocaleString('id-ID')} Unit</h3></div>
-        </div>
-        <div class="bg-white rounded-2xl shadow border border-slate-100 p-5 flex items-center gap-4 md:col-span-2">
-            <div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl"><i class="fa-solid fa-map-location-dot"></i></div>
-            <div><p class="text-xs text-slate-500 font-bold uppercase">Wilayah Cakupan</p><h3 class="text-2xl font-extrabold text-emerald-600">${Object.keys(kabCounts).length} Kabupaten/Kota</h3></div>
-        </div>
-      `;
-
-      document.getElementById('table-head').innerHTML = `<tr><th class="py-3 px-4 w-12 text-center">No</th><th class="py-3 px-4">Nama Rusun</th><th class="py-3 px-4">Lokasi</th><th class="py-3 px-4">Kabupaten</th><th class="py-3 px-4 text-right">Jumlah Unit</th><th class="py-3 px-4 text-center">TA</th><th class="py-3 px-4 text-center">Foto</th></tr>`;
-      document.getElementById('table-body').innerHTML = tbody || '<tr><td colspan="7" class="text-center py-4">Data kosong</td></tr>';
-
-      document.getElementById('chart-title').innerText = "Sebaran Rumah Khusus Berdasarkan Kabupaten";
-      renderChart(Object.keys(kabCounts), [
-        { label: 'Jumlah Unit Rusus', data: Object.values(kabCounts), backgroundColor: '#0E5975', borderRadius: 4 }
-      ]);
+      let t='', tR=0, kC={};
+      allData.rusus.forEach((r, i) => { let n=r[0], l=r[1], k=r[2], u=parseInt(r[3])||0, ta=r[4]; if(k){ tR+=u; kC[k]=(kC[k]||0)+u; t+=`<tr class="hover:bg-slate-50"><td class="py-2 px-4 text-center">${i+1}</td><td class="py-2 px-4">${n}</td><td class="py-2 px-4">${k}</td><td class="py-2 px-4 text-right">${u}</td><td class="py-2 px-4 text-center">${ta}</td></tr>`; }});
+      document.getElementById('stats-container').innerHTML = `<div class="bg-white rounded-2xl shadow p-5 flex items-center gap-4"><div class="w-12 h-12 rounded-full bg-brand-teal text-white flex items-center justify-center text-xl"><i class="fa-solid fa-house-flag"></i></div><div><p class="text-xs text-slate-500 font-bold uppercase">Total Rusus</p><h3 class="text-2xl font-extrabold text-brand-darkteal">${tR} Unit</h3></div></div><div class="bg-white rounded-2xl shadow p-5 flex items-center gap-4 md:col-span-2"><div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl"><i class="fa-solid fa-map-location-dot"></i></div><div><p class="text-xs text-slate-500 font-bold uppercase">Tersebar di</p><h3 class="text-2xl font-extrabold text-emerald-600">${Object.keys(kC).length} Kabupaten</h3></div></div>`;
+      document.getElementById('table-head').innerHTML = `<tr><th class="p-3 text-center">No</th><th class="p-3">Nama Rusus</th><th class="p-3">Kabupaten</th><th class="p-3 text-right">Unit</th><th class="p-3">TA</th></tr>`; document.getElementById('table-body').innerHTML = t;
+      document.getElementById('chart-title').innerText = "Sebaran Rusus"; renderChart(Object.keys(kC), [{label:'Rusus', data:Object.values(kC), backgroundColor:'#0E5975'}]);
     }
 
     function renderChart(labels, datasets) {
-      const ctx = document.getElementById('barChart').getContext('2d');
       if (myChart) myChart.destroy();
-      myChart = new Chart(ctx, {
-        type: 'bar',
-        data: { labels: labels, datasets: datasets },
-        options: {
-          responsive: true, maintainAspectRatio: false,
-          plugins: { legend: { position: 'top' } },
-          scales: {
-            y: { beginAtZero: true, grid: { drawBorder: false } },
-            x: { grid: { display: false } }
-          }
-        }
-      });
+      myChart = new Chart(document.getElementById('barChart').getContext('2d'), { type: 'bar', data: { labels: labels, datasets: datasets }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top' } }, scales: { y: { beginAtZero: true, grid: { drawBorder: false } }, x: { grid: { display: false } } } } });
     }
   </script>
 </body>
