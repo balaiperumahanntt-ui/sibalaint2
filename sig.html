@@ -126,7 +126,7 @@
     let legendRTLH, legendBSPS_Polygon, legendBSPS_Point, legendRusus;
     let activeLegend = null;
     let currentMode = null;
-    let currentBspsFormat = 'polygon'; // 'polygon' for 2025, 'point' for 2026
+    let currentBspsFormat = 'polygon';
 
     document.addEventListener("DOMContentLoaded", function() {
       AOS.init({ duration: 800, once: true });
@@ -151,7 +151,6 @@
           geojsonBorderLayer = L.geoJson(data, { pane: 'paneBorderKabupaten', style: () => ({ fill: false, weight: 2, color: '#1e293b', opacity: 0.9 }), interactive: false }).addTo(map);
         });
 
-      // SETUP LEGENDA
       legendRTLH = L.control({position: 'bottomright'});
       legendRTLH.onAdd = function () {
         let div = L.DomUtil.create('div', 'bg-white/90 p-3 rounded-xl shadow-lg border border-slate-200');
@@ -200,7 +199,6 @@
         let color = d.rtlh > 20000 ? '#a50f15' : d.rtlh > 10000 ? '#de2d26' : d.rtlh > 5000 ? '#fb6a4a' : d.rtlh > 2500 ? '#fcae91' : '#fee5d9';
         return { fillColor: color, weight: 0, fillOpacity: 0.8 };
       } else if(currentMode === 'bsps') {
-        // Jika format point (2026), polygon transparan tipis. Jika format lama (2025), polygon diwarnai tebal.
         let isPoint = (currentBspsFormat === 'point');
         let units = bspsPolygonMap[kabFormat] || 0;
         return { fillColor: '#0E5975', weight: 0, fillOpacity: units > 0 ? (isPoint ? 0.05 : 0.8) : 0 };
@@ -277,11 +275,10 @@
       }
     }
 
-    // --- INIT BSPS DROPDOWN (GABUNGAN TAHUN LAMA & BARU) ---
     function initBspsDropdown() {
       let yearSet = new Set();
-      allData.bsps_old.forEach(r => { if(r[4]) yearSet.add(String(r[4]).trim()); }); // Index 4 TA lama
-      allData.bsps_new.forEach(r => { if(r[5]) yearSet.add(String(r[5]).trim()); }); // Index 5 TA baru
+      allData.bsps_old.forEach(r => { if(r[4]) yearSet.add(String(r[4]).trim()); }); 
+      allData.bsps_new.forEach(r => { if(r[5]) yearSet.add(String(r[5]).trim()); }); // Indeks 5 untuk TA pada format baru
       
       let years = Array.from(yearSet).sort().reverse();
       let sel = document.getElementById('bspsYearSelect');
@@ -293,8 +290,6 @@
 
     function handleBspsYearChange() {
       let selectedYear = document.getElementById('bspsYearSelect').value;
-      
-      // Cek apakah tahun ini ada di data Titik Koordinat (Sheet 5)
       let isNewFormat = allData.bsps_new.some(r => String(r[5]).trim() === selectedYear);
 
       if (activeLegend) map.removeControl(activeLegend);
@@ -305,7 +300,7 @@
           document.getElementById('kabSelectWrapper').classList.remove('hidden');
           
           let kabSet = new Set();
-          allData.bsps_new.filter(r => String(r[5]).trim()===selectedYear).forEach(r => { if(r[2]) kabSet.add(String(r[2]).trim()); });
+          allData.bsps_new.filter(r => String(r[5]).trim() === selectedYear).forEach(r => { if(r[2]) kabSet.add(String(r[2]).trim()); });
           let sel = document.getElementById('bspsKabSelect');
           sel.innerHTML = '<option value="ALL">-- Seluruh NTT --</option>';
           Array.from(kabSet).sort().forEach(k => sel.innerHTML += `<option value="${k}">${k}</option>`);
@@ -333,48 +328,70 @@
         let bounds = L.latLngBounds();
 
         dataToRender.forEach((row, i) => {
-          let nobnba=row[0], nama=row[1], kab=row[2], kec=row[3], desa=row[4];
-          
-          // PARSING LAT/LNG SUPER AMAN (Replace Koma menjadi Titik)
-          let latRaw = String(row[6]).replace(',', '.');
-          let lngRaw = String(row[7]).replace(',', '.');
-          let lat = parseFloat(latRaw);
-          let lng = parseFloat(lngRaw);
-
-          let progres = parseFloat(row[8]), tahap = row[9];
+          // Mapping Sesuai Urutan Kolom Baru Anda:
+          // 0:NO BNBA, 1:NAMA, 2:KAB/KOTA, 3:KECAMATAN, 4:DESA/KELURAHAN, 5:TA, 6:KOORDINAT, 7:PROGRES, 8:TAHAPINVER, 9:FOTO
+          let nobnba = row[0], nama = row[1], kab = row[2], kec = row[3], desa = row[4], ta = row[5];
+          let koordinatStr = String(row[6] || "").trim();
+          let progres = parseFloat(row[7]), tahap = row[8], foto = row[9];
 
           if(kab) {
             totalUnits++;
             kabCounts[kab] = (kabCounts[kab] || 0) + 1;
-            bspsPolygonMap[normalizeName(kab)] = 1; // Untuk mewarnai polygon transparan
+            bspsPolygonMap[normalizeName(kab)] = 1;
 
             let color = '#ef4444'; // Merah
             if (progres === 100) color = '#22c55e'; // Hijau
             else if (progres >= 30 && progres < 100) color = '#eab308'; // Kuning
             else if (progres > 0 && progres < 30) color = '#f97316'; // Oranye
 
-            tbody += `<tr class="hover:bg-slate-50"><td class="py-2 px-4 text-center">${i+1}</td><td class="py-2 px-4 text-xs">${nobnba||'-'}</td><td class="py-2 px-4 font-bold text-brand-darkteal">${nama||'-'}</td><td class="py-2 px-4">${desa||'-'}</td><td class="py-2 px-4 text-center"><span class="px-2 py-1 rounded text-white font-bold" style="background-color:${color}; font-size:11px;">${isNaN(progres)?0:progres}%</span></td></tr>`;
+            let fotoBadge = foto ? `<a href="${foto}" target="_blank" class="text-brand-teal underline font-semibold"><i class="fa-solid fa-image"></i> Lihat</a>` : '-';
 
-            // Mencegah error tertukar lat & lng
-            if (Math.abs(lat) > 90) { let t = lat; lat = lng; lng = t; }
+            tbody += `<tr class="hover:bg-slate-50">
+              <td class="py-2 px-4 text-center">${i+1}</td>
+              <td class="py-2 px-4 text-xs">${nobnba||'-'}</td>
+              <td class="py-2 px-4 font-bold text-brand-darkteal">${nama||'-'}</td>
+              <td class="py-2 px-4">${desa||'-'}</td>
+              <td class="py-2 px-4 text-center"><span class="px-2 py-1 rounded text-white font-bold" style="background-color:${color}; font-size:11px;">${isNaN(progres)?0:progres}%</span></td>
+              <td class="py-2 px-4 text-center text-xs">${tahap||'-'}</td>
+              <td class="py-2 px-4 text-center">${fotoBadge}</td>
+            </tr>`;
 
-            if (!isNaN(lat) && !isNaN(lng)) {
-              let marker = L.circleMarker([lat, lng], { radius: 6, fillColor: color, color: '#fff', weight: 1.5, fillOpacity: 0.9 });
-              marker.bindPopup(`<div style="width:200px;"><b style="font-size:14px;">${nama||'-'}</b><hr><b>Kab:</b> ${kab}<br><b>Desa:</b> ${desa}<br><b>Progres:</b> ${isNaN(progres)?0:progres}%</div>`);
-              pointLayerGroup.addLayer(marker);
-              bounds.extend([lat, lng]);
+            // Parsing Koordinat Gabungan (Memisahkan Latitude dan Longitude)
+            if (koordinatStr.includes(',')) {
+              let coords = koordinatStr.split(',').map(c => parseFloat(c.trim().replace(',', '.')));
+              let lat = coords[0];
+              let lng = coords[1];
+
+              if (!isNaN(lat) && !isNaN(lng)) {
+                // Antisipasi jika posisi Lat & Lng terbalik di sheet
+                if (Math.abs(lat) > 90) { let t = lat; lat = lng; lng = t; }
+
+                let marker = L.circleMarker([lat, lng], { radius: 6, fillColor: color, color: '#fff', weight: 1.5, fillOpacity: 0.9 });
+                marker.bindPopup(`
+                  <div style="width:200px; font-family:'Plus Jakarta Sans',sans-serif;">
+                    <b style="font-size:14px; color:#093C4F;">${nama||'-'}</b><br>
+                    <span style="font-size:11px; color:#64748B;">NOBNBA: ${nobnba||'-'}</span>
+                    <hr style="margin:5px 0;">
+                    <b>Kab/Kota:</b> ${kab}<br>
+                    <b>Desa:</b> ${desa}<br>
+                    <b>Progres:</b> <span style="color:${color}; font-weight:bold;">${isNaN(progres)?0:progres}%</span><br>
+                    <b>Tahap:</b> ${tahap||'-'}
+                    ${foto ? `<br><a href="${foto}" target="_blank" style="display:inline-block; margin-top:6px; color:#0E5975; font-weight:bold;">🔗 Buka Foto Lokasi</a>` : ''}
+                  </div>
+                `);
+                pointLayerGroup.addLayer(marker);
+                bounds.extend([lat, lng]);
+              }
             }
           }
         });
 
-        document.getElementById('table-head').innerHTML = `<tr><th class="p-3 text-center">No</th><th class="p-3">NOBNBA</th><th class="p-3">Nama Penerima</th><th class="p-3">Desa</th><th class="p-3 text-center">Progres</th></tr>`;
+        document.getElementById('table-head').innerHTML = `<tr><th class="p-3 text-center">No</th><th class="p-3">NOBNBA</th><th class="p-3">Nama Penerima</th><th class="p-3">Desa</th><th class="p-3 text-center">Progres</th><th class="p-3 text-center">Tahap</th><th class="p-3 text-center">Foto</th></tr>`;
         
-        // Zoom Map
         if (bounds.isValid() && kabFilter !== "ALL") map.fitBounds(bounds, { padding: [30, 30], maxZoom: 14 });
         else if (kabFilter === "ALL") map.setView([-8.65, 121.0], 8);
 
       } else {
-        // RENDER 2025 (POLYGON DATA LAMA)
         let dataToRender = allData.bsps_old.filter(r => String(r[4]).trim() === year);
         dataToRender.forEach((row, i) => {
           let kab=row[0], kec=row[1], desa=row[2], unit=parseInt(row[3])||0, foto=row[5];
@@ -398,13 +415,12 @@
         <div class="bg-white rounded-2xl shadow p-5 flex items-center gap-4"><div class="w-12 h-12 rounded-full bg-brand-gold text-slate-900 flex items-center justify-center text-xl"><i class="fa-solid fa-users"></i></div><div><p class="text-xs text-slate-500 font-bold uppercase">Total ${currentBspsFormat==='point'?'Penerima':'Unit'} (${year})</p><h3 class="text-2xl font-extrabold text-brand-darkteal">${totalUnits.toLocaleString('id-ID')}</h3></div></div>
         <div class="bg-white rounded-2xl shadow p-5 flex items-center gap-4 md:col-span-2"><div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl"><i class="fa-solid fa-map-location-dot"></i></div><div><p class="text-xs text-slate-500 font-bold uppercase">Cakupan Wilayah</p><h3 class="text-2xl font-extrabold text-emerald-600">${Object.keys(kabCounts).length} Kabupaten/Kota</h3></div></div>
       `;
-      document.getElementById('table-body').innerHTML = tbody || '<tr><td colspan="6" class="text-center py-4">Data tidak ditemukan.</td></tr>';
+      document.getElementById('table-body').innerHTML = tbody || '<tr><td colspan="7" class="text-center py-4">Data tidak ditemukan.</td></tr>';
       
       document.getElementById('chart-title').innerText = `Sebaran BSPS (${year})`;
       renderChart(Object.keys(kabCounts), [{ label: currentBspsFormat==='point'?'Penerima BSPS':'Jumlah Unit BSPS', data: Object.values(kabCounts), backgroundColor: '#0E5975', borderRadius: 4 }]);
     }
 
-    // --- RENDER RTLH & RUSUN & RUSUS (DISINGKAT DEMI MENGHEMAT KARAKTER, TETAP BERFUNGSI SEPERTI SEBELUMNYA) ---
     function renderRTLH() {
       let l=[], rD=[], bD=[], tR=0, tB=0, vC=0, tbody=''; sheetDataMap={};
       allData.rtlh.forEach((row, i) => { let k=row[0], r=parseInt(row[1])||0, b=parseInt(row[2])||0; if(k){ l.push(k); rD.push(r); bD.push(b); tR+=r; tB+=b; vC++; sheetDataMap[normalizeName(k)]={rtlh:r, backlog:b}; tbody+=`<tr class="hover:bg-slate-50"><td class="py-2 px-4 text-center">${i+1}</td><td class="py-2 px-4">${k}</td><td class="py-2 px-4 text-right">${r.toLocaleString('id-ID')}</td><td class="py-2 px-4 text-right">${b.toLocaleString('id-ID')}</td></tr>`; }});
