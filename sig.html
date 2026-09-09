@@ -158,11 +158,17 @@
       legendRTLH = L.control({position: 'bottomright'});
       legendRTLH.onAdd = function () {
         let div = L.DomUtil.create('div', 'bg-white/90 p-3 rounded-xl shadow-lg border border-slate-200');
-        div.innerHTML = `<div style="font-weight: 700; font-size: 12px; margin-bottom: 6px; border-bottom: 1px solid #cbd5e1; padding-bottom: 4px;">Sebaran RTLH</div>
-          <table style="font-size: 11px;">
-            <tr><td><i style="background: #fee5d9; width:12px; height:12px; display:inline-block; margin-right:4px;"></i> 0 - 2.5K</td></tr>
-            <tr><td><i style="background: #a50f15; width:12px; height:12px; display:inline-block; margin-right:4px;"></i> > 20K</td></tr>
-          </table>`; return div;
+        div.innerHTML = `
+          <div style="font-weight: 700; font-size: 12px; margin-bottom: 6px; border-bottom: 1px solid #cbd5e1; padding-bottom: 4px; color: #093C4F;">Legenda Sebaran RTLH</div>
+          <table style="width: 100%; font-size: 11px; border-spacing: 0 4px; border-collapse: separate;">
+            <tr><td><i style="background: #fee5d9; width:12px; height:12px; display:inline-block; border:1px solid #ccc; margin-right:4px;"></i> 0 - 2.5K</td></tr>
+            <tr><td><i style="background: #fcae91; width:12px; height:12px; display:inline-block; border:1px solid #ccc; margin-right:4px;"></i> 2.5K - 5K</td></tr>
+            <tr><td><i style="background: #fb6a4a; width:12px; height:12px; display:inline-block; border:1px solid #ccc; margin-right:4px;"></i> 5K - 10K</td></tr>
+            <tr><td><i style="background: #de2d26; width:12px; height:12px; display:inline-block; border:1px solid #ccc; margin-right:4px;"></i> 10K - 20K</td></tr>
+            <tr><td><i style="background: #a50f15; width:12px; height:12px; display:inline-block; border:1px solid #ccc; margin-right:4px;"></i> &gt; 20K</td></tr>
+          </table>
+        `;
+        return div;
       };
 
       legendBSPS_Polygon = L.control({position: 'bottomright'});
