@@ -31,6 +31,12 @@
             }
         }
     </script>
+    <!-- Tambahan CSS untuk animasi scroll down -->
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
 </head>
 <body class="bg-krem min-h-screen text-midnightgreen antialiased">
 
@@ -64,7 +70,7 @@
                                 </div>
                                 <div class="flex-[1.2] flex flex-col gap-2 justify-center">
                                     <a href="laporrtlh.html" class="block p-3 bg-darkaqua/30 text-krem border border-krem/15 rounded-xl text-sm font-semibold hover:bg-khaki hover:text-midnightgreen transition-all">Lapor Rumah Tidak Layak Huni</a>
-                                    <a href="#" class="block p-3 bg-darkaqua/30 text-krem border border-krem/15 rounded-xl text-sm font-semibold hover:bg-khaki hover:text-midnightgreen transition-all">Peraturan Perumahan</a>
+                                    <a href="https://jdih.pkp.go.id/" class="block p-3 bg-darkaqua/30 text-krem border border-krem/15 rounded-xl text-sm font-semibold hover:bg-khaki hover:text-midnightgreen transition-all">Peraturan Perumahan</a>
                                     <a href="sig.html" class="block p-3 bg-darkaqua/30 text-krem border border-krem/15 rounded-xl text-sm font-semibold hover:bg-khaki hover:text-midnightgreen transition-all">SiGAP</a>
                                 </div>
                             </div>
@@ -126,7 +132,7 @@
                         </button>
                         <div id="mob-layanan" class="hidden flex-col bg-darkaqua/30 pl-4 py-2 space-y-2">
                             <a href="laporrtlh.html" class="block py-2 text-sm text-krem/80 hover:text-khaki">Lapor Rumah Tidak Layak Huni</a>
-                            <a href="#" class="block py-2 text-sm text-krem/80 hover:text-khaki">Peraturan Perumahan</a>
+                            <a href="https://jdih.pkp.go.id/" target="_blank" rel="noopener noreferrer" class="block py-2 text-sm text-krem/80 hover:text-khaki">Peraturan Perumahan</a>
                             <a href="sig.html" class="block py-2 text-sm text-krem/80 hover:text-khaki">SiGAP</a>
                         </div>
                     </div>
@@ -180,7 +186,7 @@
 </section>
 
 <!-- Section Slider Infografis (Dark) -->
-<section id="infographic-section" class="bg-midnightgreen py-16 px-0 sm:px-4 relative">
+<section id="infographic-section" class="bg-midnightgreen py-10 px-0 sm:px-4 relative">
     <div class="max-w-6xl mx-auto px-4 mb-8 text-center relative z-10">
         <h2 class="text-3xl md:text-4xl font-bold text-white mb-3" data-aos="fade-up">Infografis & Informasi Terbaru</h2>
         <p class="text-center text-krem/80 max-w-xl mx-auto text-sm md:text-base" data-aos="fade-up">Geser untuk melihat infografis resmi yang bersumber langsung dari Google Drive.</p>
@@ -205,10 +211,43 @@
     </div>
 </section>
 
-<!-- Fitur Utama / Pelayanan Publik (Light Section - Kontras Tinggi) -->
-<section id="layanan" class="bg-krem pt-24 pb-32 px-4 relative">
+<!-- Section Berita -->
+<!-- Ubah py-8 menjadi pt-8 pb-2 agar jarak bawahnya mengecil -->
+<section id="news-section" class="bg-krem pt-8 pb-2 px-4 relative z-0">
     <div class="max-w-6xl mx-auto relative z-10">
-        <!-- Teks dibuat gelap karena background Krem -->
+        <!-- Header Berita -->
+        <div class="text-center mb-10">
+            <h2 class="text-3xl md:text-4xl font-bold text-midnightgreen mb-3" data-aos="fade-up">Berita Terkini</h2>
+            <p class="text-darkaqua/80 max-w-xl mx-auto text-sm md:text-base" data-aos="fade-up" data-aos-delay="100">
+                Ikuti perkembangan dan informasi terbaru dari PKP.go.id
+            </p>
+        </div>
+
+        <!-- Indikator Loading -->
+        <div id="news-loading" class="flex justify-center items-center py-20" data-aos="fade-up">
+            <i class="fa-solid fa-circle-notch fa-spin text-4xl text-darkaqua/50"></i>
+        </div>
+
+        <!-- Container Grid Berita -->
+        <div id="news-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 hidden">
+            <!-- Data berita akan di-inject ke sini -->
+        </div>
+        
+        <!-- Tombol Load More -->
+        <!-- mt-10 diubah ke mt-8 agar sedikit lebih naik -->
+        <!-- Tombol Lihat Semua Berita -->
+<div class="text-center mt-8 hidden" id="news-load-more">
+    <a href="https://pkp.go.id/berita" target="_blank" rel="noopener noreferrer" class="inline-block bg-midnightgreen hover:bg-darkaqua text-krem font-medium py-3 px-8 rounded-full shadow-lg transition-all">
+        Lihat Semua Berita
+    </a>
+</div>
+    </div>
+</section>
+
+<!-- Fitur Utama / Pelayanan Publik -->
+<!-- Ubah pt-20 menjadi pt-8 agar jarak atasnya berkurang signifikan -->
+<section id="layanan" class="bg-krem pt-8 pb-30 px-4 relative">
+    <div class="max-w-6xl mx-auto relative z-10">
         <h2 class="text-3xl md:text-4xl font-extrabold text-center text-midnightgreen mb-4" data-aos="fade-up">Pelayanan Publik</h2>
         <p class="text-center text-darkaqua font-medium mb-12 max-w-xl mx-auto text-sm md:text-base bg-khaki/20 py-2 px-4 rounded-full" data-aos="fade-up">Semua Pelayanan Kami Tidak di Pungut Biaya Alias GRATIS!!!</p>
         
@@ -278,7 +317,7 @@
 </section>
 
 <!-- Maklumat & Standar Pelayanan Publik (Gradien Halus dari darkaqua ke midnightgreen) -->
-<section class="bg-gradient-to-b from-darkaqua to-midnightgreen pt-16 pb-20 px-4">
+<section class="bg-gradient-to-b from-darkaqua to-midnightgreen pt-16 pb-15 px-4">
     <div class="max-w-5xl mx-auto">
         <h2 class="text-3xl md:text-4xl font-bold text-center text-white mb-4" data-aos="fade-up">Maklumat & Standar Pelayanan Publik</h2>
         <p class="text-center text-krem/80 mb-12 max-w-xl mx-auto text-sm md:text-base" data-aos="fade-up">Komitmen kami dalam memberikan pelayanan yang transparan, akuntabel, dan berkualitas kepada masyarakat.</p>
@@ -401,87 +440,101 @@
         </div>
     </div>
 
-    <!-- Footer Section -->
-    <footer id="footer" class="bg-midnightgreen/95 backdrop-blur-md border-t border-krem/15 text-krem mt-10" data-aos="fade-up">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10">
-                <div class="lg:col-span-4">
-                    <div class="flex items-center gap-3 mb-5">
-                        <img src="https://i.ibb.co.com/RpTQRCrn/logo.png" alt="Logo Balai NT2" class="h-12 w-auto object-contain">
+    <!-- Footer Section (Modern Redesign) -->
+    <footer id="footer" class="bg-[#0b161f] text-krem/80 border-t border-white/10 relative overflow-hidden" data-aos="fade-up">
+        <!-- Elemen Dekorasi Background -->
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
+            <div class="absolute -top-[50%] -right-[10%] w-[500px] h-[500px] rounded-full bg-darkaqua/20 blur-[120px]"></div>
+            <div class="absolute -bottom-[50%] -left-[10%] w-[500px] h-[500px] rounded-full bg-midnightgreen/40 blur-[120px]"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-12 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 mb-12">
+                
+                <!-- Kolom 1: Brand & Deskripsi -->
+                <div class="lg:col-span-5">
+                    <a href="index.html" class="flex items-center gap-4 mb-6 group inline-flex">
+                        <img src="https://i.ibb.co.com/RpTQRCrn/logo.png" alt="Logo Balai NT2" class="h-16 w-auto object-contain drop-shadow-lg group-hover:scale-105 transition-transform">
                         <div class="flex flex-col">
-                            <span class="font-bold text-lg leading-tight text-krem">SIBALAI NT II</span>
-                            <span class="text-[10px] font-bold text-khaki uppercase tracking-wider">Balai P3KP Nusa Tenggara II</span>
+                            <span class="font-extrabold text-2xl tracking-wide text-white">SIBALAI NT II</span>
+                            <span class="text-[11px] font-bold text-khaki uppercase tracking-widest mt-1">Balai P3KP Nusa Tenggara II</span>
                         </div>
-                    </div>
-                    <p class="text-sm text-krem/80 leading-relaxed mb-6">
-                        Konsultasikan rumah layak huni dan layanan perumahan yang Anda butuhkan kepada kami, Gratis!
+                    </a>
+                    <p class="text-sm leading-relaxed mb-8 pr-4">
+                        Platform layanan publik terintegrasi dari Balai Pelaksana Penyediaan Perumahan dan Kawasan Permukiman Nusa Tenggara II. Kami hadir untuk memberikan pelayanan terbaik bagi masyarakat.
                     </p>
-                    <!-- //<h6 class="font-bold mb-3 text-sm">Hasil Kerjasama:</h6>// -->
-                  <!-- //  <div class="flex gap-3"> -->
-                      <!-- //  <div class="bg-darkaqua/40 border border-krem/10 rounded-xl p-2 w-20 h-14 flex items-center justify-center"> -->
-                      <!-- //      <img src="https://placehold.co/100x50/f0f0f0/666?text=Logo+1" alt="Logo 1" class="max-w-full max-h-full object-contain" onerror="this.style.display='none'"> -->
-                     <!-- //   </div> -->
-                     <!-- //   <div class="bg-darkaqua/40 border border-krem/10 rounded-xl p-2 w-20 h-14 flex items-center justify-center"> -->
-                     <!-- //       <img src="https://placehold.co/100x50/f0f0f0/666?text=Logo+2" alt="Logo 2" class="max-w-full max-h-full object-contain" onerror="this.style.display='none'"> -->
-                     <!-- //   </div> -->
-                   <!-- // </div> -->
-                </div>
-
-                <div class="lg:col-span-2">
-                    <h5 class="font-bold text-lg mb-5 text-white">Layanan</h5>
-                    <ul class="space-y-3 text-sm">
-                        <li><a href="https://api.whatsapp.com/send/?phone=6285180598023" class="text-krem/80 hover:text-khaki hover:pl-1 transition-all">Konsultasi</a></li>
-                        <li><a href="#" class="text-krem/80 hover:text-khaki hover:pl-1 transition-all">Masukan dan Saran</a></li>
-                        <li><a href="#dialogPengaduan" class="text-krem/80 hover:text-khaki hover:pl-1 transition-all">Pengaduan</a></li>
-                        <li><a href="#" class="text-krem/80 hover:text-khaki hover:pl-1 transition-all">FAQ</a></li>
-                        <li><a href="#" class="text-krem/80 hover:text-khaki hover:pl-1 transition-all">Pejabat Struktural</a></li>
-                    </ul>
-                </div>
-
-                <div class="lg:col-span-3">
-                    <h5 class="font-bold text-lg mb-5 text-white">Kontak</h5>
-                    <ul class="space-y-4 text-sm mb-6">
-                        <li>
-                            <a href="https://maps.app.goo.gl/NM493g5q8EJCeFmm7" target="_blank" class="flex items-start gap-3 text-white/90 hover:text-khaki transition-colors">
-                                <i class="fa-solid fa-location-dot text-khaki text-xl"></i>
-                                <span>Balai P3KP Nusa Tenggara II</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://api.whatsapp.com/send/?phone=6285180598023" target="_blank" class="flex items-center gap-3 text-white/90 hover:text-khaki transition-colors">
-                                <i class="fa-solid fa-phone text-khaki text-xl"></i>
-                                <span>+62 851 8059 8023</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="mailto:pkpnustra2@pkp.go.id" class="flex items-center gap-3 text-white/90 hover:text-khaki transition-colors">
-                                <i class="fa-solid fa-envelope text-khaki text-xl"></i>
-                                <span>pkpnustra2@pkp.go.id</span>
-                            </a>
-                        </li>
-                    </ul>
+                    
+                    <!-- Sosial Media Button Modern -->
                     <div class="flex gap-4">
-                        <a href="#" class="text-xl text-krem hover:text-khaki hover:-translate-y-1 transition-all"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="#" class="text-xl text-krem hover:text-khaki hover:-translate-y-1 transition-all"><i class="fa-brands fa-facebook"></i></a>
-                        <a href="#" class="text-xl text-krem hover:text-khaki hover:-translate-y-1 transition-all"><i class="fa-brands fa-youtube"></i></a>
-                        <a href="#" class="text-xl text-krem hover:text-khaki hover:-translate-y-1 transition-all"><i class="fa-brands fa-whatsapp"></i></a>
+                        <a href="#" class="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-khaki hover:text-midnightgreen hover:-translate-y-1.5 transition-all duration-300 shadow-lg"><i class="fa-brands fa-instagram text-xl"></i></a>
+                        <a href="#" class="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-khaki hover:text-midnightgreen hover:-translate-y-1.5 transition-all duration-300 shadow-lg"><i class="fa-brands fa-facebook-f text-xl"></i></a>
+                        <a href="#" class="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-khaki hover:text-midnightgreen hover:-translate-y-1.5 transition-all duration-300 shadow-lg"><i class="fa-brands fa-youtube text-xl"></i></a>
+                        <a href="#" class="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-khaki hover:text-midnightgreen hover:-translate-y-1.5 transition-all duration-300 shadow-lg"><i class="fa-brands fa-whatsapp text-xl"></i></a>
                     </div>
                 </div>
 
-                <div class="lg:col-span-3 flex justify-center lg:justify-end items-center">
-                    <img src="https://i.ibb.co.com/Fq3FNy1f/Logo-Khaki.png" alt="Logo PKP" class="h-40 w-auto opacity-80">
+                <!-- Kolom 2: Layanan Cepat -->
+                <div class="lg:col-span-3 lg:col-start-7">
+                    <h5 class="font-bold text-lg mb-6 text-white tracking-wide relative inline-block">
+                        Layanan Terkait
+                        <span class="absolute -bottom-2 left-0 w-1/2 h-1 bg-khaki rounded-full"></span>
+                    </h5>
+                    <ul class="space-y-4 text-sm font-medium">
+                        <li><a href="https://api.whatsapp.com/send/?phone=6285180598023" class="hover:text-khaki hover:translate-x-2 transition-transform duration-300 inline-flex items-center gap-2"><i class="fa-solid fa-chevron-right text-[10px] text-khaki"></i> Konsultasi Perumahan</a></li>
+                        <li><a href="#" class="hover:text-khaki hover:translate-x-2 transition-transform duration-300 inline-flex items-center gap-2"><i class="fa-solid fa-chevron-right text-[10px] text-khaki"></i> Masukan & Saran</a></li>
+                        <li><a href="#dialogPengaduan" class="hover:text-khaki hover:translate-x-2 transition-transform duration-300 inline-flex items-center gap-2"><i class="fa-solid fa-chevron-right text-[10px] text-khaki"></i> Pusat Pengaduan</a></li>
+                        <li><a href="#" class="hover:text-khaki hover:translate-x-2 transition-transform duration-300 inline-flex items-center gap-2"><i class="fa-solid fa-chevron-right text-[10px] text-khaki"></i> FAQ</a></li>
+                        <li><a href="#" class="hover:text-khaki hover:translate-x-2 transition-transform duration-300 inline-flex items-center gap-2"><i class="fa-solid fa-chevron-right text-[10px] text-khaki"></i> Pejabat Struktural</a></li>
+                    </ul>
+                </div>
+
+                <!-- Kolom 3: Kontak Kami -->
+                <div class="lg:col-span-3">
+                    <h5 class="font-bold text-lg mb-6 text-white tracking-wide relative inline-block">
+                        Kontak Kami
+                        <span class="absolute -bottom-2 left-0 w-1/2 h-1 bg-khaki rounded-full"></span>
+                    </h5>
+                    <ul class="space-y-5 text-sm">
+                        <li class="flex items-start gap-4 group">
+                            <div class="w-10 h-10 rounded-xl bg-darkaqua/30 flex items-center justify-center shrink-0 group-hover:bg-khaki transition-colors duration-300">
+                                <i class="fa-solid fa-location-dot text-khaki group-hover:text-midnightgreen text-lg transition-colors"></i>
+                            </div>
+                            <a href="https://maps.app.goo.gl/NM493g5q8EJCeFmm7" target="_blank" class="mt-0.5 hover:text-white transition-colors leading-relaxed">
+                                <strong>Balai P3KP Nusa Tenggara II</strong><br>
+                                Kota Kupang, Nusa Tenggara Timur
+                            </a>
+                        </li>
+                        <li class="flex items-center gap-4 group">
+                            <div class="w-10 h-10 rounded-xl bg-darkaqua/30 flex items-center justify-center shrink-0 group-hover:bg-khaki transition-colors duration-300">
+                                <i class="fa-solid fa-phone text-khaki group-hover:text-midnightgreen text-lg transition-colors"></i>
+                            </div>
+                            <a href="https://api.whatsapp.com/send/?phone=6285180598023" target="_blank" class="hover:text-white transition-colors font-medium">
+                                +62 851 8059 8023
+                            </a>
+                        </li>
+                        <li class="flex items-center gap-4 group">
+                            <div class="w-10 h-10 rounded-xl bg-darkaqua/30 flex items-center justify-center shrink-0 group-hover:bg-khaki transition-colors duration-300">
+                                <i class="fa-solid fa-envelope text-khaki group-hover:text-midnightgreen text-lg transition-colors"></i>
+                            </div>
+                            <a href="mailto:pkpnustra2@pkp.go.id" class="hover:text-white transition-colors font-medium">
+                                pkpnustra2@pkp.go.id
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
 
-        <div class="bg-black/20 border-t border-krem/10 py-4">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-3">
-                <p class="text-xs text-krem/70 m-0">&copy; 2026 SIBALAI P3KP NUSA TENGGARA II. All Rights Reserved.</p>
-                <div class="flex flex-wrap justify-center gap-4 text-xs">
-                    <a href="#" class="text-krem/70 hover:text-khaki transition-colors">Developer Team</a>
-                    <a href="#" class="text-krem/70 hover:text-khaki transition-colors">Support</a>
-                    <a href="#" class="text-krem/70 hover:text-khaki transition-colors">Terms and Condition</a>
-                    <a href="#" class="text-krem/70 hover:text-khaki transition-colors">Privacy and Policy</a>
+        <!-- Garis Pemisah & Copyright Bar -->
+        <div class="bg-black/30 backdrop-blur-md border-t border-white/5 relative z-10 py-5">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-[13px] text-krem/50 m-0 text-center md:text-left tracking-wide">
+                    &copy; 2026 SIBALAI P3KP NUSA TENGGARA II. Hak Cipta Dilindungi Undang-Undang.
+                </p>
+                <div class="flex flex-wrap justify-center gap-6 text-[13px] font-medium">
+                    <a href="#" class="text-krem/70 hover:text-khaki transition-colors">Syarat & Ketentuan</a>
+                    <a href="#" class="text-krem/70 hover:text-khaki transition-colors">Kebijakan Privasi</a>
+                    <a href="#" class="text-krem/70 hover:text-khaki transition-colors">Peta Situs</a>
                 </div>
             </div>
         </div>
@@ -667,6 +720,105 @@
 
     // Jalankan saat halaman selesai dimuat
     document.addEventListener('DOMContentLoaded', renderInfographicSlider);
+</script>
+<!-- Script Fetch API Berita -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    fetchNews();
+});
+
+async function fetchNews() {
+    const loading = document.getElementById('news-loading');
+    const container = document.getElementById('news-container');
+    const loadMoreBtn = document.getElementById('news-load-more');
+    
+    try {
+        const response = await fetch('https://pkp.go.id/api/get-berita?take=50');
+        let data = await response.json();
+        
+        const articles = Array.isArray(data) ? data : (data.data || data.berita || []);
+        
+        if (articles.length === 0) {
+            loading.innerHTML = '<p class="text-center text-darkaqua/70">Belum ada berita tersedia saat ini.</p>';
+            return;
+        }
+
+        const displayArticles = articles.slice(0, 6);
+        
+        container.innerHTML = displayArticles.map((article, index) => {
+            const title = article.judul || 'Tanpa Judul';
+            const date = article.tgl_berita || '';
+            let imgUrl = article.image_url || 'https://via.placeholder.com/600x400?text=No+Image';
+
+            let excerpt = article.text_pratampil || '';
+            if (!excerpt && article.konten) {
+                const cleanContent = article.konten.replace(/<[^>]*>?/gm, ''); 
+                excerpt = cleanContent.length > 100 ? cleanContent.substring(0, 100) + '...' : cleanContent;
+            } else if (excerpt.length > 120) {
+                excerpt = excerpt.substring(0, 120) + '...';
+            }
+            
+            const link = article.slug ? `https://pkp.go.id/berita/detail/${article.slug}` : '#';
+            const aosDelay = (index % 3) * 100;
+
+            return `
+                <!-- Border card diberi sentuhan khaki yang sangat transparan -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-khaki/30 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col group" data-aos="fade-up" data-aos-delay="${aosDelay}">
+                    <div class="relative h-52 overflow-hidden bg-krem/50 flex items-center justify-center">
+                        <img src="${imgUrl}" alt="${title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://via.placeholder.com/600x400?text=Gambar+Gagal+Dimuat'">
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <div class="flex items-center gap-2 text-xs font-semibold text-darkaqua/70 mb-3">
+                            <!-- Icon kalender memakai warna khaki -->
+                            <i class="fa-regular fa-calendar text-khaki"></i>
+                            <span>${formatDate(date)}</span>
+                        </div>
+                        <!-- Judul berita warna midnightgreen, saat di-hover jadi darkaqua -->
+                        <h3 class="text-lg font-bold text-midnightgreen mb-3 line-clamp-2 group-hover:text-darkaqua transition-colors" title="${title}">
+                            ${title}
+                        </h3>
+                        <!-- Deskripsi berita warna midnightgreen transparan agar lebih soft -->
+                        <p class="text-midnightgreen/70 text-sm mb-5 line-clamp-3 flex-grow">
+                            ${excerpt}
+                        </p>
+                        <!-- Link Baca Selengkapnya menggunakan darkaqua, hover ke midnightgreen -->
+                        <a href="${link}" target="_blank" rel="noopener noreferrer" class="mt-auto inline-flex items-center gap-2 text-sm font-bold text-darkaqua hover:text-midnightgreen transition-colors">
+                            Baca Selengkapnya <i class="fa-solid fa-arrow-right transition-transform group-hover:translate-x-1"></i>
+                        </a>
+                    </div>
+                </div>
+            `;
+        }).join('');
+        
+        loading.classList.add('hidden');
+        container.classList.remove('hidden');
+
+        if(articles.length > 6) {
+            loadMoreBtn.classList.remove('hidden');
+        }
+        
+    } catch (error) {
+        console.error('Error fetching news:', error);
+        loading.innerHTML = `
+            <div class="text-center text-red-500">
+                <i class="fa-solid fa-triangle-exclamation text-3xl mb-2 text-khaki"></i>
+                <p class="text-midnightgreen">Gagal memuat berita. Silakan periksa koneksi internet Anda.</p>
+            </div>
+        `;
+    }
+}
+
+function formatDate(dateString) {
+    if (!dateString) return 'Tanggal tidak diketahui';
+    try {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const date = new Date(dateString);
+        if (isNaN(date.getTime())) return dateString; 
+        return date.toLocaleDateString('id-ID', options);
+    } catch (e) {
+        return dateString;
+    }
+}
 </script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="main.js"></script>
