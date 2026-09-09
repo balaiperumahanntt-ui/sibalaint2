@@ -161,215 +161,212 @@
         </div>
     </header>
 
-  <!-- Hero Section dengan Slider & Efek Transisi Mulus -->
+<!-- Hero Section -->
 <section id="hero-section" class="min-h-[80vh] flex flex-col justify-center text-center px-4 relative overflow-hidden bg-slate-900" data-aos="fade-up" data-aos-delay="200">
-    
-    <!-- Container Gambar Latar Belakang (Slider Layers) -->
-    <div id="bg-slides-container" class="absolute inset-0 z-0">
-        <!-- Gambar latar belakang akan dimasukkan otomatis via JavaScript -->
-    </div>
-
-    <!-- Overlay Gelap agar teks lebih kontras dan terbaca -->
+    <div id="bg-slides-container" class="absolute inset-0 z-0"></div>
     <div class="absolute inset-0 bg-black/60 z-10"></div>
+    
+    <button onclick="prevSlide()" class="absolute left-4 top-1/2 -translate-y-1/2 z-30 bg-white/20 hover:bg-white/40 text-white p-3 rounded-full backdrop-blur-md transition-all cursor-pointer"><i class="fa-solid fa-chevron-left text-xl"></i></button>
+    <button onclick="nextSlide()" class="absolute right-4 top-1/2 -translate-y-1/2 z-30 bg-white/20 hover:bg-white/40 text-white p-3 rounded-full backdrop-blur-md transition-all cursor-pointer"><i class="fa-solid fa-chevron-right text-xl"></i></button>
 
-    <!-- Tombol Navigasi Kiri -->
-    <button onclick="prevSlide()" class="absolute left-4 top-1/2 -translate-y-1/2 z-30 bg-white/20 hover:bg-white/40 text-white p-3 rounded-full backdrop-blur-md transition-all cursor-pointer">
-        <i class="fa-solid fa-chevron-left text-xl"></i>
-    </button>
-
-    <!-- Tombol Navigasi Kanan -->
-    <button onclick="nextSlide()" class="absolute right-4 top-1/2 -translate-y-1/2 z-30 bg-white/20 hover:bg-white/40 text-white p-3 rounded-full backdrop-blur-md transition-all cursor-pointer">
-        <i class="fa-solid fa-chevron-right text-xl"></i>
-    </button>
-
-    <!-- Konten Teks (Judul, Deskripsi, Tombol) -->
     <div class="max-w-4xl mx-auto relative z-20 py-16 w-full transition-all duration-700 transform" id="hero-content">
         <span id="hero-subtitle" class="text-sm md:text-base font-semibold text-khaki uppercase tracking-widest mb-3 block drop-shadow">BALAI P3KP NUSA TENGGARA II</span>
         <h1 id="hero-title" class="text-3xl md:text-5xl font-extrabold text-white mb-6 leading-tight drop-shadow-md">ANDA MEMASUKI KAWASAN ZONA INTEGRITAS</h1>
         <p id="hero-desc" class="text-base md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto font-medium drop-shadow">Semua Pelayanan Pada Balai P3KP Nusa Tenggara II Tidak di Pungut Biaya Alias GRATIS</p>
-        
         <a id="hero-btn" href="#layanan" class="inline-block bg-khaki text-midnightgreen font-bold text-lg px-8 py-4 rounded-xl hover:bg-white hover:text-midnightgreen transition-all shadow-lg hover:shadow-xl hover:-translate-y-1">Mulai Sekarang</a>
     </div>
 
-    <!-- Indikator Titik (Dots) di Bagian Bawah -->
-    <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex gap-2" id="slider-dots">
-        <!-- Dirender otomatis via JS -->
+    <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex gap-2" id="slider-dots"></div>
+</section>
+
+<!-- Section Slider Infografis (Dark) -->
+<section id="infographic-section" class="bg-midnightgreen py-16 px-0 sm:px-4 relative">
+    <div class="max-w-6xl mx-auto px-4 mb-8 text-center relative z-10">
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-3" data-aos="fade-up">Infografis & Informasi Terbaru</h2>
+        <p class="text-center text-krem/80 max-w-xl mx-auto text-sm md:text-base" data-aos="fade-up">Geser untuk melihat infografis resmi yang bersumber langsung dari Google Drive.</p>
+    </div>
+    
+    <div class="relative w-auto rounded-none sm:rounded-2xl overflow-hidden shadow-2xl border-y sm:border border-white/10 bg-slate-950/60 backdrop-blur-md p-2 sm:p-4 z-10" data-aos="fade-up" data-aos-delay="100">
+        <div id="infographic-slides" class="relative w-full h-[380px] sm:h-[480px] md:h-[580px] flex items-center justify-center overflow-hidden"></div>
+        <button onclick="prevInfoSlide()" class="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-30 bg-black/50 hover:bg-black/80 text-white p-3 sm:p-3.5 rounded-full backdrop-blur-md transition-all cursor-pointer shadow-lg">
+            <i class="fa-solid fa-chevron-left text-lg sm:text-xl"></i>
+        </button>
+        <button onclick="nextInfoSlide()" class="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-30 bg-black/50 hover:bg-black/80 text-white p-3 sm:p-3.5 rounded-full backdrop-blur-md transition-all cursor-pointer shadow-lg">
+            <i class="fa-solid fa-chevron-right text-lg sm:text-xl"></i>
+        </button>
+        <div class="absolute bottom-4 left-1/2 -translate-x-1/2 z-30 flex gap-2" id="info-dots"></div>
+    </div>
+
+    <!-- Shape Divider Bawah (Transisi Gelap ke Terang / krem) -->
+    <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none z-0 rotate-180">
+        <svg class="relative block w-full h-[50px] md:h-[100px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="#F2EEDF"></path>
+        </svg>
     </div>
 </section>
 
-<!-- Fitur Utama -->
-<section id="layanan" class="bg-[#084c61] py-10 px-4">
-    <div class="max-w-6xl mx-auto">
-        <h2 class="text-2xl md:text-3xl font-bold text-center text-white mb-3" data-aos="fade-up">Pelayanan Publik</h2>
-        <p class="text-center text-[#eae0c8]/80 mb-10 max-w-xl mx-auto text-xs md:text-sm" data-aos="fade-up">Semua Pelayanan Kami Tidak di Pungut Biaya Alias GRATIS!!!</p>
+<!-- Fitur Utama / Pelayanan Publik (Light Section - Kontras Tinggi) -->
+<section id="layanan" class="bg-krem pt-24 pb-32 px-4 relative">
+    <div class="max-w-6xl mx-auto relative z-10">
+        <!-- Teks dibuat gelap karena background Krem -->
+        <h2 class="text-3xl md:text-4xl font-extrabold text-center text-midnightgreen mb-4" data-aos="fade-up">Pelayanan Publik</h2>
+        <p class="text-center text-darkaqua font-medium mb-12 max-w-xl mx-auto text-sm md:text-base bg-khaki/20 py-2 px-4 rounded-full" data-aos="fade-up">Semua Pelayanan Kami Tidak di Pungut Biaya Alias GRATIS!!!</p>
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            
             <!-- Kartu 1 -->
-            <a href="laporrtlh.html" class="group block bg-[#0e5873] p-8 rounded-xl border border-white/10 transition-all duration-300 ease-out shadow-lg hover:shadow-2xl hover:shadow-teal-500/20 hover:-translate-y-4 hover:-rotate-2 hover:bg-teal-400" data-aos="fade-up" data-aos-delay="100">
-                <div class="text-5xl text-[#d2c49a] mb-6 transition-colors duration-300 group-hover:text-gray-900">
+            <a href="laporrtlh.html" class="group block bg-darkaqua p-8 rounded-2xl border border-midnightgreen/10 transition-all duration-300 ease-out shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-2xl hover:-translate-y-4 hover:bg-midnightgreen" data-aos="fade-up" data-aos-delay="100">
+                <div class="text-5xl text-khaki mb-6 transition-transform duration-300 group-hover:scale-110 group-hover:text-white">
                     <i class="fa-solid fa-house-chimney-crack"></i>
                 </div>
-                <h3 class="text-xl font-bold text-[#eae0c8] mb-4 transition-colors duration-300 group-hover:text-gray-900">Lapor RTLH NTT</h3>
-                <p class="text-[#eae0c8]/70 leading-relaxed transition-colors duration-300 group-hover:text-gray-800">Pelaporan Rumah Tidak Layak Huni dari Masyarakat</p>
+                <h3 class="text-xl font-bold text-krem mb-4">Lapor RTLH NTT</h3>
+                <p class="text-krem/70 leading-relaxed group-hover:text-krem/90">Pelaporan Rumah Tidak Layak Huni dari Masyarakat</p>
             </a>
 
             <!-- Kartu 2 -->
-            <a href="sig.html" class="group block bg-[#0e5873] p-8 rounded-xl border border-white/10 transition-all duration-300 ease-out shadow-lg hover:shadow-2xl hover:shadow-teal-500/20 hover:-translate-y-4 hover:rotate-2 hover:bg-teal-400" data-aos="fade-up" data-aos-delay="200">
-                <div class="text-5xl text-[#d2c49a] mb-6 transition-colors duration-300 group-hover:text-gray-900">
+            <a href="sig.html" class="group block bg-darkaqua p-8 rounded-2xl border border-midnightgreen/10 transition-all duration-300 ease-out shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-2xl hover:-translate-y-4 hover:bg-midnightgreen" data-aos="fade-up" data-aos-delay="200">
+                <div class="text-5xl text-khaki mb-6 transition-transform duration-300 group-hover:scale-110 group-hover:text-white">
                     <i class="fa-solid fa-map-location-dot"></i>
                 </div>
-                <h3 class="text-xl font-bold text-[#eae0c8] mb-4 transition-colors duration-300 group-hover:text-gray-900">SiGAP</h3>
-                <p class="text-[#eae0c8]/70 leading-relaxed transition-colors duration-300 group-hover:text-gray-800">Sistem Informasi Geografis Persebaran Penanganan Perumahan</p>
+                <h3 class="text-xl font-bold text-krem mb-4">SiGAP</h3>
+                <p class="text-krem/70 leading-relaxed group-hover:text-krem/90">Sistem Informasi Geografis Persebaran Penanganan Perumahan</p>
             </a>
 
             <!-- Kartu 3 -->
-            <a href="bankdesain.html" class="group block bg-[#0e5873] p-8 rounded-xl border border-white/10 transition-all duration-300 ease-out shadow-lg hover:shadow-2xl hover:shadow-teal-500/20 hover:-translate-y-4 hover:-rotate-2 hover:bg-teal-400" data-aos="fade-up" data-aos-delay="300">
-                <div class="text-5xl text-[#d2c49a] mb-6 transition-colors duration-300 group-hover:text-gray-900">
+            <a href="bankdesain.html" class="group block bg-darkaqua p-8 rounded-2xl border border-midnightgreen/10 transition-all duration-300 ease-out shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-2xl hover:-translate-y-4 hover:bg-midnightgreen" data-aos="fade-up" data-aos-delay="300">
+                <div class="text-5xl text-khaki mb-6 transition-transform duration-300 group-hover:scale-110 group-hover:text-white">
                     <i class="fa-solid fa-swatchbook"></i>
                 </div>
-                <h3 class="text-xl font-bold text-[#eae0c8] mb-4 transition-colors duration-300 group-hover:text-gray-900">Bank Desain Rumah Sederhana</h3>
-                <p class="text-[#eae0c8]/70 leading-relaxed transition-colors duration-300 group-hover:text-gray-800">Bank Desain Rumah Sehat Sederhana yang dapat diakses oleh Masyarakat</p>
+                <h3 class="text-xl font-bold text-krem mb-4">Bank Desain Rumah Sederhana</h3>
+                <p class="text-krem/70 leading-relaxed group-hover:text-krem/90">Bank Desain Rumah Sehat Sederhana yang dapat diakses oleh Masyarakat</p>
             </a>
 
             <!-- Kartu 4 -->
-            <a href="#" class="group block bg-[#0e5873] p-8 rounded-xl border border-white/10 transition-all duration-300 ease-out shadow-lg hover:shadow-2xl hover:shadow-teal-500/20 hover:-translate-y-4 hover:-rotate-2 hover:bg-teal-400" data-aos="fade-up" data-aos-delay="300">
-                <div class="text-5xl text-[#d2c49a] mb-6 transition-colors duration-300 group-hover:text-gray-900">
+            <a href="#" class="group block bg-darkaqua p-8 rounded-2xl border border-midnightgreen/10 transition-all duration-300 ease-out shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-2xl hover:-translate-y-4 hover:bg-midnightgreen" data-aos="fade-up" data-aos-delay="400">
+                <div class="text-5xl text-khaki mb-6 transition-transform duration-300 group-hover:scale-110 group-hover:text-white">
                     <i class="fa-solid fa-user-pen"></i>
                 </div>
-                <h3 class="text-xl font-bold text-[#eae0c8] mb-4 transition-colors duration-300 group-hover:text-gray-900">Klinik PKP</h3>
-                <p class="text-[#eae0c8]/70 leading-relaxed transition-colors duration-300 group-hover:text-gray-800">Konsultasikan Pembangunan Rumah Anda</p>
+                <h3 class="text-xl font-bold text-krem mb-4">Klinik PKP</h3>
+                <p class="text-krem/70 leading-relaxed group-hover:text-krem/90">Konsultasikan Pembangunan Rumah Anda</p>
             </a>
+
             <!-- Kartu 5 -->
-            <a href="pengembang.html" class="group block bg-[#0e5873] p-8 rounded-xl border border-white/10 transition-all duration-300 ease-out shadow-lg hover:shadow-2xl hover:shadow-teal-500/20 hover:-translate-y-4 hover:-rotate-2 hover:bg-teal-400" data-aos="fade-up" data-aos-delay="300">
-                <div class="text-5xl text-[#d2c49a] mb-6 transition-colors duration-300 group-hover:text-gray-900">
+            <a href="pengembang.html" class="group block bg-darkaqua p-8 rounded-2xl border border-midnightgreen/10 transition-all duration-300 ease-out shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-2xl hover:-translate-y-4 hover:bg-midnightgreen" data-aos="fade-up" data-aos-delay="500">
+                <div class="text-5xl text-khaki mb-6 transition-transform duration-300 group-hover:scale-110 group-hover:text-white">
                     <i class="fa-solid fa-house"></i>
                 </div>
-                <h3 class="text-xl font-bold text-[#eae0c8] mb-4 transition-colors duration-300 group-hover:text-gray-900">Portal Pengembang Perumahan Provinsi NTT</h3>
-                <p class="text-[#eae0c8]/70 leading-relaxed transition-colors duration-300 group-hover:text-gray-800">Temukan Hunian Impian Anda</p>
-            </a>
-             <!-- Kartu 6 -->
-            <a href="https://sippn.menpan.go.id/instansi/balai-pelaksana-penyediaan-perumahan-dan-kawasan-permukiman-nusa-tenggara-ii-1889208" class="group block bg-[#0e5873] p-8 rounded-xl border border-white/10 transition-all duration-300 ease-out shadow-lg hover:shadow-2xl hover:shadow-teal-500/20 hover:-translate-y-4 hover:-rotate-2 hover:bg-teal-400" data-aos="fade-up" data-aos-delay="300">
-                <div class="text-5xl text-[#d2c49a] mb-6 transition-colors duration-300 group-hover:text-gray-900">
-                    <i class="fa-solid fa-list-check"></i>
-                </div>
-                <h3 class="text-xl font-bold text-[#eae0c8] mb-4 transition-colors duration-300 group-hover:text-gray-900">SIPPN</h3>
-                <p class="text-[#eae0c8]/70 leading-relaxed transition-colors duration-300 group-hover:text-gray-800">Sistem Informasi Pelayanan Publik Nasional</p>
+                <h3 class="text-xl font-bold text-krem mb-4">Portal Pengembang Perumahan NTT</h3>
+                <p class="text-krem/70 leading-relaxed group-hover:text-krem/90">Temukan Hunian Impian Anda</p>
             </a>
             
+            <!-- Kartu 6 -->
+            <a href="https://sippn.menpan.go.id/instansi/balai-pelaksana-penyediaan-perumahan-dan-kawasan-permukiman-nusa-tenggara-ii-1889208" class="group block bg-darkaqua p-8 rounded-2xl border border-midnightgreen/10 transition-all duration-300 ease-out shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-2xl hover:-translate-y-4 hover:bg-midnightgreen" data-aos="fade-up" data-aos-delay="600">
+                <div class="text-5xl text-khaki mb-6 transition-transform duration-300 group-hover:scale-110 group-hover:text-white">
+                    <i class="fa-solid fa-list-check"></i>
+                </div>
+                <h3 class="text-xl font-bold text-krem mb-4">SIPPN</h3>
+                <p class="text-krem/70 leading-relaxed group-hover:text-krem/90">Sistem Informasi Pelayanan Publik Nasional</p>
+            </a>
         </div>
+    </div>
+
+    <!-- Shape Divider Bawah (Transisi Terang ke Gelap) -->
+    <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none z-0">
+        <svg class="relative block w-full h-[60px] md:h-[120px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V30C1132.19,68.88,1055.71,74.35,985.66,92.83Z" fill="#0E5B73"></path>
+        </svg>
     </div>
 </section>
 
-<!-- Maklumat & Standar Pelayanan Publik (Compact & Glassmorphism) -->
-<section class="bg-[#084c61] py-8 px-4">
-    <div class="max-w-4xl mx-auto">
-        <h2 class="text-2xl md:text-3xl font-bold text-center text-white mb-3" data-aos="fade-up">Maklumat & Standar Pelayanan Publik</h2>
-        <p class="text-center text-[#eae0c8]/80 mb-10 max-w-xl mx-auto text-xs md:text-sm" data-aos="fade-up">Komitmen kami dalam memberikan pelayanan yang transparan, akuntabel, dan berkualitas kepada masyarakat.</p>
+<!-- Maklumat & Standar Pelayanan Publik (Gradien Halus dari darkaqua ke midnightgreen) -->
+<section class="bg-gradient-to-b from-darkaqua to-midnightgreen pt-16 pb-20 px-4">
+    <div class="max-w-5xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold text-center text-white mb-4" data-aos="fade-up">Maklumat & Standar Pelayanan Publik</h2>
+        <p class="text-center text-krem/80 mb-12 max-w-xl mx-auto text-sm md:text-base" data-aos="fade-up">Komitmen kami dalam memberikan pelayanan yang transparan, akuntabel, dan berkualitas kepada masyarakat.</p>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            
-            <!-- Dokumen 1: Maklumat Pelayanan -->
-            <div class="bg-white/10 backdrop-blur-md border border-white/20 p-5 rounded-2xl shadow-xl flex flex-col justify-between" data-aos="fade-up" data-aos-delay="100">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Dokumen 1 -->
+            <div class="bg-white/5 backdrop-blur-xl border border-white/10 p-6 rounded-3xl shadow-2xl flex flex-col justify-between hover:bg-white/10 transition-colors" data-aos="fade-up" data-aos-delay="100">
                 <div>
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 rounded-xl bg-[#d2c49a]/20 text-[#d2c49a] flex items-center justify-center text-xl font-bold shrink-0">
+                    <div class="flex items-center gap-4 mb-5">
+                        <div class="w-12 h-12 rounded-2xl bg-khaki/20 text-khaki flex items-center justify-center text-2xl font-bold shrink-0 shadow-inner">
                             <i class="fa-solid fa-file-shield"></i>
                         </div>
                         <div>
-                            <h3 class="text-lg font-bold text-[#eae0c8]">Maklumat Pelayanan</h3>
-                            <p class="text-[11px] text-[#eae0c8]/70">Pernyataan kesanggupan penyelenggaraan Pelayanan Publik</p>
+                            <h3 class="text-xl font-bold text-krem">Maklumat Pelayanan</h3>
+                            <p class="text-xs text-krem/70">Pernyataan kesanggupan penyelenggaraan Pelayanan Publik</p>
                         </div>
                     </div>
-                    
-                    <!-- Container Viewer PDF (Diperkecil tingginya) -->
-                    <div class="w-full h-[320px] bg-slate-900/50 rounded-xl overflow-hidden border border-white/10 mb-4 shadow-inner">
+                    <div class="w-full h-[320px] bg-black/40 rounded-2xl overflow-hidden border border-white/5 mb-2 shadow-inner">
                         <iframe src="https://drive.google.com/file/d/10d41XZjxxS3W0I3KfDK7VHwvxi2tCYoC/preview" class="w-full h-full border-0" allow="autoplay"></iframe>
                     </div>
                 </div>
             </div>
 
-            <!-- Dokumen 2: Standar Pelayanan -->
-            <div class="bg-white/10 backdrop-blur-md border border-white/20 p-5 rounded-2xl shadow-xl flex flex-col justify-between" data-aos="fade-up" data-aos-delay="200">
+            <!-- Dokumen 2 -->
+            <div class="bg-white/5 backdrop-blur-xl border border-white/10 p-6 rounded-3xl shadow-2xl flex flex-col justify-between hover:bg-white/10 transition-colors" data-aos="fade-up" data-aos-delay="200">
                 <div>
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 rounded-xl bg-[#d2c49a]/20 text-[#d2c49a] flex items-center justify-center text-xl font-bold shrink-0">
+                    <div class="flex items-center gap-4 mb-5">
+                        <div class="w-12 h-12 rounded-2xl bg-khaki/20 text-khaki flex items-center justify-center text-2xl font-bold shrink-0 shadow-inner">
                             <i class="fa-solid fa-file-lines"></i>
                         </div>
                         <div>
-                            <h3 class="text-lg font-bold text-[#eae0c8]">Standar Pelayanan</h3>
-                            <p class="text-[11px] text-[#eae0c8]/70">Prosedur dan ketentuan layanan</p>
+                            <h3 class="text-xl font-bold text-krem">Standar Pelayanan</h3>
+                            <p class="text-xs text-krem/70">Prosedur dan ketentuan layanan</p>
                         </div>
                     </div>
-                    <!-- Container Viewer PDF (Diperkecil tingginya) -->
-                    <div class="w-full h-[320px] bg-slate-900/50 rounded-xl overflow-hidden border border-white/10 mb-4 shadow-inner">
+                    <div class="w-full h-[320px] bg-black/40 rounded-2xl overflow-hidden border border-white/5 mb-2 shadow-inner">
                         <iframe src="https://drive.google.com/file/d/1vNud_MUHR8HBqgg3XRctzDTwn5WhMEGB/preview" class="w-full h-full border-0" allow="autoplay"></iframe>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </section>
 
-<!-- Section Video YouTube (2 Video) & Tautan Channel -->
-<section class="bg-[#084c61] py-10 px-4">
+<!-- Section Video YouTube (Seamless Lanjutan Gradien/Warna Terakhir) -->
+<section class="bg-midnightgreen py-16 px-4">
     <div class="max-w-5xl mx-auto">
-        <h2 class="text-2xl md:text-3xl font-bold text-center text-white mb-3" data-aos="fade-up">Video Profil & Informasi</h2>
-        <p class="text-center text-[#eae0c8]/80 mb-10 max-w-xl mx-auto text-xs md:text-sm" data-aos="fade-up">Saksikan video dokumentasi, tutorial, dan informasi terbaru seputar layanan kami.</p>
+        <h2 class="text-3xl md:text-4xl font-bold text-center text-white mb-4" data-aos="fade-up">Video Profil & Informasi</h2>
+        <p class="text-center text-krem/80 mb-12 max-w-xl mx-auto text-sm md:text-base" data-aos="fade-up">Saksikan video dokumentasi, tutorial, dan informasi terbaru seputar layanan kami.</p>
         
-        <!-- Grid 2 Video dengan Efek Glass -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8" data-aos="fade-up" data-aos-delay="100">
-            
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12" data-aos="fade-up" data-aos-delay="100">
             <!-- Video 1 -->
-            <div class="bg-white/10 backdrop-blur-md border border-white/20 p-5 rounded-2xl shadow-xl flex flex-col justify-between">
+            <div class="bg-darkaqua/30 border border-white/10 p-4 rounded-3xl shadow-xl flex flex-col justify-between">
                 <div>
-                    <!-- Responsive YouTube Embed 16:9 -->
-                    <div class="relative w-full aspect-video rounded-xl overflow-hidden shadow-inner border border-white/10 mb-4 bg-slate-900">
-                        <iframe src="https://www.youtube.com/embed/MHSrA-2h7n0?si=kOVliFvtkTSMsAqr" 
-                            title="YouTube video player 1" 
-                            class="absolute top-0 left-0 w-full h-full border-0" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                            allowfullscreen>
-                        </iframe>
+                    <div class="relative w-full aspect-video rounded-2xl overflow-hidden shadow-inner mb-5 bg-black">
+                        <iframe src="https://www.youtube.com/embed/MHSrA-2h7n0?si=kOVliFvtkTSMsAqr" title="YouTube video player 1" class="absolute top-0 left-0 w-full h-full border-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     </div>
-                    <h3 class="text-base font-bold text-[#eae0c8] mb-1">Profil BSPS Provinsi NTT 2026</h3>
-                    <p class="text-xs text-[#eae0c8]/70">Keterangan singkat atau deskripsi mengenai isi video pertama.</p>
+                    <h3 class="text-lg font-bold text-krem mb-2 px-2">Profil BSPS Provinsi NTT 2026</h3>
+                    <p class="text-sm text-krem/70 px-2 line-clamp-2">Keterangan singkat atau deskripsi mengenai isi video pertama.</p>
                 </div>
             </div>
 
             <!-- Video 2 -->
-            <div class="bg-white/10 backdrop-blur-md border border-white/20 p-5 rounded-2xl shadow-xl flex flex-col justify-between">
+            <div class="bg-darkaqua/30 border border-white/10 p-4 rounded-3xl shadow-xl flex flex-col justify-between">
                 <div>
-                    <!-- Responsive YouTube Embed 16:9 -->
-                    <div class="relative w-full aspect-video rounded-xl overflow-hidden shadow-inner border border-white/10 mb-4 bg-slate-900">
-                        <iframe src="https://www.youtube.com/embed/2S_JZoaJjlQ?si=zB0YEn0M7WQL5xWE" 
-                            title="YouTube video player 2" 
-                            class="absolute top-0 left-0 w-full h-full border-0" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                            allowfullscreen>
-                        </iframe>
+                    <div class="relative w-full aspect-video rounded-2xl overflow-hidden shadow-inner mb-5 bg-black">
+                        <iframe src="https://www.youtube.com/embed/2S_JZoaJjlQ?si=zB0YEn0M7WQL5xWE" title="YouTube video player 2" class="absolute top-0 left-0 w-full h-full border-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     </div>
-                    <h3 class="text-base font-bold text-[#eae0c8] mb-1">Rumah Joni, Bocah Pemanjat Tiang Bendera</h3>
-                    <p class="text-xs text-[#eae0c8]/70">Penandatanganan Berita Acara Serah Terima Aset dan Naskah Hibah Rumah Khusus Rumah Joni, Bocah pemanjat tiang bendera HUT ke-73 Republik Indonesia</p>
+                    <h3 class="text-lg font-bold text-krem mb-2 px-2">Rumah Joni, Bocah Pemanjat Tiang Bendera</h3>
+                    <p class="text-sm text-krem/70 px-2 line-clamp-2">Penandatanganan Berita Acara Serah Terima Aset dan Naskah Hibah Rumah Khusus Rumah Joni.</p>
                 </div>
             </div>
-
         </div>
 
-        <!-- Bagian Tautan ke Akun YouTube -->
-        <div class="bg-white/10 backdrop-blur-md border border-white/20 p-6 rounded-2xl shadow-xl flex flex-col sm:flex-row items-center justify-between gap-4" data-aos="fade-up" data-aos-delay="200">
-            <div class="text-center sm:text-left">
-                <h3 class="text-lg font-bold text-[#eae0c8]">Kunjungi Channel Kami</h3>
-                <p class="text-xs text-[#eae0c8]/70">Jangan lupa untuk subscribe, like, dan aktifkan lonceng notifikasi.</p>
+        <!-- Banner Kunjungi Channel -->
+        <div class="bg-gradient-to-r from-darkaqua to-midnightgreen border border-khaki/30 p-8 rounded-3xl shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+            <!-- Aksen hiasan -->
+            <div class="absolute -right-10 -top-10 text-khaki/10 text-9xl"><i class="fa-brands fa-youtube"></i></div>
+            
+            <div class="text-center md:text-left relative z-10">
+                <h3 class="text-2xl font-bold text-krem mb-2">Kunjungi Channel Kami</h3>
+                <p class="text-sm text-krem/80">Dapatkan update terbaru, jangan lupa subscribe dan aktifkan notifikasi.</p>
             </div>
             
-            <!-- Tombol ke Channel YouTube -->
-            <a href="https://www.youtube.com/@pkp_bp3kpnt2" target="_blank" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-xl transition-all shadow-lg flex items-center gap-2 shrink-0 cursor-pointer">
-                <i class="fa-brands fa-youtube text-xl"></i> Kunjungi Channel YouTube
+            <a href="https://www.youtube.com/@pkp_bp3kpnt2" target="_blank" class="relative z-10 bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-xl transition-transform hover:scale-105 shadow-[0_0_20px_rgba(220,38,38,0.4)] flex items-center gap-3 shrink-0">
+                <i class="fa-brands fa-youtube text-2xl"></i> Channel YouTube
             </a>
         </div>
-
     </div>
 </section>
 
@@ -498,7 +495,7 @@
             title: "BALAI P3KP NUSA TENGGARA II",
             description: "Sistem Infomasi Pelayanan Publik Balai Pelaksana Penyediaan Perumahan dan Kawasan Permukiman Nusa Tenggara II",
             buttonText: "BUAT LAPORAN PENGADUAN RUMAT TIDAK LAYAK HUNI",
-            buttonLink: "https://script.google.com/macros/s/AKfycbz4DFWF4XU6hak6WwgIO8C8IXKtwE5xLfjn-1tMQcfSpynfOvQonKABdP01bHZR2qVW/exec"
+            buttonLink: "laporrtlh.html"
         },
         {
             image: "https://lh3.googleusercontent.com/d/1-8s955R_MfDomH9Vt_AaN_b3iu3XNZW_",
@@ -600,7 +597,77 @@
     heroSection.addEventListener('mouseenter', () => clearInterval(slideInterval));
     heroSection.addEventListener('mouseleave', () => slideInterval = setInterval(nextSlide, 6000));
 </script>
+<!-- Skrip JavaScript untuk Slider Infografis -->
+<script>
+    // Data Infografis (Ganti URL dengan link Google Drive Anda menggunakan format: https://lh3.googleusercontent.com/d/FILE_ID)
+    const infographicData = [
+        {
+            title: "Infografis Alur Pelayanan BSPS",
+            imageUrl: "https://lh3.googleusercontent.com/d/1nxcIHiupGEeA4BlAnY-ipdx0pi1YObQC",
+            description: ""
+        },
+        {
+            title: "Standar Pelayanan Publik",
+            imageUrl: "https://lh3.googleusercontent.com/d/1GPzurVkl4MX5TFnp3I0aRpFFoCEtrrqi",
+            description: ""
+        },
+        {
+            title: "Capaian Kinerja Program",
+            imageUrl: "https://lh3.googleusercontent.com/d/1vqwwYbqjHOD5ZB0GxM72y0wJRG9Rr_w5",
+            description: ""
+        }
+    ];
 
+    let currentInfoIndex = 0;
+    const slidesContainer = document.getElementById('infographic-slides');
+    const dotsContainer = document.getElementById('info-dots');
+
+    function renderInfographicSlider() {
+        if (!slidesContainer || !dotsContainer) return;
+
+        // Render Gambar Slide dengan ukuran yang terdeklarasi terpisah
+        slidesContainer.innerHTML = infographicData.map((item, index) => `
+            <div class="absolute inset-0 transition-all duration-700 ease-in-out flex flex-col items-center justify-center ${index === currentInfoIndex ? 'opacity-100 scale-100 z-10' : 'opacity-0 scale-95 z-0 pointer-events-none'}">
+                <div class="w-full h-full flex items-center justify-center p-2">
+                    <!-- 
+                      ============================================================
+                      DEKLARASI UKURAN GAMBAR DI DALAM FRAME
+                      Ubah nilai max-h-[...] atau max-w-[...] di bawah ini 
+                      untuk memperbesar/memperkecil gambar tanpa mengubah tinggi framenya.
+                      ============================================================
+                    -->
+                    <img src="${item.imageUrl}" alt="${item.title}" class="max-h-[150%] max-w-[150%] object-contain rounded-lg shadow-md" onerror="this.src='https://placehold.co/1200x700/0e5873/eae0c8?text=Gagal+Memuat+Gambar+GDrive';">
+                </div>
+            </div>
+        `).join('');
+
+        // Render Indikator Dots
+        dotsContainer.innerHTML = infographicData.map((_, index) => `
+            <button onclick="setInfoSlide(${index})" class="h-2.5 rounded-full transition-all cursor-pointer ${index === currentInfoIndex ? 'bg-khaki w-6' : 'bg-white/40 hover:bg-white/75 w-2.5'}"></button>
+        `).join('');
+    }
+
+    function nextInfoSlide() {
+        currentInfoIndex = (currentInfoIndex + 1) % infographicData.length;
+        renderInfographicSlider();
+    }
+
+    function prevInfoSlide() {
+        currentInfoIndex = (currentInfoIndex - 1 + infographicData.length) % infographicData.length;
+        renderInfographicSlider();
+    }
+
+    function setInfoSlide(index) {
+        currentInfoIndex = index;
+        renderInfographicSlider();
+    }
+
+    // Geser otomatis setiap 5 detik
+    setInterval(nextInfoSlide, 5000);
+
+    // Jalankan saat halaman selesai dimuat
+    document.addEventListener('DOMContentLoaded', renderInfographicSlider);
+</script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="main.js"></script>
 </body>
