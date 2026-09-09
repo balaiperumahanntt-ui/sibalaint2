@@ -1,487 +1,220 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portal KPR & Perumahan - Balai P3KP NT II</title>
-      <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="https://i.ibb.co.com/RpTQRCrn/logo.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="https://i.ibb.co.com/RpTQRCrn/logo.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="https://i.ibb.co.com/RpTQRCrn/logo.png">
-  
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal KPR & Perumahan - Balai P3KP NT II</title>
 
-  <!-- Tailwind Config Diperbarui untuk mendukung warna kustom pada Header Baru -->
-  <script>
-    tailwind.config = { 
-      theme: { 
-        extend: { 
-          colors: { 
-            brand: { teal: '#0E5975', darkteal: '#093C4F', gold: '#CBA355', lightgold: '#E0C17B' },
-            midnightgreen: '#093C4F',
-            khaki: '#CBA355',
-            krem: '#FDFBF7',
-            darkaqua: '#0E5975'
-          } 
-        } 
-      } 
-    }
-  </script>
-   <style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+    
+    <!-- External Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Tailwind Config Diperbarui -->
+    <script>
+        tailwind.config = { 
+            theme: { 
+                extend: { 
+                    colors: { 
+                        brand: { teal: '#0E5975', darkteal: '#093C4F', gold: '#CBA355', lightgold: '#E0C17B' },
+                        midnightgreen: '#093C4F',
+                        khaki: '#CBA355',
+                        krem: '#FDFBF7',
+                        darkaqua: '#0E5975'
+                    } 
+                } 
+            } 
+        }
+    </script>
+     <style>
         html {
             scroll-behavior: smooth;
         }
     </style>
-
-  <style>
-    body {
-      background-color: #F3F5F7;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cpath d='M0 10 L10 0 L20 10 L30 0 L40 10 L50 0 L60 10 L70 0 L80 10' fill='none' stroke='%230E5975' stroke-width='1.5' stroke-opacity='0.07'/%3E%3Cpath d='M0 70 L10 80 L20 70 L30 80 L40 70 L50 80 L60 70 L70 80 L80 70' fill='none' stroke='%230E5975' stroke-width='1.5' stroke-opacity='0.07'/%3E%3Cpolygon points='40,20 60,40 40,60 20,40' fill='none' stroke='%230E5975' stroke-width='1.2' stroke-opacity='0.06'/%3E%3Cpolygon points='40,28 52,40 40,52 28,40' fill='none' stroke='%230E5975' stroke-width='1' stroke-opacity='0.05'/%3E%3C/svg%3E");
-      background-size: 80px 80px;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-    }
-    #mapKpr { height: 420px; width: 100%; border-radius: 1rem; z-index: 10; }
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: #F1F5F9; }
-    ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
-    .modal-enter { animation: fadeIn 0.3s ease-out forwards; }
-    .modal-leave { animation: fadeOut 0.3s ease-in forwards; }
-    @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-    @keyframes fadeOut { from { opacity: 1; transform: scale(1); } to { opacity: 0; transform: scale(0.95); } }
-  </style>
 </head>
-<body class="min-h-screen text-slate-800 pb-12 antialiased">
+<body class="body-pengembang min-h-screen text-slate-800 pb-12 antialiased">
 
-  <!-- HEADER BARU (Sesuai Permintaan) -->
-  <header class="bg-midnightgreen/90 backdrop-blur-md border-b-4 border-khaki text-krem sticky top-0 z-50 transition-all shadow-md mb-8">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="flex justify-between items-center py-3">
-              <div class="flex items-center gap-5">
-                  <a href="#" class="flex items-center shrink-0">
-                      <img src="https://i.ibb.co.com/Gf4rz3Yn/BALAI-NT-II-8.png" alt="Maskot SiBalai" class="w-[180px] h-auto object-contain">
-                  </a>
-                  <a href="index.html" class="text-krem/80 hover:text-khaki transition-all text-sm font-medium flex items-center gap-1 px-2 py-1.5 rounded-lg hover:bg-krem/10 border border-transparent hover:border-krem/20 mt-2.5">
-                      <i class="fa-solid fa-arrow-left"></i> Kembali
-                  </a>
-              </div>
-              <div class="hidden md:flex space-x-1 font-medium">
-                  <span class="px-4 py-3 bg-darkaqua/50 rounded-lg">Portal Pengembang Perumahan</span>
-              </div>
-          </div>
-      </div>
-  </header>
-
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 space-y-8">
-    <!-- STATISTIK -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-      <div data-aos="fade-up" data-aos-delay="100" class="bg-white rounded-3xl shadow-lg border border-slate-100 p-5 flex items-center gap-4">
-        <div class="w-12 h-12 rounded-full bg-brand-teal text-white flex items-center justify-center text-xl shadow-inner"><i class="fa-solid fa-house"></i></div>
-        <div><p class="text-xs text-slate-500 font-bold uppercase tracking-wide">Total Unit Tersedia</p><h3 id="statTotalKavling" class="text-2xl font-extrabold text-brand-darkteal">0</h3></div>
-      </div>
-      <div data-aos="fade-up" data-aos-delay="200" class="bg-white rounded-3xl shadow-lg border border-slate-100 p-5 flex items-center gap-4">
-        <div class="w-12 h-12 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-xl shadow-inner"><i class="fa-solid fa-check"></i></div>
-        <div><p class="text-xs text-slate-500 font-bold uppercase tracking-wide">Subsidi Ready</p><h3 id="statSubsidiReady" class="text-2xl font-extrabold text-green-600">0</h3></div>
-      </div>
-      <div data-aos="fade-up" data-aos-delay="300" class="bg-white rounded-3xl shadow-lg border border-slate-100 p-5 flex items-center gap-4">
-        <div class="w-12 h-12 rounded-full bg-brand-gold/20 text-brand-gold flex items-center justify-center text-xl shadow-inner"><i class="fa-solid fa-star"></i></div>
-        <div><p class="text-xs text-slate-500 font-bold uppercase tracking-wide">Komersil Ready</p><h3 id="statKomersilReady" class="text-2xl font-extrabold text-brand-gold">0</h3></div>
-      </div>
-      <div data-aos="fade-up" data-aos-delay="400" class="bg-white rounded-3xl shadow-lg border border-slate-100 p-5 flex items-center gap-4">
-        <div class="w-12 h-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xl shadow-inner"><i class="fa-solid fa-building"></i></div>
-        <div><p class="text-xs text-slate-500 font-bold uppercase tracking-wide">Total Pengembang</p><h3 id="statPengembang" class="text-2xl font-extrabold text-blue-600">0</h3></div>
-      </div>
-    </div>
-
-    <!-- PETA SEBARAN -->
-    <div data-aos="fade-up" class="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden">
-      <div class="p-6">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 border-b-2 border-brand-gold/30 pb-4">
-          <div class="flex items-center gap-3">
-            <span class="w-10 h-10 rounded-xl bg-brand-teal text-white font-bold text-lg flex items-center justify-center shadow"><i class="fa-solid fa-map-location-dot"></i></span>
-            <h2 class="text-lg font-bold text-brand-darkteal uppercase tracking-wide">Peta Sebaran KPR</h2>
-          </div>
-          <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
-            <select id="filterKabupaten" onchange="applyFilters()" class="px-4 py-2.5 bg-slate-50 border-2 border-brand-gold/50 rounded-xl text-sm font-bold text-brand-darkteal focus:outline-none focus:border-brand-teal cursor-pointer shadow-sm min-w-[200px]">
-              <option value="ALL">Semua Kabupaten</option>
-            </select>
-            <select id="filterKategori" onchange="applyFilters()" class="px-4 py-2.5 bg-slate-50 border-2 border-brand-gold/50 rounded-xl text-sm font-bold text-brand-darkteal focus:outline-none focus:border-brand-teal cursor-pointer shadow-sm min-w-[200px]">
-              <option value="ALL">Semua Kategori</option>
-              <option value="Subsidi">Subsidi (MBR)</option>
-              <option value="Komersil">Komersil</option>
-            </select>
-          </div>
-        </div>
-        <div class="p-2 bg-slate-50 rounded-2xl border border-slate-200 shadow-inner">
-          <div id="mapKpr"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- DAFTAR PERUMAHAN -->
-    <div data-aos="fade-up" class="flex items-center gap-3 border-b-2 border-brand-gold/30 pb-3 mt-8">
-      <span class="w-8 h-8 rounded-xl bg-brand-gold text-white font-bold text-sm flex items-center justify-center shadow"><i class="fa-solid fa-layer-group"></i></span>
-      <h2 class="text-xl font-bold text-brand-darkteal uppercase tracking-wide">Daftar Perumahan</h2>
-    </div>
-
-    <div id="notificationBanner"></div>
-    <div id="katalogGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
-  </main>
-
-  <!-- MODAL DETAIL -->
-  <div id="modalDetail" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl shadow-2xl w-full max-w-5xl max-h-[95vh] overflow-y-auto flex flex-col relative">
-      <div class="sticky top-0 bg-brand-darkteal text-white p-5 flex justify-between items-center z-20 shadow-md">
-        <div>
-          <h2 id="modalTitle" class="text-xl font-bold">Nama Perumahan</h2>
-          <p id="modalDeveloper" class="text-sm text-brand-lightgold"><i class="fa-solid fa-building mr-1"></i> PT. Pengembang</p>
-        </div>
-        <button onclick="closeModal('modalDetail')" class="w-8 h-8 bg-white/20 hover:bg-red-500 rounded-full flex items-center justify-center transition-colors"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-
-      <div class="p-6 grid grid-cols-1 lg:grid-cols-5 gap-8">
-        <div class="lg:col-span-2 space-y-6">
-          <div class="rounded-2xl overflow-hidden shadow-md bg-slate-100 relative group aspect-video">
-             <div class="absolute top-3 left-3 px-3 py-1 bg-brand-gold text-white border-white border text-xs font-bold rounded-full shadow-md z-10" id="modalReadyLabel">0 Unit Tersedia</div>
-            <img id="modalImg" src="" alt="Foto Perumahan" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-          </div>
-          
-          <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 shadow-inner">
-            <h3 class="font-bold text-brand-darkteal border-b-2 border-brand-gold/30 pb-2 mb-3">Informasi Unit & Harga</h3>
-            <div class="space-y-3 text-sm text-slate-700">
-              <p class="flex justify-between items-center"><span>Kategori:</span> <strong id="modalKategori" class="text-brand-teal px-2 py-0.5 bg-brand-teal/10 rounded"></strong></p>
-              <p class="flex justify-between items-center"><span>Harga:</span> <strong id="modalHarga" class="text-green-600 text-base"></strong></p>
-              <p class="flex justify-between items-center"><span>Jumlah Total Rumah:</span> <strong id="modalJumlahRumah"></strong></p>
-              <p class="flex justify-between items-center"><span>Status Terakad:</span> <strong id="modalTerakad"></strong></p>
-              <p class="flex justify-between items-center border-t pt-2"><span>Unit Tersedia (Ready):</span> <strong id="modalUnitTersedia" class="text-emerald-600 text-base"></strong></p>
-              <p class="flex justify-between items-center"><span>Tipe Unit:</span> <strong id="modalTipe"></strong></p>
-              <p class="flex justify-between items-center"><span>Luas Bangunan / Lahan:</span> <strong id="modalLuas"></strong></p>
-            </div>
-          </div>
-        </div>
-
-        <div class="lg:col-span-3 space-y-6 flex flex-col">
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-             <div class="bg-blue-50 p-4 rounded-2xl border border-blue-200">
-                <h3 class="font-bold text-blue-900 border-b border-blue-200 pb-2 mb-3">Informasi Legalitas</h3>
-                <div class="space-y-2 text-sm text-blue-800">
-                   <p><i class="fa-solid fa-users mr-2 w-4"></i> <strong>Asosiasi:</strong> <span id="modalAsosiasi"></span></p>
-                   <p><i class="fa-solid fa-calendar mr-2 w-4"></i> <strong>Tahun Bangun:</strong> <span id="modalTahun"></span></p>
-                   <p><i class="fa-solid fa-house-circle-check mr-2 w-4"></i> <strong>Status Perumahan:</strong> <span id="modalStatusPerumahan"></span></p>
+    <!-- HEADER BARU -->
+    <header class="bg-midnightgreen/90 backdrop-blur-md border-b-4 border-khaki text-krem sticky top-0 z-50 transition-all shadow-md mb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-3">
+                <div class="flex items-center gap-5">
+                    <a href="#" class="flex items-center shrink-0">
+                        <img src="https://i.ibb.co.com/Gf4rz3Yn/BALAI-NT-II-8.png" alt="Maskot SiBalai" class="w-[180px] h-auto object-contain">
+                    </a>
+                    <a href="index.html" class="text-krem/80 hover:text-khaki transition-all text-sm font-medium flex items-center gap-1 px-2 py-1.5 rounded-lg hover:bg-krem/10 border border-transparent hover:border-krem/20 mt-2.5">
+                        <i class="fa-solid fa-arrow-left"></i> Kembali
+                    </a>
                 </div>
-             </div>
-             
-             <div class="bg-amber-50 p-4 rounded-2xl border border-amber-200">
-                <h3 class="font-bold text-amber-900 border-b border-amber-200 pb-2 mb-3">Kontak Pengembang</h3>
-                <div class="space-y-2 text-xs sm:text-sm text-amber-800">
-                   <p class="flex items-start"><i class="fa-brands fa-whatsapp text-green-600 mr-2 w-4 mt-0.5 flex-shrink-0"></i> <a id="modalTelepon" href="#" target="_blank" class="underline hover:text-green-700 font-bold break-all leading-tight">-</a></p>
-                   <p class="flex items-start"><i class="fa-solid fa-envelope mr-2 w-4 mt-0.5 flex-shrink-0"></i> <span id="modalEmail" class="break-all leading-tight">-</span></p>
-                   <p id="wrapWebsite" class="flex items-start"><i class="fa-solid fa-globe mr-2 w-4 mt-0.5 flex-shrink-0"></i> <a id="modalWebsite" href="#" target="_blank" class="underline hover:text-amber-600 font-bold break-all leading-tight">-</a></p>
+                <div class="hidden md:flex space-x-1 font-medium">
+                    <span class="px-4 py-3 bg-darkaqua/50 rounded-lg">Portal Pengembang Perumahan</span>
                 </div>
-             </div>
-          </div>
-
-          <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 shadow-inner flex-1">
-            <h3 class="font-bold text-brand-darkteal border-b-2 border-brand-gold/30 pb-2 mb-3">Spesifikasi & Ruangan</h3>
-            <div class="grid grid-cols-2 gap-y-3 gap-x-2 text-sm text-slate-700 mb-4">
-               <div><strong class="block text-xs text-brand-lightgold uppercase">Kamar Tidur</strong> <span id="modalKT" class="font-semibold"></span></div>
-               <div><strong class="block text-xs text-brand-lightgold uppercase">Kamar Mandi</strong> <span id="modalKM" class="font-semibold"></span></div>
             </div>
-            <div class="grid grid-cols-2 gap-y-4 gap-x-2 text-sm text-slate-700" id="modalSpek"></div>
-            
-            <h3 class="font-bold text-brand-darkteal border-b-2 border-brand-gold/30 pb-2 mt-6 mb-3">Alamat Lengkap</h3>
-            <p class="text-sm text-slate-700 leading-relaxed"><i class="fa-solid fa-map-pin text-brand-gold mr-1"></i> <span id="modalAlamat"></span></p>
-          </div>
-          
-          <div class="grid grid-cols-3 gap-3 mt-auto pt-2">
-            <button onclick="lihatGambar('siteplan')" class="bg-brand-darkteal hover:bg-brand-teal text-white font-bold py-3 rounded-xl shadow-md transition-colors flex items-center justify-center gap-2 text-sm">
-              <i class="fa-solid fa-map"></i> Siteplan
-            </button>
-            <button onclick="lihatGambar('denah')" class="bg-brand-gold hover:bg-brand-lightgold text-slate-900 font-bold py-3 rounded-xl shadow-md transition-colors flex items-center justify-center gap-2 text-sm">
-              <i class="fa-solid fa-house-chimney-window"></i> Denah
-            </button>
-            <a id="modalMapsLink" href="#" target="_blank" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl shadow-md transition-colors flex items-center justify-center gap-2 text-sm">
-              <i class="fa-solid fa-location-arrow"></i> Google Maps
-            </a>
-          </div>
         </div>
-      </div>
-    </div>
-  </div>
+    </header>
 
-  <div id="modalGambar" class="fixed inset-0 bg-slate-950/95 backdrop-blur-md z-[60] hidden flex flex-col items-center justify-center p-4">
-    <button onclick="closeModal('modalGambar')" class="absolute top-6 right-6 text-white text-xl bg-white/10 hover:bg-white/25 w-12 h-12 rounded-full flex items-center justify-center transition shadow-lg cursor-pointer z-50">
-      <i class="fa-solid fa-xmark"></i>
-    </button>
-    <div class="relative w-full max-w-4xl max-h-[85vh] flex flex-col items-center justify-center">
-      <img id="imgLayarPenuh" src="" alt="Gambar Tinjauan" class="w-full h-auto max-h-[75vh] object-contain bg-white rounded-2xl shadow-2xl p-2 mb-4">
-      <p id="captionGambar" class="text-white text-base font-semibold text-center max-w-xl px-4 bg-slate-900/60 py-2 rounded-xl border border-white/10"></p>
-    </div>
-  </div>
-
-  <div id="loadingOverlay" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-[100] flex flex-col items-center justify-center text-white p-4 transition-opacity">
-    <div class="w-16 h-16 border-4 border-brand-gold border-t-transparent rounded-full animate-spin mb-4"></div>
-    <h3 class="text-lg font-bold text-white">Memuat Data Perumahan...</h3>
-    <p class="text-xs text-slate-300 mt-1">Mengambil data terbaru...</p>
-  </div>
-
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-  <script>
-    let map = null;
-    let markersGroup = L.layerGroup();
-    let perumahanData = [];
-    let currentSelectedData = null;
-
-    // GANTI BAGIAN INI: URL Web App Google Apps Script Anda
-    const API_URL = "https://script.google.com/macros/s/AKfycbzCUUnCyGMj6PmM---w-WyhNfLEoPM8rLrTs9lzrtQxRmUSI9v8TkuTUO52jbkle59aAA/exec";
-
-    document.addEventListener("DOMContentLoaded", () => {
-      AOS.init({ duration: 800, once: true, offset: 50 });
-      initMap();
-      fetchData();
-    });
-
-    function initMap() {
-      map = L.map('mapKpr').setView([-10.15, 123.58], 9);
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', { attribution: '© OpenStreetMap' }).addTo(map);
-      markersGroup.addTo(map);
-    }
-
-    async function fetchData() {
-      const loadingEl = document.getElementById('loadingOverlay');
-      
-      try {
-        const response = await fetch(API_URL);
-        const data = await response.json();
-        
-        if(loadingEl) loadingEl.classList.add('hidden');
-        perumahanData = Array.isArray(data) ? data : [];
-        populateKabupatenFilter(perumahanData);
-        applyFilters(); 
-      } catch (err) {
-        console.error("Gagal mengambil data dari Google Apps Script:", err);
-        if(loadingEl) loadingEl.classList.add('hidden');
-        perumahanData = [];
-        populateKabupatenFilter(perumahanData);
-        renderDashboard([]);
-      }
-    }
-
-    function populateKabupatenFilter(data) {
-      const select = document.getElementById('filterKabupaten');
-      select.innerHTML = '<option value="ALL">Semua Kabupaten</option>';
-      if (!data || data.length === 0) return;
-      const kabSet = new Set(data.map(item => item.kabupaten).filter(k => k && k !== "-"));
-      Array.from(kabSet).sort().forEach(kab => {
-        let opt = document.createElement('option'); opt.value = kab; opt.textContent = kab; select.appendChild(opt);
-      });
-    }
-
-    function applyFilters() {
-      const selectedKab = document.getElementById('filterKabupaten').value;
-      const selectedKat = document.getElementById('filterKategori').value;
-      const bannerEl = document.getElementById('notificationBanner');
-      
-      bannerEl.innerHTML = "";
-
-      let filteredData = perumahanData.filter(item => {
-        const matchKab = selectedKab === "ALL" || item.kabupaten === selectedKab;
-        const matchKat = selectedKat === "ALL" || String(item.kategori).toLowerCase().includes(selectedKat.toLowerCase());
-        return matchKab && matchKat;
-      });
-
-      filteredData.sort((a, b) => b.statusTerakadNum - a.statusTerakadNum);
-
-      if (filteredData.length === 0 && selectedKab !== "ALL") {
-        bannerEl.innerHTML = `
-          <div class="bg-amber-50 border border-amber-200 text-amber-800 p-4 rounded-2xl mb-6 shadow-sm flex items-center gap-3">
-            <i class="fa-solid fa-circle-exclamation text-amber-500 text-xl"></i>
-            <div>
-              <p class="font-bold text-sm">Tidak ditemukan perumahan di ${selectedKab} dengan kategori tersebut.</p>
-              <p class="text-xs text-amber-700">Berikut ditampilkan saran perumahan dengan total akad terbanyak dari wilayah lain:</p>
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 space-y-8">
+        <!-- STATISTIK -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+            <div data-aos="fade-up" data-aos-delay="100" class="bg-white rounded-3xl shadow-lg border border-slate-100 p-5 flex items-center gap-4">
+                <div class="w-12 h-12 rounded-full bg-brand-teal text-white flex items-center justify-center text-xl shadow-inner"><i class="fa-solid fa-house"></i></div>
+                <div><p class="text-xs text-slate-500 font-bold uppercase tracking-wide">Total Unit Tersedia</p><h3 id="statTotalKavling" class="text-2xl font-extrabold text-brand-darkteal">0</h3></div>
             </div>
-          </div>
-        `;
-        
-        filteredData = [...perumahanData].filter(item => {
-          return selectedKat === "ALL" || String(item.kategori).toLowerCase().includes(selectedKat.toLowerCase());
-        });
-        filteredData.sort((a, b) => b.statusTerakadNum - a.statusTerakadNum);
-      }
+            <div data-aos="fade-up" data-aos-delay="200" class="bg-white rounded-3xl shadow-lg border border-slate-100 p-5 flex items-center gap-4">
+                <div class="w-12 h-12 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-xl shadow-inner"><i class="fa-solid fa-check"></i></div>
+                <div><p class="text-xs text-slate-500 font-bold uppercase tracking-wide">Subsidi Ready</p><h3 id="statSubsidiReady" class="text-2xl font-extrabold text-green-600">0</h3></div>
+            </div>
+            <div data-aos="fade-up" data-aos-delay="300" class="bg-white rounded-3xl shadow-lg border border-slate-100 p-5 flex items-center gap-4">
+                <div class="w-12 h-12 rounded-full bg-brand-gold/20 text-brand-gold flex items-center justify-center text-xl shadow-inner"><i class="fa-solid fa-star"></i></div>
+                <div><p class="text-xs text-slate-500 font-bold uppercase tracking-wide">Komersil Ready</p><h3 id="statKomersilReady" class="text-2xl font-extrabold text-brand-gold">0</h3></div>
+            </div>
+            <div data-aos="fade-up" data-aos-delay="400" class="bg-white rounded-3xl shadow-lg border border-slate-100 p-5 flex items-center gap-4">
+                <div class="w-12 h-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xl shadow-inner"><i class="fa-solid fa-building"></i></div>
+                <div><p class="text-xs text-slate-500 font-bold uppercase tracking-wide">Total Pengembang</p><h3 id="statPengembang" class="text-2xl font-extrabold text-blue-600">0</h3></div>
+            </div>
+        </div>
 
-      renderDashboard(filteredData);
-    }
-
-    function renderDashboard(data) {
-      let tKavling = 0, tSubReady = 0, tKomReady = 0;
-      let developers = new Set();
-      
-      if (perumahanData && perumahanData.length > 0) {
-        perumahanData.forEach(d => {
-          tKavling += d.ready;
-          if(String(d.kategori).toLowerCase().includes('subsidi')) tSubReady += d.ready;
-          else tKomReady += d.ready;
-          if(d.developer && d.developer !== "-") developers.add(d.developer);
-        });
-      }
-
-      document.getElementById('statTotalKavling').innerText = tKavling.toLocaleString('id-ID');
-      document.getElementById('statSubsidiReady').innerText = tSubReady.toLocaleString('id-ID');
-      document.getElementById('statKomersilReady').innerText = tKomReady.toLocaleString('id-ID');
-      document.getElementById('statPengembang').innerText = developers.size;
-
-      markersGroup.clearLayers();
-      let bounds = [];
-
-      if (data && data.length > 0) {
-        data.forEach((item) => {
-          if(item.lat && item.lng) {
-            const icon = L.divIcon({
-              className: 'custom-pin',
-              html: `<div class="relative flex flex-col items-center justify-center group"><i class="fa-solid fa-location-dot text-3xl text-brand-teal drop-shadow-md"></i><span class="absolute -top-6 bg-white text-xs font-bold px-2 py-0.5 rounded border border-brand-teal whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity z-20">${item.nama}</span></div>`,
-              iconSize: [30, 30], iconAnchor: [15, 30]
-            });
-            const marker = L.marker([item.lat, item.lng], {icon: icon})
-              .bindPopup(`
-                <div class="font-sans text-center min-w-[150px]">
-                  <b class="text-brand-darkteal">${item.nama}</b><br>
-                  <span class="text-xs text-slate-500">${item.developer}</span><br>
-                  <span class="inline-block mt-2 px-2 py-0.5 bg-brand-gold/20 text-brand-darkteal text-[10px] rounded font-bold uppercase">${item.kategori}</span>
-                  <button onclick="openDetail(${perumahanData.indexOf(item)})" class="mt-3 w-full bg-brand-teal hover:bg-brand-darkteal transition text-white font-bold text-xs py-1.5 rounded">Lihat Detail</button>
+        <!-- PETA SEBARAN -->
+        <div data-aos="fade-up" class="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden">
+            <div class="p-6">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 border-b-2 border-brand-gold/30 pb-4">
+                    <div class="flex items-center gap-3">
+                        <span class="w-10 h-10 rounded-xl bg-brand-teal text-white font-bold text-lg flex items-center justify-center shadow"><i class="fa-solid fa-map-location-dot"></i></span>
+                        <h2 class="text-lg font-bold text-brand-darkteal uppercase tracking-wide">Peta Sebaran KPR</h2>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+                        <select id="filterKabupaten" onchange="applyFilters()" class="px-4 py-2.5 bg-slate-50 border-2 border-brand-gold/50 rounded-xl text-sm font-bold text-brand-darkteal focus:outline-none focus:border-brand-teal cursor-pointer shadow-sm min-w-[200px]">
+                            <option value="ALL">Semua Kabupaten</option>
+                        </select>
+                        <select id="filterKategori" onchange="applyFilters()" class="px-4 py-2.5 bg-slate-50 border-2 border-brand-gold/50 rounded-xl text-sm font-bold text-brand-darkteal focus:outline-none focus:border-brand-teal cursor-pointer shadow-sm min-w-[200px]">
+                            <option value="ALL">Semua Kategori</option>
+                            <option value="Subsidi">Subsidi (MBR)</option>
+                            <option value="Komersil">Komersil</option>
+                        </select>
+                    </div>
                 </div>
-              `);
-            markersGroup.addLayer(marker);
-            bounds.push([item.lat, item.lng]);
-          }
-        });
-        if(bounds.length > 0) map.fitBounds(bounds, {padding: [50, 50], maxZoom: 14});
-      }
-
-      const grid = document.getElementById('katalogGrid');
-      grid.innerHTML = '';
-      if(!data || data.length === 0) {
-        grid.innerHTML = `<div class="col-span-full flex flex-col items-center justify-center py-16 text-slate-400 bg-white rounded-3xl border border-slate-100 shadow-sm"><i class="fa-solid fa-folder-open text-6xl mb-4 text-slate-200"></i><h3 class="text-xl font-bold text-slate-500 mb-1">Belum Ada Data Perumahan</h3></div>`;
-        return;
-      }
-
-      data.forEach((item, index) => {
-        let actualIndex = perumahanData.indexOf(item);
-        grid.innerHTML += `
-          <div data-aos="fade-up" data-aos-delay="${(index % 3) * 100}" class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-2xl transition-all duration-300 flex flex-col group">
-            <div class="relative h-52 bg-slate-100 overflow-hidden">
-              <img src="${item.fotoUtama}" alt="${item.nama}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-              <div class="absolute top-3 left-3 px-3 py-1 bg-white/90 backdrop-blur text-brand-darkteal border border-slate-200 text-xs font-bold rounded-full shadow-sm">
-                ${item.kategori}
-              </div>
+                <div class="p-2 bg-slate-50 rounded-2xl border border-slate-200 shadow-inner">
+                    <div id="mapKpr"></div>
+                </div>
             </div>
-            <div class="p-6 flex-1 flex flex-col">
-              <h3 class="text-xl font-bold text-brand-darkteal mb-1">${item.nama}</h3>
-              <p class="text-xs font-semibold text-brand-gold mb-4 uppercase"><i class="fa-solid fa-building mr-1"></i> ${item.developer}</p>
-              
-              <div class="text-sm text-slate-600 space-y-2 mb-6 flex-1">
-                <p class="flex items-start gap-2"><i class="fa-solid fa-location-dot text-slate-400 mt-1"></i> <span>${item.kecamatan}, ${item.kabupaten}</span></p>
-                <p class="flex items-center gap-2"><i class="fa-solid fa-tag text-slate-400"></i> Harga: <strong class="text-brand-teal">${item.hargaFormatted}</strong></p>
-                <p class="flex items-center gap-2"><i class="fa-solid fa-check-circle text-slate-400"></i> Tersedia: <strong>${item.ready} Unit</strong></p>
-                <p class="flex items-center gap-2 text-xs text-slate-500"><i class="fa-solid fa-file-contract text-brand-gold"></i> Terakad: <strong>${item.statusTerakad} Unit</strong></p>
-              </div>
-              <button onclick="openDetail(${actualIndex})" class="w-full py-3 bg-slate-50 hover:bg-brand-teal hover:text-white text-brand-darkteal font-bold rounded-xl transition-colors border border-slate-200 shadow-sm flex items-center justify-center gap-2">
-                Info Lengkap <i class="fa-solid fa-arrow-right"></i>
-              </button>
+        </div>
+
+        <!-- DAFTAR PERUMAHAN -->
+        <div data-aos="fade-up" class="flex items-center gap-3 border-b-2 border-brand-gold/30 pb-3 mt-8">
+            <span class="w-8 h-8 rounded-xl bg-brand-gold text-white font-bold text-sm flex items-center justify-center shadow"><i class="fa-solid fa-layer-group"></i></span>
+            <h2 class="text-xl font-bold text-brand-darkteal uppercase tracking-wide">Daftar Perumahan</h2>
+        </div>
+
+        <div id="notificationBanner"></div>
+        <div id="katalogGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+    </main>
+
+    <!-- MODAL DETAIL -->
+    <div id="modalDetail" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl shadow-2xl w-full max-w-5xl max-h-[95vh] overflow-y-auto flex flex-col relative">
+            <div class="sticky top-0 bg-brand-darkteal text-white p-5 flex justify-between items-center z-20 shadow-md">
+                <div>
+                    <h2 id="modalTitle" class="text-xl font-bold">Nama Perumahan</h2>
+                    <p id="modalDeveloper" class="text-sm text-brand-lightgold"><i class="fa-solid fa-building mr-1"></i> PT. Pengembang</p>
+                </div>
+                <button onclick="closeModal('modalDetail')" class="w-8 h-8 bg-white/20 hover:bg-red-500 rounded-full flex items-center justify-center transition-colors"><i class="fa-solid fa-xmark"></i></button>
             </div>
-          </div>
-        `;
-      });
-    }
 
-    function openDetail(index) {
-      currentSelectedData = perumahanData[index];
-      const data = currentSelectedData;
-      if(!data) return;
+            <div class="p-6 grid grid-cols-1 lg:grid-cols-5 gap-8">
+                <div class="lg:col-span-2 space-y-6">
+                    <div class="rounded-2xl overflow-hidden shadow-md bg-slate-100 relative group aspect-video">
+                        <div class="absolute top-3 left-3 px-3 py-1 bg-brand-gold text-white border-white border text-xs font-bold rounded-full shadow-md z-10" id="modalReadyLabel">0 Unit Tersedia</div>
+                        <img id="modalImg" src="" alt="Foto Perumahan" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    </div>
+                    
+                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 shadow-inner">
+                        <h3 class="font-bold text-brand-darkteal border-b-2 border-brand-gold/30 pb-2 mb-3">Informasi Unit & Harga</h3>
+                        <div class="space-y-3 text-sm text-slate-700">
+                            <p class="flex justify-between items-center"><span>Kategori:</span> <strong id="modalKategori" class="text-brand-teal px-2 py-0.5 bg-brand-teal/10 rounded"></strong></p>
+                            <p class="flex justify-between items-center"><span>Harga:</span> <strong id="modalHarga" class="text-green-600 text-base"></strong></p>
+                            <p class="flex justify-between items-center"><span>Jumlah Total Rumah:</span> <strong id="modalJumlahRumah"></strong></p>
+                            <p class="flex justify-between items-center"><span>Status Terakad:</span> <strong id="modalTerakad"></strong></p>
+                            <p class="flex justify-between items-center border-t pt-2"><span>Unit Tersedia (Ready):</span> <strong id="modalUnitTersedia" class="text-emerald-600 text-base"></strong></p>
+                            <p class="flex justify-between items-center"><span>Tipe Unit:</span> <strong id="modalTipe"></strong></p>
+                            <p class="flex justify-between items-center"><span>Luas Bangunan / Lahan:</span> <strong id="modalLuas"></strong></p>
+                        </div>
+                    </div>
+                </div>
 
-      document.getElementById('modalTitle').innerText = data.nama;
-      document.getElementById('modalDeveloper').innerHTML = `<i class="fa-solid fa-building mr-1"></i> ${data.developer}`;
-      document.getElementById('modalImg').src = data.fotoUtama;
-      
-      document.getElementById('modalReadyLabel').innerText = `${data.ready} Unit Tersedia`;
-      document.getElementById('modalKategori').innerText = data.kategori;
-      document.getElementById('modalHarga').innerText = data.hargaFormatted;
-      document.getElementById('modalJumlahRumah').innerText = `${data.jumlahRumah} Unit`;
-      document.getElementById('modalTerakad').innerText = `${data.statusTerakad} Unit`;
-      document.getElementById('modalUnitTersedia').innerText = `${data.ready} Unit`;
-      document.getElementById('modalStatusPerumahan').innerText = data.statusPerumahan;
-      document.getElementById('modalTipe').innerText = `Tipe ${data.tipeUnit}`;
-      document.getElementById('modalLuas').innerText = `${data.luasBangunan} m² / ${data.luasLahan} m²`;
-      document.getElementById('modalKT').innerText = `${data.kamarTidur} Ruang`;
-      document.getElementById('modalKM').innerText = `${data.kamarMandi} Ruang`;
-      
-      document.getElementById('modalTahun').innerText = data.tahunPembangunan;
-      document.getElementById('modalAsosiasi').innerText = data.asosiasi;
-      document.getElementById('modalAlamat').innerText = `${data.alamat}, Kel. ${data.kelurahan}, Kec. ${data.kecamatan}, ${data.kabupaten}`;
-      
-      const telEl = document.getElementById('modalTelepon');
-      if (data.telepon && data.telepon !== "-" && data.telepon !== "") {
-         let cleanTel = data.telepon.replace(/\D/g, '');
-         if (cleanTel.startsWith('0')) {
-            cleanTel = '62' + cleanTel.substring(1);
-         } else if (cleanTel.startsWith('8')) {
-            cleanTel = '62' + cleanTel;
-         }
-         telEl.href = `https://api.whatsapp.com/send/?phone=${cleanTel}&text&type=phone_number&app_absent=0`;
-         telEl.innerText = data.telepon;
-      } else {
-         telEl.href = "#";
-         telEl.innerText = "-";
-      }
+                <div class="lg:col-span-3 space-y-6 flex flex-col">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-blue-50 p-4 rounded-2xl border border-blue-200">
+                            <h3 class="font-bold text-blue-900 border-b border-blue-200 pb-2 mb-3">Informasi Legalitas</h3>
+                            <div class="space-y-2 text-sm text-blue-800">
+                                <p><i class="fa-solid fa-users mr-2 w-4"></i> <strong>Asosiasi:</strong> <span id="modalAsosiasi"></span></p>
+                                <p><i class="fa-solid fa-calendar mr-2 w-4"></i> <strong>Tahun Bangun:</strong> <span id="modalTahun"></span></p>
+                                <p><i class="fa-solid fa-house-circle-check mr-2 w-4"></i> <strong>Status Perumahan:</strong> <span id="modalStatusPerumahan"></span></p>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-amber-50 p-4 rounded-2xl border border-amber-200">
+                            <h3 class="font-bold text-amber-900 border-b border-amber-200 pb-2 mb-3">Kontak Pengembang</h3>
+                            <div class="space-y-2 text-xs sm:text-sm text-amber-800">
+                                <p class="flex items-start"><i class="fa-brands fa-whatsapp text-green-600 mr-2 w-4 mt-0.5 flex-shrink-0"></i> <a id="modalTelepon" href="#" target="_blank" class="underline hover:text-green-700 font-bold break-all leading-tight">-</a></p>
+                                <p class="flex items-start"><i class="fa-solid fa-envelope mr-2 w-4 mt-0.5 flex-shrink-0"></i> <span id="modalEmail" class="break-all leading-tight">-</span></p>
+                                <p id="wrapWebsite" class="flex items-start"><i class="fa-solid fa-globe mr-2 w-4 mt-0.5 flex-shrink-0"></i> <a id="modalWebsite" href="#" target="_blank" class="underline hover:text-amber-600 font-bold break-all leading-tight">-</a></p>
+                            </div>
+                        </div>
+                    </div>
 
-      document.getElementById('modalEmail').innerText = data.email || "-";
-      
-      const webEl = document.getElementById('modalWebsite');
-      const wrapWeb = document.getElementById('wrapWebsite');
-      if (data.website && data.website !== "-" && data.website !== "") {
-         let webUrl = data.website.startsWith('http') ? data.website : 'https://' + data.website;
-         webEl.href = webUrl;
-         webEl.innerText = data.website;
-         wrapWeb.style.display = 'flex';
-      } else {
-         wrapWeb.style.display = 'none';
-      }
+                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 shadow-inner flex-1">
+                        <h3 class="font-bold text-brand-darkteal border-b-2 border-brand-gold/30 pb-2 mb-3">Spesifikasi & Ruangan</h3>
+                        <div class="grid grid-cols-2 gap-y-3 gap-x-2 text-sm text-slate-700 mb-4">
+                            <div><strong class="block text-xs text-brand-lightgold uppercase">Kamar Tidur</strong> <span id="modalKT" class="font-semibold"></span></div>
+                            <div><strong class="block text-xs text-brand-lightgold uppercase">Kamar Mandi</strong> <span id="modalKM" class="font-semibold"></span></div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-y-4 gap-x-2 text-sm text-slate-700" id="modalSpek"></div>
+                        
+                        <h3 class="font-bold text-brand-darkteal border-b-2 border-brand-gold/30 pb-2 mt-6 mb-3">Alamat Lengkap</h3>
+                        <p class="text-sm text-slate-700 leading-relaxed"><i class="fa-solid fa-map-pin text-brand-gold mr-1"></i> <span id="modalAlamat"></span></p>
+                    </div>
+                    
+                    <div class="grid grid-cols-3 gap-3 mt-auto pt-2">
+                        <button onclick="lihatGambar('siteplan')" class="bg-brand-darkteal hover:bg-brand-teal text-white font-bold py-3 rounded-xl shadow-md transition-colors flex items-center justify-center gap-2 text-sm">
+                            <i class="fa-solid fa-map"></i> Siteplan
+                        </button>
+                        <button onclick="lihatGambar('denah')" class="bg-brand-gold hover:bg-brand-lightgold text-slate-900 font-bold py-3 rounded-xl shadow-md transition-colors flex items-center justify-center gap-2 text-sm">
+                            <i class="fa-solid fa-house-chimney-window"></i> Denah
+                        </button>
+                        <a id="modalMapsLink" href="#" target="_blank" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl shadow-md transition-colors flex items-center justify-center gap-2 text-sm">
+                            <i class="fa-solid fa-location-arrow"></i> Google Maps
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-      document.getElementById('modalMapsLink').href = `https://www.google.com/maps/search/?api=1&query=${data.lat},${data.lng}`;
+    <div id="modalGambar" class="fixed inset-0 bg-slate-950/95 backdrop-blur-md z-[60] hidden flex flex-col items-center justify-center p-4">
+        <button onclick="closeModal('modalGambar')" class="absolute top-6 right-6 text-white text-xl bg-white/10 hover:bg-white/25 w-12 h-12 rounded-full flex items-center justify-center transition shadow-lg cursor-pointer z-50">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="relative w-full max-w-4xl max-h-[85vh] flex flex-col items-center justify-center">
+            <img id="imgLayarPenuh" src="" alt="Gambar Tinjauan" class="w-full h-auto max-h-[75vh] object-contain bg-white rounded-2xl shadow-2xl p-2 mb-4">
+            <p id="captionGambar" class="text-white text-base font-semibold text-center max-w-xl px-4 bg-slate-900/60 py-2 rounded-xl border border-white/10"></p>
+        </div>
+    </div>
 
-      document.getElementById('modalSpek').innerHTML = `
-        <div><strong class="block text-xs text-brand-lightgold uppercase">Atap</strong> <span class="font-semibold">${data.spek.atap}</span></div>
-        <div><strong class="block text-xs text-brand-lightgold uppercase">Dinding</strong> <span class="font-semibold">${data.spek.dinding}</span></div>
-        <div><strong class="block text-xs text-brand-lightgold uppercase">Lantai</strong> <span class="font-semibold">${data.spek.lantai}</span></div>
-        <div><strong class="block text-xs text-brand-lightgold uppercase">Pondasi</strong> <span class="font-semibold">${data.spek.pondasi}</span></div>
-      `;
+    <div id="loadingOverlay" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-[100] flex flex-col items-center justify-center text-white p-4 transition-opacity">
+        <div class="w-16 h-16 border-4 border-brand-gold border-t-transparent rounded-full animate-spin mb-4"></div>
+        <h3 class="text-lg font-bold text-white">Memuat Data Perumahan...</h3>
+        <p class="text-xs text-slate-300 mt-1">Mengambil data terbaru...</p>
+    </div>
 
-      const modal = document.getElementById('modalDetail');
-      modal.classList.remove('hidden'); modal.classList.add('modal-enter');
-    }
-
-    function lihatGambar(type) {
-      if(!currentSelectedData) return;
-      const url = type === 'siteplan' ? currentSelectedData.siteplanUrl : currentSelectedData.fotoDenah;
-      const title = type === 'siteplan' ? 'Siteplan Lokasi' : 'Denah Ruangan';
-      
-      document.getElementById('imgLayarPenuh').src = url || `https://via.placeholder.com/800x600?text=${title}+Belum+Tersedia`;
-      document.getElementById('captionGambar').innerHTML = `<i class="fa-solid fa-image mr-1"></i> ${title} - ${currentSelectedData.nama}`;
-      
-      const modal = document.getElementById('modalGambar');
-      modal.classList.remove('hidden'); modal.classList.add('modal-enter');
-    }
-
-    function closeModal(modalId) {
-      const modal = document.getElementById(modalId);
-      modal.classList.remove('modal-enter'); modal.classList.add('modal-leave');
-      setTimeout(() => { modal.classList.add('hidden'); modal.classList.remove('modal-leave'); }, 300);
-    }
-  </script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Script Global -->
+    <script src="main.js"></script>
 </body>
 </html>
