@@ -8,6 +8,8 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- AOS Animation Library CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
   <script>
     tailwind.config = {
@@ -72,7 +74,7 @@
 <body class="font-sans min-h-screen text-slate-800 pb-12 antialiased">
 
   <!-- HEADER -->
-  <header class="bg-midnightgreen/95 backdrop-blur-md border-b-4 border-khaki text-krem sticky top-0 z-50 transition-all shadow-md mb-4 glass-header text-white">
+  <header class="bg-midnightgreen/95 backdrop-blur-md border-b-4 border-khaki text-krem sticky top-0 z-50 transition-all shadow-md mb-4 glass-header text-white" data-aos="fade-down">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center py-3">
         <div class="flex items-center gap-5">
@@ -92,7 +94,7 @@
 
   <!-- FORM CONTAINER -->
   <main class="max-w-4xl mx-auto px-4 sm:px-6">
-    <div class="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden">
+    <div class="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden" data-aos="fade-up">
       
       <!-- Intro Notice -->
       <div class="bg-gradient-to-r from-sky-50 to-amber-50 p-5 sm:p-6 border-b border-slate-200/80 flex items-start gap-4">
@@ -101,14 +103,14 @@
         </div>
         <div class="text-sm text-slate-600 leading-relaxed">
           <p class="font-bold text-slate-800 text-base mb-0.5">Petunjuk Pengisian Form:</p>
-          Isilah data identitas, lokasi, dan unggah berkas foto kondisi rumah secara valid. Pastikan <span class="font-semibold text-brand-teal">NIK & KK tepat 16 digit</span>, serta <span class="font-semibold text-brand-teal">RT/RW & No HP masing-masing 11 karakter</span>. Berkas akan tersimpan aman di Google Drive.
+          Isilah data identitas, lokasi, dan unggah berkas foto kondisi rumah secara valid. Pastikan <span class="font-semibold text-brand-teal">NIK & KK tepat 16 digit</span>, serta <span class="font-semibold text-brand-teal">RT/RW & No HP masing-masing sesuai ketentuan</span>. Berkas akan tersimpan aman di Google Drive.
         </div>
       </div>
 
       <form id="rtlhForm" onsubmit="submitForm(event)" class="p-6 sm:p-10 space-y-10">
         
         <!-- SECTION 1: IDENTITAS PEMILIK RUMAH -->
-        <section class="space-y-6">
+        <section class="space-y-6" data-aos="fade-up" data-aos-delay="100">
           <div class="flex items-center gap-3 border-b-2 border-brand-gold/30 pb-3">
             <span class="w-8 h-8 rounded-xl bg-brand-teal text-white font-bold text-sm flex items-center justify-center shadow">1</span>
             <h2 class="text-lg font-bold text-brand-darkteal uppercase tracking-wide">Data Identitas Pemilik Rumah</h2>
@@ -161,7 +163,7 @@
         </section>
 
         <!-- SECTION 2: ALAMAT LOKASI RUMAH -->
-        <section class="space-y-6">
+        <section class="space-y-6" data-aos="fade-up" data-aos-delay="200">
           <div class="flex items-center gap-3 border-b-2 border-brand-gold/30 pb-3">
             <span class="w-8 h-8 rounded-xl bg-brand-teal text-white font-bold text-sm flex items-center justify-center shadow">2</span>
             <h2 class="text-lg font-bold text-brand-darkteal uppercase tracking-wide">Lokasi & Alamat Rumah (Sesuai KTP)</h2>
@@ -278,16 +280,16 @@
         </section>
 
         <!-- SECTION 3: KONTAK KOMUNIKASI -->
-        <section class="space-y-6">
+        <section class="space-y-6" data-aos="fade-up" data-aos-delay="300">
           <div class="flex items-center gap-3 border-b-2 border-brand-gold/30 pb-3">
             <span class="w-8 h-8 rounded-xl bg-brand-teal text-white font-bold text-sm flex items-center justify-center shadow">3</span>
-            <h2 class="text-lg font-bold text-brand-darkteal uppercase tracking-wide">Nomor Kontak Whatsapp / HP (11 Karakter)</h2>
+            <h2 class="text-lg font-bold text-brand-darkteal uppercase tracking-wide">Nomor Kontak Whatsapp / HP</h2>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div>
               <label class="block text-sm font-semibold text-slate-700 mb-2">
-                No HP/Whatsapp Pemilik Rumah<span class="text-rose-500">*</span>
+                No HP/Whatsapp Pemilik Rumah <span class="text-rose-500">*</span>
               </label>
               <div class="relative">
                 <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
@@ -297,12 +299,12 @@
                   oninput="validateDigitOnly(this, 13, 'hpPemilikError')"
                   class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-teal focus:border-brand-teal outline-none transition text-sm font-mono tracking-wider">
               </div>
-              <p id="hpPemilikError" class="text-xs text-rose-500 mt-1 hidden"><i class="fa-solid fa-circle-exclamation mr-1"></i>Nomor HP harus tepat 11 digit angka.</p>
+              <p id="hpPemilikError" class="text-xs text-rose-500 mt-1 hidden"><i class="fa-solid fa-circle-exclamation mr-1"></i>Nomor HP maksimal 13 digit angka.</p>
             </div>
 
             <div>
               <label class="block text-sm font-semibold text-slate-700 mb-2">
-                No HP/Whatsapp Perangkat Desa<span class="text-rose-500">*</span>
+                No HP/Whatsapp Perangkat Desa <span class="text-rose-500">*</span>
               </label>
               <div class="relative">
                 <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
@@ -312,13 +314,13 @@
                   oninput="validateDigitOnly(this, 13, 'hpKadesError')"
                   class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-teal focus:border-brand-teal outline-none transition text-sm font-mono tracking-wider">
               </div>
-              <p id="hpKadesError" class="text-xs text-rose-500 mt-1 hidden"><i class="fa-solid fa-circle-exclamation mr-1"></i>Nomor HP harus tepat 11 digit angka.</p>
+              <p id="hpKadesError" class="text-xs text-rose-500 mt-1 hidden"><i class="fa-solid fa-circle-exclamation mr-1"></i>Nomor HP maksimal 13 digit angka.</p>
             </div>
           </div>
         </section>
 
         <!-- SECTION 4: UNGGAH DOKUMEN & FOTO -->
-        <section class="space-y-6">
+        <section class="space-y-6" data-aos="fade-up" data-aos-delay="400">
           <div class="flex items-center gap-3 border-b-2 border-brand-gold/30 pb-3">
             <span class="w-8 h-8 rounded-xl bg-brand-teal text-white font-bold text-sm flex items-center justify-center shadow">4</span>
             <h2 class="text-lg font-bold text-brand-darkteal uppercase tracking-wide">Unggah Berkas Dokumen & Foto Rumah</h2>
@@ -426,14 +428,16 @@
     </div>
   </div>
 
+  <!-- AOS Animation Library JS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
   <!-- SCRIPT LOGIC -->
   <script>
     // ==========================================
     // DATA WILAYAH (Silakan masukkan data wilayah Anda di bawah ini)
-    // Format: { "Kabupaten": { "Kecamatan": ["Desa 1", "Desa 2"] } }
     // ==========================================
     const DATA_WILAYAH = {
-        "Kota Kupang": {
+     "Kota Kupang": {
         "Alak": [
             "Naioni",
             "Manulai II",
@@ -4545,9 +4549,14 @@
 };
 
     // ==========================================
-    // LOGIKA DROPDOWN (READONLY MODE)
+    // LOGIKA INISIALISASI (AOS & DROPDOWN)
     // ==========================================
     window.onload = function() { 
+      // Inisialisasi AOS (Animasi Scroll) Global
+      if (typeof AOS !== 'undefined') {
+          AOS.init({ duration: 800, once: true, offset: 50 });
+      }
+
       populateKabupaten(); 
     };
 
@@ -4658,7 +4667,7 @@
     function validateDigitOnly(input, targetLength, errorId) {
       input.value = input.value.replace(/[^0-9]/g, '');
       const errEl = document.getElementById(errorId);
-      if (input.value.length > 0 && input.value.length !== targetLength) {
+      if (input.value.length > 0 && input.value.length !== targetLength && errorId !== 'hpPemilikError' && errorId !== 'hpKadesError') {
         errEl.classList.remove('hidden');
       } else {
         errEl.classList.add('hidden');
@@ -4786,18 +4795,6 @@
       if (rtRwVal.length > 11) {
         alert("RT/RW maksimal 11 karakter!");
         document.getElementById('rtRw').focus();
-        return;
-      }
-
-      if (noHpPemilikVal.length !== 13) {
-        alert("Nomor HP Pemilik Rumah harus tepat 11 digit!");
-        document.getElementById('noHpPemilik').focus();
-        return;
-      }
-
-      if (noHpKadesVal.length !== 13) {
-        alert("Nomor HP Perangkat Desa harus tepat 11 digit!");
-        document.getElementById('noHpKades').focus();
         return;
       }
 
