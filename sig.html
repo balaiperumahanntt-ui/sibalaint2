@@ -25,20 +25,24 @@
 </head>
 <body class="bg-[#F3F5F7] min-h-screen text-slate-800 pb-12 antialiased">
 
-  <header class="bg-midnightgreen/90 backdrop-blur-md border-b-4 border-khaki text-krem sticky top-0 z-50 transition-all shadow-md">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="flex justify-between items-center py-3">
-              <div class="flex items-center gap-5">
-                  <a href="#" class="flex items-center shrink-0">
-                      <img src="https://i.ibb.co.com/Gf4rz3Yn/BALAI-NT-II-8.png" alt="Maskot SiBalai" class="w-[180px] h-auto object-contain">
-                  </a>
-              </div>
-              <div class="hidden md:flex space-x-1 font-medium">
-                  <span class="px-4 py-3 bg-darkaqua/50 rounded-lg">Portal SIG Terpadu</span>
-              </div>
-          </div>
-      </div>
-  </header>
+ <!-- HEADER -->
+    <header class="bg-midnightgreen/95 backdrop-blur-md border-b-4 border-khaki text-krem sticky top-0 z-50 transition-all shadow-md mb-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-3">
+                <div class="flex items-center gap-5">
+                    <a href="#" class="flex items-center shrink-0">
+                        <img src="https://i.ibb.co.com/Gf4rz3Yn/BALAI-NT-II-8.png" alt="Maskot SiBalai" class="w-[180px] h-auto object-contain">
+                    </a>
+                    <a href="index.html" class="text-krem/80 hover:text-khaki transition-all text-sm font-medium flex items-center gap-1 px-2 py-1.5 rounded-lg hover:bg-krem/10 border border-transparent hover:border-krem/20 mt-2.5">
+                        <i class="fa-solid fa-arrow-left"></i> Kembali
+                    </a>
+                </div>
+                <div class="hidden md:flex space-x-1 font-medium">
+                    <span class="px-4 py-3 bg-darkaqua/50 rounded-lg text-krem"><i class="fa-solid fa-location-dot mr-2"></i> Portal Sistem Informasi Geografis</span>
+                </div>
+            </div>
+        </div>
+    </header>
 
   <main class="max-w-7xl mx-auto px-4 sm:px-6 mt-8">
     <div class="text-center mb-8" data-aos="fade-up">
@@ -49,7 +53,7 @@
     <div class="flex flex-wrap justify-center gap-3 md:gap-6 mb-8" data-aos="fade-up" data-aos-delay="100">
         <button onclick="changeMode('rtlh')" id="btn-rtlh" class="btn-select px-6 py-3 rounded-xl border-2 font-bold flex items-center gap-2 shadow-sm"><i class="fa-solid fa-house-chimney-crack"></i> Sebaran RTLH</button>
         <button onclick="changeMode('rusun')" id="btn-rusun" class="btn-select px-6 py-3 rounded-xl border-2 font-bold flex items-center gap-2 shadow-sm"><i class="fa-solid fa-building"></i> Sebaran Rusun</button>
-        <button onclick="changeMode('bsps')" id="btn-bsps" class="btn-select px-6 py-3 rounded-xl border-2 font-bold flex items-center gap-2 shadow-sm"><i class="fa-solid fa-hammer"></i> Sebaran BSPS</button>
+        <button onclick="changeMode('bsps')" id="btn-bsps" class="btn-select px-6 py-3 rounded-xl border-2 font-bold flex items-center gap-2 shadow-sm"><i class="fa-solid fa-hammer"></i> Sebaran Bedah Rumah</button>
         <button onclick="changeMode('rusus')" id="btn-rusus" class="btn-select px-6 py-3 rounded-xl border-2 font-bold flex items-center gap-2 shadow-sm"><i class="fa-solid fa-house-flag"></i> Sebaran Rusus</button>
     </div>
 
