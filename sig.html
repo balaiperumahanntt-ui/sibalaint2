@@ -346,7 +346,7 @@
             let color = '#ef4444'; // Merah
             if (progres === 100) color = '#22c55e'; // Hijau
             else if (progres >= 30 && progres < 100) color = '#eab308'; // Kuning
-            else if (progres > 0 && progres < 30) color = '#f97316'; // Oranye
+            else if (progres === 30) color = '#f97316'; // Oranye
 
             let fotoBadge = foto ? `<a href="${foto}" target="_blank" class="text-brand-teal underline font-semibold"><i class="fa-solid fa-image"></i> Lihat</a>` : '-';
 
