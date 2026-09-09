@@ -37,6 +37,25 @@
             scroll-behavior: smooth;
         }
     </style>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Class untuk membuat pattern tekstur geometris warna putih */
+        .bg-pattern-krem::before {
+            content: "";
+            position: absolute;
+            inset: 0; /* Menutupi seluruh ukuran section */
+            z-index: 0; /* Diposisikan di latar belakang */
+            pointer-events: none; /* Memastikan pattern tidak menghalangi kursor saat menyorot teks/tombol */
+            
+            /* SVG Pattern Geometris Putih */
+            background-image: url("data:image/svg+xml,%3Csvg width='40' height='70' viewBox='0 0 40 70' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M20 35l20 11.547v23.094L20 58.094 0 69.641V46.547zM0 23.094V0l20 11.547L40 0v23.094L20 34.641z'/%3E%3C/g%3E%3C/svg%3E");
+            
+            opacity: 0.35; /* Atur angka ini (0.1 - 0.9) jika ingin pattern lebih redup atau lebih terang */
+        }
+    </style>
 </head>
 <body class="bg-krem min-h-screen text-midnightgreen antialiased">
 
@@ -132,7 +151,7 @@
                         </button>
                         <div id="mob-layanan" class="hidden flex-col bg-darkaqua/30 pl-4 py-2 space-y-2">
                             <a href="laporrtlh.html" class="block py-2 text-sm text-krem/80 hover:text-khaki">Lapor Rumah Tidak Layak Huni</a>
-                            <a href="https://jdih.pkp.go.id/" target="_blank" rel="noopener noreferrer" class="block py-2 text-sm text-krem/80 hover:text-khaki">Peraturan Perumahan</a>
+                            
                             <a href="sig.html" class="block py-2 text-sm text-krem/80 hover:text-khaki">SiGAP</a>
                         </div>
                     </div>
@@ -213,7 +232,7 @@
 
 <!-- Section Berita -->
 <!-- Ubah py-8 menjadi pt-8 pb-2 agar jarak bawahnya mengecil -->
-<section id="news-section" class="bg-krem pt-8 pb-2 px-4 relative z-0">
+<section id="news-section" class="bg-krem bg-pattern-krem pt-8 pb-2 px-4 relative z-0 overflow-hidden">
     <div class="max-w-6xl mx-auto relative z-10">
         <!-- Header Berita -->
         <div class="text-center mb-10">
@@ -246,7 +265,7 @@
 
 <!-- Fitur Utama / Pelayanan Publik -->
 <!-- Ubah pt-20 menjadi pt-8 agar jarak atasnya berkurang signifikan -->
-<section id="layanan" class="bg-krem pt-8 pb-30 px-4 relative">
+<section id="layanan" class="bg-krem bg-pattern-krem pt-8 pb-30 px-4 relative overflow-hidden">
     <div class="max-w-6xl mx-auto relative z-10">
         <h2 class="text-3xl md:text-4xl font-extrabold text-center text-midnightgreen mb-4" data-aos="fade-up">Pelayanan Publik</h2>
         <p class="text-center text-darkaqua font-medium mb-12 max-w-xl mx-auto text-sm md:text-base bg-khaki/20 py-2 px-4 rounded-full" data-aos="fade-up">Semua Pelayanan Kami Tidak di Pungut Biaya Alias GRATIS!!!</p>
