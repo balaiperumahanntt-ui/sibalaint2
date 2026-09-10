@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kredit Pemilikan Rumah - Balai Perumahan NTT</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="https://i.ibb.co.com/RpTQRCrn/logo.png">
+    
+    <!-- Stylesheets & Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        krem: '#F2EEDF',
+                        khaki: '#D5C58A',
+                        darkaqua: '#0E5B73',
+                        midnightgreen: '#084C61',
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #053240;
+            overflow-x: hidden; /* Mencegah horizontal scroll saat animasi dari samping */
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #084C61; }
+        ::-webkit-scrollbar-thumb { background: #0E5B73; border-radius: 4px; }
+    </style>
+</head>
+<body class="text-krem antialiased min-h-screen">
+
+    <!-- Header / Navbar -->
+    <header class="bg-midnightgreen/90 backdrop-blur-md border-b-4 border-khaki text-krem sticky top-0 z-50 transition-all shadow-md" data-aos="fade-down">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-3">
+                <!-- Logo -->
+                <a href="index" class="flex items-center shrink-0">
+                    <img src="https://i.ibb.co.com/Gf4rz3Yn/BALAI-NT-II-8.png" alt="Maskot SiBalai NT II" class="w-[180px] h-auto object-contain">
+                </a>
+                        
+                <!-- Tombol Hamburger Mobile (DIPERBAIKI: Ditambahkan onclick) -->
+                <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" id="mobile-menu-btn" class="md:hidden flex items-center text-krem hover:text-khaki focus:outline-none transition-colors cursor-pointer">
+                    <i class="fa-solid fa-bars text-3xl"></i>
+                </button>
+
+                <!-- Navigasi Desktop -->
+                <nav class="hidden md:flex space-x-1">
+                    <a href="index" class="px-4 py-3 bg-darkaqua/50 rounded-lg transition-colors font-medium">Beranda</a>
+                    
+                    <div class="group relative">
+                        <a href="#" class="px-4 py-3 hover:bg-darkaqua rounded-lg transition-colors font-medium inline-flex items-center">
+                            Pelayanan Publik <i class="fa-solid fa-caret-down ml-2 text-xs"></i>
+                        </a>
+                        <div class="hidden group-hover:flex absolute top-full left-1/2 -translate-x-1/2 pt-2 z-[1000]">
+                            <div class="w-[620px] bg-midnightgreen/95 backdrop-blur-xl border border-khaki/25 rounded-2xl p-5 shadow-2xl flex gap-5">
+                                <div class="flex-1 bg-darkaqua/40 rounded-xl p-6 flex flex-col justify-center text-center border border-krem/10">
+                                    <h3 class="text-krem text-xl font-bold mb-2">Layanan SiBalai</h3>
+                                    <p class="text-krem/80 text-sm leading-relaxed">Jelajahi program dan layanan unggulan Balai Perumahan NTT dengan pengalaman layanan yang lebih cepat, mudah, dan terintegrasi.</p>
+                                </div>
+                                <div class="flex-[1.2] flex flex-col gap-2 justify-center">
+                                    <a href="laporrtlh" class="block p-3 bg-darkaqua/30 text-krem border border-krem/15 rounded-xl text-sm font-semibold hover:bg-khaki hover:text-midnightgreen transition-all">Lapor Rumah Tidak Layak Huni</a>
+                                    <a href="https://jdih.pkp.go.id/" class="block p-3 bg-darkaqua/30 text-krem border border-krem/15 rounded-xl text-sm font-semibold hover:bg-khaki hover:text-midnightgreen transition-all">Peraturan Perumahan</a>
+                                    <a href="sig" class="block p-3 bg-darkaqua/30 text-krem border border-krem/15 rounded-xl text-sm font-semibold hover:bg-khaki hover:text-midnightgreen transition-all">SiGAP</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="group relative">
+                        <a href="#" class="px-4 py-3 hover:bg-darkaqua rounded-lg transition-colors font-medium inline-flex items-center">
+                            Klinik PKP <i class="fa-solid fa-caret-down ml-2 text-xs"></i>
+                        </a>
+                        <div class="hidden group-hover:flex absolute top-full left-1/2 -translate-x-1/2 pt-2 z-[1000]">
+                            <div class="w-[620px] bg-midnightgreen/95 backdrop-blur-xl border border-khaki/25 rounded-2xl p-5 shadow-2xl flex gap-5">
+                                <div class="flex-1 bg-darkaqua/40 rounded-xl p-6 flex flex-col justify-center text-center border border-krem/10">
+                                    <h3 class="text-krem text-xl font-bold mb-2">Klinik PKP</h3>
+                                    <p class="text-krem/80 text-sm leading-relaxed">Konsultasikan Hunian Impianmu</p>
+                                </div>
+                                <div class="flex-[1.2] flex flex-col gap-2 justify-center">
+                                    <a href="bankdesain" class="block p-3 bg-darkaqua/30 text-krem border border-krem/15 rounded-xl text-sm font-semibold hover:bg-khaki hover:text-midnightgreen transition-all">Bank Desain Rumah</a>
+                                    <a href="klinikpkp" class="block p-3 bg-darkaqua/30 text-krem border border-krem/15 rounded-xl text-sm font-semibold hover:bg-khaki hover:text-midnightgreen transition-all">Konsultasi Klinik PKP</a>
+                                    <a href="pengembang" class="block p-3 bg-darkaqua/30 text-krem border border-krem/15 rounded-xl text-sm font-semibold hover:bg-khaki hover:text-midnightgreen transition-all">Portal Pengembang Perumahan</a>
+                                    <a href="https://skm.go.id/share/instansi/ca13608b-0652-41ab-bbfa-00f1dc139a76/2" class="block p-3 bg-darkaqua/30 text-krem border border-krem/15 rounded-xl text-sm font-semibold hover:bg-khaki hover:text-midnightgreen transition-all">SKM</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="group relative">
+                        <a href="#" class="px-4 py-3 hover:bg-darkaqua rounded-lg transition-colors font-medium inline-flex items-center">
+                            Pelaporan <i class="fa-solid fa-caret-down ml-2 text-xs"></i>
+                        </a>
+                        <div class="hidden group-hover:flex absolute top-full left-1/2 -translate-x-1/2 pt-2 z-[1000]">
+                            <div class="w-[620px] bg-midnightgreen/95 backdrop-blur-xl border border-khaki/25 rounded-2xl p-5 shadow-2xl flex gap-5">
+                                <div class="flex-1 bg-darkaqua/40 rounded-xl p-6 flex flex-col justify-center text-center border border-krem/10">
+                                    <h3 class="text-krem text-xl font-bold mb-2">Pelaporan</h3>
+                                    <p class="text-krem/80 text-sm leading-relaxed">Saluran resmi pengaduan dan pelaporan terkait program Balai Perumahan NTT.</p>
+                                </div>
+                                <div class="flex-[1.2] flex flex-col gap-2 justify-center">
+                                    <a href="https://www.lapor.go.id/" class="block p-3 bg-darkaqua/30 text-krem border border-krem/15 rounded-xl text-sm font-semibold hover:bg-khaki hover:text-midnightgreen transition-all">SP4N Lapor!</a>
+                                    <a href="https://api.whatsapp.com/send/?phone=6281288888911" class="block p-3 bg-darkaqua/30 text-krem border border-krem/15 rounded-xl text-sm font-semibold hover:bg-khaki hover:text-midnightgreen transition-all">Benar PKP</a>
+                                    <a href="https://sippn.menpan.go.id/instansi/balai-pelaksana-penyediaan-perumahan-dan-kawasan-permukiman-nusa-tenggara-ii-1889208" class="block p-3 bg-darkaqua/30 text-krem border border-krem/15 rounded-xl text-sm font-semibold hover:bg-khaki hover:text-midnightgreen transition-all">SiPPN</a>
+                                    <a href="https://wbs.pkp.go.id/" class="block p-3 bg-darkaqua/30 text-krem border border-krem/15 rounded-xl text-sm font-semibold hover:bg-khaki hover:text-midnightgreen transition-all">Awasi PKP</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <a href="kpr-perumahan" class="px-4 py-3 hover:bg-darkaqua rounded-lg transition-colors font-medium">KPR Perumahan</a>
+                    <a href="#" class="px-4 py-3 hover:bg-darkaqua rounded-lg transition-colors font-medium">Tentang</a>
+                    <a href="#footer" class="px-4 py-3 hover:bg-darkaqua rounded-lg transition-colors font-medium">Kontak</a>
+                </nav>
+            </div>
+
+            <!-- MENU MOBILE -->
+            <div id="mobile-menu" class="hidden md:hidden pb-4 border-t border-white/10 mt-2 pt-2 transition-all">
+                <div class="flex flex-col space-y-2">
+                    <a href="index" class="px-4 py-3 bg-darkaqua/50 rounded-lg font-medium text-krem">Beranda</a>
+                    
+                    <div class="rounded-lg overflow-hidden border border-white/10">
+                        <button onclick="document.getElementById('mob-layanan').classList.toggle('hidden')" class="w-full px-4 py-3 bg-midnightgreen text-left font-medium flex justify-between items-center hover:bg-darkaqua transition-colors cursor-pointer">
+                            Layanan <i class="fa-solid fa-caret-down"></i>
+                        </button>
+                        <div id="mob-layanan" class="hidden flex-col bg-darkaqua/30 pl-4 py-2 space-y-2">
+                            <a href="laporrtlh" class="block py-2 text-sm text-krem/80 hover:text-khaki">Lapor Rumah Tidak Layak Huni</a>
+                            <a href="https://jdih.pkp.go.id/" class="block py-2 text-sm text-krem/80 hover:text-khaki">Peraturan Perumahan</a>
+                            <a href="sig" class="block py-2 text-sm text-krem/80 hover:text-khaki">SiGAP</a>
+                        </div>
+                    </div>
+
+                    <div class="rounded-lg overflow-hidden border border-white/10">
+                        <button onclick="document.getElementById('mob-klinik').classList.toggle('hidden')" class="w-full px-4 py-3 bg-midnightgreen text-left font-medium flex justify-between items-center hover:bg-darkaqua transition-colors cursor-pointer">
+                            Klinik PKP <i class="fa-solid fa-caret-down"></i>
+                        </button>
+                        <div id="mob-klinik" class="hidden flex-col bg-darkaqua/30 pl-4 py-2 space-y-2">
+                            <a href="bankdesain" class="block py-2 text-sm text-krem/80 hover:text-khaki">Bank Desain Rumah</a>
+                            <a href="klinikpkp" class="block py-2 text-sm text-krem/80 hover:text-khaki">Konsultasi Klinik PKP</a>
+                            <a href="pengembang" class="block py-2 text-sm text-krem/80 hover:text-khaki">Portal Pengembang Perumahan</a>
+                            <a href="https://skm.go.id/share/instansi/ca13608b-0652-41ab-bbfa-00f1dc139a76/2" class="block py-2 text-sm text-krem/80 hover:text-khaki">SKM</a>
+                        </div>
+                    </div>
+
+                    <div class="rounded-lg overflow-hidden border border-white/10">
+                        <button onclick="document.getElementById('mob-lapor').classList.toggle('hidden')" class="w-full px-4 py-3 bg-midnightgreen text-left font-medium flex justify-between items-center hover:bg-darkaqua transition-colors cursor-pointer">
+                            Pelaporan <i class="fa-solid fa-caret-down"></i>
+                        </button>
+                        <div id="mob-lapor" class="hidden flex-col bg-darkaqua/30 pl-4 py-2 space-y-2">
+                            <a href="https://www.lapor.go.id/" class="block py-2 text-sm text-krem/80 hover:text-khaki">SP4N Lapor!</a>
+                            <a href="https://api.whatsapp.com/send/?phone=6281288888911" class="block py-2 text-sm text-krem/80 hover:text-khaki">Benar PKP</a>
+                            <a href="https://sippn.menpan.go.id/instansi/balai-pelaksana-penyediaan-perumahan-dan-kawasan-permukiman-nusa-tenggara-ii-1889208" class="block py-2 text-sm text-krem/80 hover:text-khaki">SiPPN</a>
+                            <a href="https://wbs.pkp.go.id/" class="block py-2 text-sm text-krem/80 hover:text-khaki">Awasi PKP</a>
+                        </div>
+                    </div>
+
+                    <a href="kpr-perumahan" class="px-4 py-3 hover:bg-darkaqua rounded-lg font-medium text-krem transition-colors">KPR Perumahan</a>
+                    <a href="#" class="px-4 py-3 hover:bg-darkaqua rounded-lg font-medium text-krem transition-colors">Tentang</a>
+                    <a href="#footer" class="px-4 py-3 hover:bg-darkaqua rounded-lg font-medium text-krem transition-colors">Kontak</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-24 pb-16 px-6 lg:px-12 max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12 overflow-hidden">
+        <div class="w-full md:w-1/2 space-y-6" data-aos="fade-right" data-aos-duration="1200">
+            <h1 class="text-5xl md:text-6xl font-extrabold text-white leading-tight">
+                Kredit Pemilikan <br>
+                <span class="text-khaki">Rumah</span>
+            </h1>
+            <p class="text-lg md:text-xl text-krem/80 leading-relaxed">
+                Kredit Pemilikan Rumah (KPR) merupakan fasilitas pinjaman yang disediakan oleh bank atau lembaga keuangan lainnya kepada individu atau keluarga untuk membeli atau membangun rumah.
+            </p>
+        </div>
+        <div class="w-full md:w-1/2 flex justify-center md:justify-end" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="200">
+            <div class="text-[12rem] text-darkaqua drop-shadow-2xl hover:scale-105 transition-transform duration-500">
+                <i class="fa-solid fa-building-columns"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partner Bank Section -->
+    <section class="py-12 bg-midnightgreen border-y border-white/5 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div data-aos="zoom-out-down" data-aos-duration="800">
+                <span class="text-sm font-bold text-khaki tracking-widest uppercase mb-2 block">Partner Bank</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-12">Simulasi <span class="text-darkaqua brightness-150">KPR</span></h2>
+            </div>
+            
+            <div class="flex flex-wrap justify-center items-center gap-6 md:gap-12">
+                <!-- Bank NTT -->
+                <a href="https://www.bpdntt.co.id/id/detail_product?product=26" target="_blank" rel="noopener noreferrer" class="bg-white/95 px-6 py-4 rounded-2xl shadow-lg hover:-translate-y-2 hover:shadow-xl transition-all duration-300 flex items-center justify-center h-20 w-36 md:h-24 md:w-44 group" data-aos="flip-left" data-aos-delay="100">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Logo_Bank_NTT.png" alt="Logo Bank NTT" class="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300">
+                </a>
+                
+                <!-- Bank BRI -->
+                <a href="https://bri.co.id/web/guest/id/simulasi-kpr" target="_blank" rel="noopener noreferrer" class="bg-white/95 px-6 py-4 rounded-2xl shadow-lg hover:-translate-y-2 hover:shadow-xl transition-all duration-300 flex items-center justify-center h-20 w-36 md:h-24 md:w-44 group" data-aos="flip-left" data-aos-delay="200">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2e/BRI_2020.svg" alt="Logo Bank BRI" class="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300">
+                </a>
+
+                <!-- Bank BTN -->
+                <a href="https://www.btnproperti.co.id/tools/simulasi-kpr" target="_blank" rel="noopener noreferrer" class="bg-white/95 px-6 py-4 rounded-2xl shadow-lg hover:-translate-y-2 hover:shadow-xl transition-all duration-300 flex items-center justify-center h-20 w-36 md:h-24 md:w-44 group" data-aos="flip-left" data-aos-delay="300">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c5/Bank_BTN_logo.png" alt="Logo Bank BTN" class="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300">
+                </a>
+
+                <!-- Bank BNI -->
+                <a href="https://www.bni.co.id/id-id/individu/pinjaman/bni-griya" target="_blank" rel="noopener noreferrer" class="bg-white/95 px-6 py-4 rounded-2xl shadow-lg hover:-translate-y-2 hover:shadow-xl transition-all duration-300 flex items-center justify-center h-20 w-36 md:h-24 md:w-44 group" data-aos="flip-left" data-aos-delay="400">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f0/Bank_Negara_Indonesia_logo_%282004%29.svg" alt="Logo Bank BNI" class="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300">
+                </a>
+
+                <!-- Bank Mandiri -->
+                <a href="https://www.bankmandiri.co.id/kpr" target="_blank" rel="noopener noreferrer" class="bg-white/95 px-6 py-4 rounded-2xl shadow-lg hover:-translate-y-2 hover:shadow-xl transition-all duration-300 flex items-center justify-center h-20 w-36 md:h-24 md:w-44 group" data-aos="flip-left" data-aos-delay="500">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Bank_Mandiri_logo_2016.svg" alt="Logo Bank Mandiri" class="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300">
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Keuntungan Section -->
+    <section class="py-20 px-6 max-w-7xl mx-auto text-center overflow-hidden">
+        <div data-aos="fade-down" data-aos-duration="1000">
+            <span class="text-sm font-bold text-khaki tracking-widest uppercase mb-2 block">Keuntungan</span>
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-16">Orang Memilih KPR Karena</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            <!-- Item 1 -->
+            <div class="flex flex-col items-center bg-midnightgreen/50 p-8 rounded-2xl border border-white/5 hover:bg-darkaqua/30 transition-colors" data-aos="zoom-in-up" data-aos-delay="100">
+                <div class="w-16 h-16 bg-darkaqua text-khaki rounded-full flex items-center justify-center text-2xl mb-6 shadow-lg">
+                    <i class="fa-solid fa-money-bill-transfer"></i>
+                </div>
+                <p class="text-krem/90 font-medium leading-relaxed">
+                    Memungkinkan untuk memiliki properti tanpa harus membayar secara tunai penuh saat pembelian
+                </p>
+            </div>
+            <!-- Item 2 -->
+            <div class="flex flex-col items-center bg-midnightgreen/50 p-8 rounded-2xl border border-white/5 hover:bg-darkaqua/30 transition-colors" data-aos="zoom-in-up" data-aos-delay="200">
+                <div class="w-16 h-16 bg-darkaqua text-khaki rounded-full flex items-center justify-center text-2xl mb-6 shadow-lg">
+                    <i class="fa-solid fa-calendar-days"></i>
+                </div>
+                <p class="text-krem/90 font-medium leading-relaxed">
+                    Cicilan terjangkau dengan pembayaran yang tersebar dalam jangka waktu yang panjang
+                </p>
+            </div>
+            <!-- Item 3 -->
+            <div class="flex flex-col items-center bg-midnightgreen/50 p-8 rounded-2xl border border-white/5 hover:bg-darkaqua/30 transition-colors" data-aos="zoom-in-up" data-aos-delay="300">
+                <div class="w-16 h-16 bg-darkaqua text-khaki rounded-full flex items-center justify-center text-2xl mb-6 shadow-lg">
+                    <i class="fa-solid fa-bars-staggered"></i>
+                </div>
+                <p class="text-krem/90 font-medium leading-relaxed">
+                    Menawarkan pilihan tenor yang beragam sesuai dengan kemampuan keuangan peminjam
+                </p>
+            </div>
+            <!-- Item 4 -->
+            <div class="flex flex-col items-center bg-midnightgreen/50 p-8 rounded-2xl border border-white/5 hover:bg-darkaqua/30 transition-colors" data-aos="zoom-in-up" data-aos-delay="400">
+                <div class="w-16 h-16 bg-darkaqua text-khaki rounded-full flex items-center justify-center text-2xl mb-6 shadow-lg">
+                    <i class="fa-solid fa-chart-line"></i>
+                </div>
+                <p class="text-krem/90 font-medium leading-relaxed">
+                    Miliki rumah serta memanfaatkan potensi apresiasi nilai properti di masa mendatang
+                </p>
+            </div>
+            <!-- Item 5 -->
+            <div class="flex flex-col items-center bg-midnightgreen/50 p-8 rounded-2xl border border-white/5 hover:bg-darkaqua/30 transition-colors" data-aos="zoom-in-up" data-aos-delay="500">
+                <div class="w-16 h-16 bg-darkaqua text-khaki rounded-full flex items-center justify-center text-2xl mb-6 shadow-lg">
+                    <i class="fa-solid fa-house-chimney"></i>
+                </div>
+                <p class="text-krem/90 font-medium leading-relaxed">
+                    Memungkinkan peminjam untuk memiliki rumah lebih cepat
+                </p>
+            </div>
+            <!-- Item 6 -->
+            <div class="flex flex-col items-center bg-midnightgreen/50 p-8 rounded-2xl border border-white/5 hover:bg-darkaqua/30 transition-colors" data-aos="zoom-in-up" data-aos-delay="600">
+                <div class="w-16 h-16 bg-darkaqua text-khaki rounded-full flex items-center justify-center text-2xl mb-6 shadow-lg">
+                    <i class="fa-solid fa-scale-balanced"></i>
+                </div>
+                <p class="text-krem/90 font-medium leading-relaxed">
+                    Memberikan kepastian hukum atas kepemilikan rumah
+                </p>
+            </div>
+        </div>
+    </section>
+
+   <!-- Panduan Prosedur Pengajuan (Timeline) -->
+    <section class="py-20 bg-midnightgreen border-t border-white/5 px-6 overflow-hidden">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-12" data-aos="zoom-in" data-aos-duration="1000">
+                <span class="text-sm font-bold text-khaki tracking-widest uppercase mb-2 block">Panduan</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Prosedur Pengajuan <span class="text-darkaqua brightness-150">KPR</span></h2>
+                <p class="text-krem/70">Ikuti langkah-langkah berikut untuk mengajukan KPR dengan lebih mudah.</p>
+            </div>
+
+            <div class="relative w-full">
+                <!-- Vertical Line -->
+                <div class="hidden md:block absolute left-1/2 -translate-x-1/2 h-full w-1 bg-darkaqua/50 rounded-full" data-aos="fade-down" data-aos-duration="1500"></div>
+
+                <!-- space-y-12 dikurangi menjadi space-y-6 agar jarak antar langkah (baris) merapat -->
+                <div class="space-y-6 md:space-y-8">
+                    
+                    <!-- Item 01 -->
+                    <div class="relative flex flex-col md:flex-row items-center justify-between group" data-aos="fade-right" data-aos-duration="800">
+                        <div class="hidden md:block w-5/12"></div>
+                        <!-- Ikon diperbesar (w-20 h-20, text-3xl) -->
+                        <div class="w-20 h-20 bg-midnightgreen border-4 border-darkaqua rounded-full flex items-center justify-center text-khaki text-3xl md:absolute md:left-1/2 md:-translate-x-1/2 shadow-[0_0_15px_rgba(14,91,115,0.5)] z-10 mb-3 md:mb-0 transition-transform duration-300 group-hover:scale-110">
+                            <i class="fa-solid fa-building-columns"></i>
+                        </div>
+                        <div class="w-full md:w-5/12 text-center md:text-left bg-darkaqua/20 p-5 rounded-2xl border border-white/5 group-hover:bg-darkaqua/40 transition-all">
+                            <h4 class="text-xl font-bold text-white mb-1"><span class="text-darkaqua brightness-150 mr-2">01</span> Pilih Bank/Lembaga Keuangan</h4>
+                            <p class="text-sm text-krem/80">Pilih bank atau lembaga yang menawarkan kondisi KPR sesuai kebutuhan Anda.</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 02 -->
+                    <div class="relative flex flex-col md:flex-row items-center justify-between group" data-aos="fade-left" data-aos-duration="800">
+                        <div class="w-full md:w-5/12 text-center md:text-right bg-darkaqua/20 p-5 rounded-2xl border border-white/5 group-hover:bg-darkaqua/40 transition-all order-2 md:order-1">
+                            <h4 class="text-xl font-bold text-white mb-1"><span class="text-darkaqua brightness-150 mr-2 md:hidden">02</span>Persiapan Dokumen <span class="hidden md:inline text-darkaqua brightness-150 ml-2">02</span></h4>
+                            <p class="text-sm text-krem/80">Siapkan dokumen yang diperlukan untuk mengajukan KPR sesuai persyaratan.</p>
+                        </div>
+                        <div class="w-20 h-20 bg-midnightgreen border-4 border-darkaqua rounded-full flex items-center justify-center text-khaki text-3xl md:absolute md:left-1/2 md:-translate-x-1/2 shadow-[0_0_15px_rgba(14,91,115,0.5)] z-10 mb-3 md:mb-0 order-1 md:order-2 transition-transform duration-300 group-hover:scale-110">
+                            <i class="fa-solid fa-folder-open"></i>
+                        </div>
+                        <div class="hidden md:block w-5/12 order-3"></div>
+                    </div>
+
+                    <!-- Item 03 -->
+                    <div class="relative flex flex-col md:flex-row items-center justify-between group" data-aos="fade-right" data-aos-duration="800">
+                        <div class="hidden md:block w-5/12"></div>
+                        <div class="w-20 h-20 bg-midnightgreen border-4 border-darkaqua rounded-full flex items-center justify-center text-khaki text-3xl md:absolute md:left-1/2 md:-translate-x-1/2 shadow-[0_0_15px_rgba(14,91,115,0.5)] z-10 mb-3 md:mb-0 transition-transform duration-300 group-hover:scale-110">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </div>
+                        <div class="w-full md:w-5/12 text-center md:text-left bg-darkaqua/20 p-5 rounded-2xl border border-white/5 group-hover:bg-darkaqua/40 transition-all">
+                            <h4 class="text-xl font-bold text-white mb-1"><span class="text-darkaqua brightness-150 mr-2">03</span> Pengisian Formulir</h4>
+                            <p class="text-sm text-krem/80">Isi formulir pengajuan yang disediakan oleh bank atau lembaga terkait.</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 04 -->
+                    <div class="relative flex flex-col md:flex-row items-center justify-between group" data-aos="fade-left" data-aos-duration="800">
+                        <div class="w-full md:w-5/12 text-center md:text-right bg-darkaqua/20 p-5 rounded-2xl border border-white/5 group-hover:bg-darkaqua/40 transition-all order-2 md:order-1">
+                            <h4 class="text-xl font-bold text-white mb-1"><span class="text-darkaqua brightness-150 mr-2 md:hidden">04</span>Pemeriksaan Kelayakan <span class="hidden md:inline text-darkaqua brightness-150 ml-2">04</span></h4>
+                            <p class="text-sm text-krem/80">Bank memverifikasi dokumen dan menilai kelayakan finansial pemohon.</p>
+                        </div>
+                        <div class="w-20 h-20 bg-midnightgreen border-4 border-darkaqua rounded-full flex items-center justify-center text-khaki text-3xl md:absolute md:left-1/2 md:-translate-x-1/2 shadow-[0_0_15px_rgba(14,91,115,0.5)] z-10 mb-3 md:mb-0 order-1 md:order-2 transition-transform duration-300 group-hover:scale-110">
+                            <i class="fa-solid fa-magnifying-glass-chart"></i>
+                        </div>
+                        <div class="hidden md:block w-5/12 order-3"></div>
+                    </div>
+
+                    <!-- Item 05 -->
+                    <div class="relative flex flex-col md:flex-row items-center justify-between group" data-aos="fade-right" data-aos-duration="800">
+                        <div class="hidden md:block w-5/12"></div>
+                        <div class="w-20 h-20 bg-midnightgreen border-4 border-darkaqua rounded-full flex items-center justify-center text-khaki text-3xl md:absolute md:left-1/2 md:-translate-x-1/2 shadow-[0_0_15px_rgba(14,91,115,0.5)] z-10 mb-3 md:mb-0 transition-transform duration-300 group-hover:scale-110">
+                            <i class="fa-solid fa-house-circle-check"></i>
+                        </div>
+                        <div class="w-full md:w-5/12 text-center md:text-left bg-darkaqua/20 p-5 rounded-2xl border border-white/5 group-hover:bg-darkaqua/40 transition-all">
+                            <h4 class="text-xl font-bold text-white mb-1"><span class="text-darkaqua brightness-150 mr-2">05</span> Penilaian Properti</h4>
+                            <p class="text-sm text-krem/80">Bank menilai properti yang akan dijadikan jaminan untuk menentukan nilai pembiayaan.</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 06 -->
+                    <div class="relative flex flex-col md:flex-row items-center justify-between group" data-aos="fade-left" data-aos-duration="800">
+                        <div class="w-full md:w-5/12 text-center md:text-right bg-darkaqua/20 p-5 rounded-2xl border border-white/5 group-hover:bg-darkaqua/40 transition-all order-2 md:order-1">
+                            <h4 class="text-xl font-bold text-white mb-1"><span class="text-darkaqua brightness-150 mr-2 md:hidden">06</span>Penandatanganan Akta <span class="hidden md:inline text-darkaqua brightness-150 ml-2">06</span></h4>
+                            <p class="text-sm text-krem/80">Jika disetujui, pemohon melakukan penandatanganan akta kredit sesuai ketentuan.</p>
+                        </div>
+                        <div class="w-20 h-20 bg-midnightgreen border-4 border-darkaqua rounded-full flex items-center justify-center text-khaki text-3xl md:absolute md:left-1/2 md:-translate-x-1/2 shadow-[0_0_15px_rgba(14,91,115,0.5)] z-10 mb-3 md:mb-0 order-1 md:order-2 transition-transform duration-300 group-hover:scale-110">
+                            <i class="fa-solid fa-file-signature"></i>
+                        </div>
+                        <div class="hidden md:block w-5/12 order-3"></div>
+                    </div>
+
+                    <!-- Item 07 -->
+                    <div class="relative flex flex-col md:flex-row items-center justify-between group" data-aos="fade-right" data-aos-duration="800">
+                        <div class="hidden md:block w-5/12"></div>
+                        <div class="w-20 h-20 bg-midnightgreen border-4 border-darkaqua rounded-full flex items-center justify-center text-khaki text-3xl md:absolute md:left-1/2 md:-translate-x-1/2 shadow-[0_0_15px_rgba(14,91,115,0.5)] z-10 mb-3 md:mb-0 transition-transform duration-300 group-hover:scale-110">
+                            <i class="fa-solid fa-hand-holding-dollar"></i>
+                        </div>
+                        <div class="w-full md:w-5/12 text-center md:text-left bg-darkaqua/20 p-5 rounded-2xl border border-white/5 group-hover:bg-darkaqua/40 transition-all">
+                            <h4 class="text-xl font-bold text-white mb-1"><span class="text-darkaqua brightness-150 mr-2">07</span> Pembayaran Biaya</h4>
+                            <p class="text-sm text-krem/80">Selesaikan pembayaran biaya administrasi yang diperlukan dalam proses pengajuan KPR.</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 08 -->
+                    <div class="relative flex flex-col md:flex-row items-center justify-between group" data-aos="fade-left" data-aos-duration="800">
+                        <div class="w-full md:w-5/12 text-center md:text-right bg-darkaqua/20 p-5 rounded-2xl border border-white/5 group-hover:bg-darkaqua/40 transition-all order-2 md:order-1">
+                            <h4 class="text-xl font-bold text-white mb-1"><span class="text-darkaqua brightness-150 mr-2 md:hidden">08</span>Pencairan Kredit <span class="hidden md:inline text-darkaqua brightness-150 ml-2">08</span></h4>
+                            <p class="text-sm text-krem/80">Setelah semua proses selesai, kredit dicairkan sesuai kesepakatan yang berlaku.</p>
+                        </div>
+                        <div class="w-20 h-20 bg-midnightgreen border-4 border-darkaqua rounded-full flex items-center justify-center text-khaki text-3xl md:absolute md:left-1/2 md:-translate-x-1/2 shadow-[0_0_15px_rgba(14,91,115,0.5)] z-10 mb-3 md:mb-0 order-1 md:order-2 transition-transform duration-300 group-hover:scale-110">
+                            <i class="fa-solid fa-sack-dollar"></i>
+                        </div>
+                        <div class="hidden md:block w-5/12 order-3"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+          <!-- Footer Section (Modern Redesign) -->
+    <footer id="footer" class="bg-[#0b161f] text-krem/80 border-t border-white/10 relative overflow-hidden" data-aos="fade-up">
+        <!-- Elemen Dekorasi Background -->
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
+            <div class="absolute -top-[50%] -right-[10%] w-[500px] h-[500px] rounded-full bg-darkaqua/20 blur-[120px]"></div>
+            <div class="absolute -bottom-[50%] -left-[10%] w-[500px] h-[500px] rounded-full bg-midnightgreen/40 blur-[120px]"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-12 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 mb-12">
+                
+                <!-- Kolom 1: Brand & Deskripsi -->
+                <div class="lg:col-span-5">
+                    <a href="index" class="flex items-center gap-4 mb-6 group inline-flex">
+                        <img src="https://i.ibb.co.com/RpTQRCrn/logo.png" alt="Logo Balai NT2" class="h-16 w-auto object-contain drop-shadow-lg group-hover:scale-105 transition-transform">
+                        <div class="flex flex-col">
+                            <span class="font-extrabold text-2xl tracking-wide text-white">SIBALAI NT II</span>
+                            <span class="text-[11px] font-bold text-khaki uppercase tracking-widest mt-1">Balai P3KP Nusa Tenggara II</span>
+                        </div>
+                    </a>
+                    <p class="text-sm leading-relaxed mb-8 pr-4">
+                        Platform layanan publik terintegrasi dari Balai Pelaksana Penyediaan Perumahan dan Kawasan Permukiman Nusa Tenggara II. Kami hadir untuk memberikan pelayanan terbaik bagi masyarakat.
+                    </p>
+                    
+                    <!-- Sosial Media Button Modern -->
+                    <div class="flex gap-4">
+                        <a href="https://www.instagram.com/bp3kp.nusatenggara2/" class="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-khaki hover:text-midnightgreen hover:-translate-y-1.5 transition-all duration-300 shadow-lg"><i class="fa-brands fa-instagram text-xl"></i></a>
+                        <a href="https://www.facebook.com/BP3KP.NusaTenggara2/" class="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-khaki hover:text-midnightgreen hover:-translate-y-1.5 transition-all duration-300 shadow-lg"><i class="fa-brands fa-facebook-f text-xl"></i></a>
+                        <a href="https://www.youtube.com/@pkp_bp3kpnt2" class="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-khaki hover:text-midnightgreen hover:-translate-y-1.5 transition-all duration-300 shadow-lg"><i class="fa-brands fa-youtube text-xl"></i></a>
+                        <a href="https://www.tiktok.com/@bp3kpnt2?lang=id-ID" class="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-khaki hover:text-midnightgreen hover:-translate-y-1.5 transition-all duration-300 shadow-lg"><i class="fa-brands fa-tiktok text-xl"></i></a>
+                        <a href="https://pkp.go.id/balai/balai-p2p-nusa-tenggara-ii" class="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-khaki hover:text-midnightgreen hover:-translate-y-1.5 transition-all duration-300 shadow-lg">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 794 836" class="w-5 h-5 fill-current">
+        <path d="M337 35.1 278.5 69l-.6 9.7c-.4 5.4-.7 72.4-.8 149l-.1 139.2 2.7 1.9c3.3 2.2 94.9 55.1 96.9 55.9 1.2.4 1.4-22.6 1.4-148.3V127.5l8.8-5c4.8-2.8 9.2-5.1 9.9-5.3.6-.2 5.2 2.1 10.2 5l9.1 5.3v148.7c0 81.9.3 148.8.6 148.8.6 0 91.2-52.1 96.7-55.6l3.7-2.4V70l-3.7-2.4C503.5 61.3 397.9 1 396.8 1.1c-.7 0-27.6 15.3-59.8 34"/>
+        <path d="M119.2 160.7 0 229.5.2 357l.3 127.5 2.7 9.6C9.4 516.6 22 535.6 40 549.5c7.3 5.6 78.6 46.7 80.3 46.3.8-.2 23.5-13.1 50.6-28.7 33.3-19.3 48.8-28.7 47.9-29.3-.7-.4-27.5-15.9-59.5-34.4L101 469.7V287.3l18.5-10.6c10.2-5.9 18.7-10.7 19-10.7s.5 40.9.5 90.8v90.9l58.7 33.9c32.3 18.6 59.4 34 60.3 34.2 1.8.3 99.3-55.9 99.3-57.2-.1-.6-25.7-15.8-56.9-33.8-31.3-18.1-57.9-33.5-59.1-34.4L239 389l-.2-148.5-.3-148.5z"/>
+        <path d="M555 240.7v148.8L370.3 496C268.7 554.6 182 605.2 177.7 608.4c-18.6 13.9-31.9 35.2-36.8 59.1-1.7 8-1.9 14-1.9 54.6v45.7l49.5 28.6c27.2 15.7 49.7 28.6 50 28.6s.6-30.9.7-68.7l.3-68.8 207.8-119.9L655 447.8v-90.9c0-50 .2-90.9.5-90.9s8.8 4.8 19 10.7l18.5 10.7v182.3l-59.5 34.4c-32.7 18.9-59.1 34.6-58.7 35s22.7 13.4 49.6 28.9c28.3 16.3 49.6 28 50.5 27.7 3-.8 73.4-41.8 78.6-45.8 7.1-5.4 18.4-17.3 23.2-24.4 5.4-8 8.5-14.4 11.7-24 5.6-16.6 5.6-16.4 5.6-149.5l-.1-122.5L680.4 164c-62.5-36-116.2-67-119.5-68.8l-5.9-3.4z"/>
+        <path d="M487 588.6c-26.1 15.1-48.6 28.1-49.9 28.8-2.2 1.2 1.4 3.4 57.3 35.6l59.6 34.4v68.8c0 41.7.4 68.8.9 68.8s23.3-12.9 50.6-28.6l49.6-28.7-.3-48.1c-.4-45.6-.5-48.5-2.6-55.8-5-18.2-12.3-31.4-24.1-44-4.6-4.9-11.1-10.9-14.5-13.3-6.5-4.6-77-45.5-78.3-45.4-.4 0-22.2 12.4-48.3 27.5"/>
+        <path d="m277.2 785.2.3 50.3 119.3.3 119.2.2V735H277z"/>
+    </svg>
+</a>
+                    </div>
+                </div>
+
+                <!-- Kolom 2: Layanan Cepat -->
+                <div class="lg:col-span-3 lg:col-start-7">
+                    <h5 class="font-bold text-lg mb-6 text-white tracking-wide relative inline-block">
+                        Layanan Terkait
+                        <span class="absolute -bottom-2 left-0 w-1/2 h-1 bg-khaki rounded-full"></span>
+                    </h5>
+                    <ul class="space-y-4 text-sm font-medium">
+                        <li><a href="klinikpkp" class="hover:text-khaki hover:translate-x-2 transition-transform duration-300 inline-flex items-center gap-2"><i class="fa-solid fa-chevron-right text-[10px] text-khaki"></i> Konsultasi Perumahan</a></li>
+                        <li><a href="#" class="hover:text-khaki hover:translate-x-2 transition-transform duration-300 inline-flex items-center gap-2"><i class="fa-solid fa-chevron-right text-[10px] text-khaki"></i> Masukan & Saran</a></li>
+                        <li><a href="#dialogPengaduan" class="hover:text-khaki hover:translate-x-2 transition-transform duration-300 inline-flex items-center gap-2"><i class="fa-solid fa-chevron-right text-[10px] text-khaki"></i> Pusat Pengaduan</a></li>
+                        <li><a href="#" class="hover:text-khaki hover:translate-x-2 transition-transform duration-300 inline-flex items-center gap-2"><i class="fa-solid fa-chevron-right text-[10px] text-khaki"></i> FAQ</a></li>
+                        <li><a href="https://pkp.go.id/balai/balai-p2p-nusa-tenggara-ii/profil/struktur-organisasi" class="hover:text-khaki hover:translate-x-2 transition-transform duration-300 inline-flex items-center gap-2"><i class="fa-solid fa-chevron-right text-[10px] text-khaki"></i> Pejabat Struktural</a></li>
+                    </ul>
+                </div>
+
+                <!-- Kolom 3: Kontak Kami -->
+                <div class="lg:col-span-3">
+                    <h5 class="font-bold text-lg mb-6 text-white tracking-wide relative inline-block">
+                        Kontak Kami
+                        <span class="absolute -bottom-2 left-0 w-1/2 h-1 bg-khaki rounded-full"></span>
+                    </h5>
+                    <ul class="space-y-5 text-sm">
+                        <li class="flex items-start gap-4 group">
+                            <div class="w-10 h-10 rounded-xl bg-darkaqua/30 flex items-center justify-center shrink-0 group-hover:bg-khaki transition-colors duration-300">
+                                <i class="fa-solid fa-location-dot text-khaki group-hover:text-midnightgreen text-lg transition-colors"></i>
+                            </div>
+                            <a href="https://maps.app.goo.gl/NM493g5q8EJCeFmm7" target="_blank" class="mt-0.5 hover:text-white transition-colors leading-relaxed">
+                                <strong>Balai P3KP Nusa Tenggara II</strong><br>
+                                Kota Kupang, Nusa Tenggara Timur
+                            </a>
+                        </li>
+                        <li class="flex items-center gap-4 group">
+                            <div class="w-10 h-10 rounded-xl bg-darkaqua/30 flex items-center justify-center shrink-0 group-hover:bg-khaki transition-colors duration-300">
+                                <i class="fa-solid fa-phone text-khaki group-hover:text-midnightgreen text-lg transition-colors"></i>
+                            </div>
+                            <a href="https://api.whatsapp.com/send/?phone=6285180598023" target="_blank" class="hover:text-white transition-colors font-medium">
+                                +62 851 8059 8023
+                            </a>
+                        </li>
+                        <li class="flex items-center gap-4 group">
+                            <div class="w-10 h-10 rounded-xl bg-darkaqua/30 flex items-center justify-center shrink-0 group-hover:bg-khaki transition-colors duration-300">
+                                <i class="fa-solid fa-envelope text-khaki group-hover:text-midnightgreen text-lg transition-colors"></i>
+                            </div>
+                            <a href="mailto:bp3kp.nustra2@pkp.go.id" class="hover:text-white transition-colors font-medium">
+                                bp3kp.nustra2@pkp.go.id
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Garis Pemisah & Copyright Bar -->
+        <div class="bg-black/30 backdrop-blur-md border-t border-white/5 relative z-10 py-5">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-[13px] text-krem/50 m-0 text-center md:text-left tracking-wide">
+                    &copy; 2026 SIBALAI P3KP NUSA TENGGARA II. Hak Cipta Dilindungi Undang-Undang.
+                </p>
+                <div class="flex flex-wrap justify-center gap-6 text-[13px] font-medium">
+                    <a href="#" class="text-krem/70 hover:text-khaki transition-colors">Syarat & Ketentuan</a>
+                    <a href="#" class="text-krem/70 hover:text-khaki transition-colors">Kebijakan Privasi</a>
+                    <a href="#" class="text-krem/70 hover:text-khaki transition-colors">Peta Situs</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AOS Script untuk Animasi -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800, /* Durasi default */
+            once: true,    /* Animasi hanya berjalan sekali saat digulir */
+            offset: 100,   /* Jarak pemicu animasi dari bawah layar */
+        });
+    </script>
+</body>
+</html>
