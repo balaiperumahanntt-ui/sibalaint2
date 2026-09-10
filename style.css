@@ -1,4 +1,6 @@
-/* Import Font */
+/* ==========================================
+   GLOBAL STYLES & FONTS
+   ========================================== */
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 body {
@@ -8,14 +10,29 @@ body {
 }
 
 /* ==========================================
-   HEADER / GLASS EFFECT (sig.html)
+   SCROLLBAR KUSTOMISASI
+   ========================================== */
+::-webkit-scrollbar { 
+    width: 6px; 
+    height: 6px; 
+}
+::-webkit-scrollbar-track { 
+    background: #F1F5F9; 
+}
+::-webkit-scrollbar-thumb { 
+    background: #CBD5E1; 
+    border-radius: 4px; 
+}
+
+/* ==========================================
+   HEADER / GLASS EFFECT
    ========================================== */
 .glass-header { 
     background: linear-gradient(135deg, #093C4F 0%, #0E5975 100%); 
 }
 
 /* ==========================================
-   ANIMASI DIALOG BOX PENGADUAN
+   ANIMASI DIALOG BOX PENGADUAN (INDEX)
    ========================================== */
 .dialog-box {
     transform: translateY(20px) scale(0.95);
@@ -30,8 +47,9 @@ body {
     visibility: visible;
 }
 
+
 /* ==========================================
-   KUSTOMISASI LEAFLET MAP
+   STYLING HALAMAN SIG
    ========================================== */
 #map { 
     height: 520px; 
@@ -63,13 +81,27 @@ body {
     border-radius: 3px; 
 }
 .custom-map-label { 
+    pointer-events: none; 
+    transition: opacity 0.3s ease-in-out; 
     background: transparent; 
     border: none; 
 }
-
-/* ==========================================
-   KUSTOMISASI SCROLLBAR
-   ========================================== */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: #F1F5F9; }
-::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
+.btn-select { 
+    transition: all 0.3s ease; 
+}
+.btn-select.active { 
+    background-color: #0E5975; 
+    color: white; 
+    border-color: #0E5975; 
+    transform: translateY(-2px); 
+    box-shadow: 0 10px 15px -3px rgba(14, 89, 117, 0.3); 
+}
+.btn-select:not(.active) { 
+    background-color: white; 
+    color: #475569; 
+    border-color: #CBD5E1; 
+}
+.btn-select:not(.active):hover { 
+    border-color: #0E5975; 
+    color: #0E5975; 
+}
