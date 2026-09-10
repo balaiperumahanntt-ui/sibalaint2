@@ -9,6 +9,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
+     <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="https://i.ibb.co.com/RpTQRCrn/logo.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://i.ibb.co.com/RpTQRCrn/logo.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="https://i.ibb.co.com/RpTQRCrn/logo.png">
+
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
@@ -16,50 +21,67 @@
     <!-- External Stylesheet -->
     <link rel="stylesheet" href="style.css">
 
-    <!-- Tailwind Config Diperbarui -->
+    <!-- Tailwind Config Diperbarui (Warna krem disamakan dengan index.html agar pattern terlihat) -->
     <script>
         tailwind.config = { 
             theme: { 
                 extend: { 
                     colors: { 
                         brand: { teal: '#0E5975', darkteal: '#093C4F', gold: '#CBA355', lightgold: '#E0C17B' },
-                        midnightgreen: '#093C4F',
-                        khaki: '#CBA355',
-                        krem: '#FDFBF7',
-                        darkaqua: '#0E5975'
+                        midnightgreen: '#084C61',
+                        khaki: '#D5C58A',
+                        krem: '#F2EEDF', /* KODE WARNA DIPERBAIKI SAMA DENGAN INDEX */
+                        darkaqua: '#0E5B73'
                     } 
                 } 
             } 
         }
     </script>
-     <style>
+     
+    <style>
         html {
             scroll-behavior: smooth;
         }
+
+        /* Class Pattern sesuai permintaan dari index */
+        .bg-pattern-krem::before {
+            content: "";
+            position: absolute;
+            inset: 0; /* Menutupi seluruh ukuran section */
+            z-index: 0; /* Diposisikan di latar belakang */
+            pointer-events: none; /* Memastikan pattern tidak menghalangi kursor saat menyorot teks/tombol */
+            
+            /* SVG Pattern Geometris Putih */
+            background-image: url("data:image/svg+xml,%3Csvg width='40' height='70' viewBox='0 0 40 70' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M20 35l20 11.547v23.094L20 58.094 0 69.641V46.547zM0 23.094V0l20 11.547L40 0v23.094L20 34.641z'/%3E%3C/g%3E%3C/svg%3E");
+            
+            opacity: 0.35; /* Atur angka ini (0.1 - 0.9) jika ingin pattern lebih redup atau lebih terang */
+        }
     </style>
 </head>
-<body class="body-pengembang min-h-screen text-slate-800 pb-12 antialiased">
+<!-- Ditambahkan class bg-krem, bg-pattern-krem, dan relative pada body -->
+<body class="body-pengembang relative bg-krem bg-pattern-krem min-h-screen text-slate-800 pb-12 antialiased">
 
-    <!-- HEADER BARU -->
-    <header class="bg-midnightgreen/90 backdrop-blur-md border-b-4 border-khaki text-krem sticky top-0 z-50 transition-all shadow-md mb-8">
+    <!-- HEADER BARU (Ditambah relative z-50 agar berada di atas pattern) -->
+    <header class="bg-midnightgreen/90 backdrop-blur-md border-b-4 border-khaki text-krem sticky top-0 z-50 transition-all shadow-md mb-8 relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center py-3">
                 <div class="flex items-center gap-5">
                     <a href="#" class="flex items-center shrink-0">
                         <img src="https://i.ibb.co.com/Gf4rz3Yn/BALAI-NT-II-8.png" alt="Maskot SiBalai" class="w-[180px] h-auto object-contain">
                     </a>
-                    <a href="index.html" class="text-krem/80 hover:text-khaki transition-all text-sm font-medium flex items-center gap-1 px-2 py-1.5 rounded-lg hover:bg-krem/10 border border-transparent hover:border-krem/20 mt-2.5">
+                    <a href="index.html" class="text-krem/80 hover:text-khaki transition-all text-sm font-medium flex items-center gap-1 px-2 py-1.5 rounded-lg hover:bg-krem/10 border border-transparent hover:border-krem/20 mt-2.5 relative z-10">
                         <i class="fa-solid fa-arrow-left"></i> Kembali
                     </a>
                 </div>
-                <div class="hidden md:flex space-x-1 font-medium">
+                <div class="hidden md:flex space-x-1 font-medium relative z-10">
                     <span class="px-4 py-3 bg-darkaqua/50 rounded-lg">Portal Pengembang Perumahan</span>
                 </div>
             </div>
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 space-y-8">
+    <!-- Main Content (Ditambah relative z-10 agar konten tampil di atas pattern) -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 space-y-8 relative z-10">
         <!-- STATISTIK -->
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
             <div data-aos="fade-up" data-aos-delay="100" class="bg-white rounded-3xl shadow-lg border border-slate-100 p-5 flex items-center gap-4">
@@ -81,14 +103,14 @@
         </div>
 
         <!-- PETA SEBARAN -->
-        <div data-aos="fade-up" class="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden">
+        <div data-aos="fade-up" class="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden relative z-10">
             <div class="p-6">
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 border-b-2 border-brand-gold/30 pb-4">
                     <div class="flex items-center gap-3">
                         <span class="w-10 h-10 rounded-xl bg-brand-teal text-white font-bold text-lg flex items-center justify-center shadow"><i class="fa-solid fa-map-location-dot"></i></span>
                         <h2 class="text-lg font-bold text-brand-darkteal uppercase tracking-wide">Peta Sebaran KPR</h2>
                     </div>
-                    <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+                    <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto relative z-20">
                         <select id="filterKabupaten" onchange="applyFilters()" class="px-4 py-2.5 bg-slate-50 border-2 border-brand-gold/50 rounded-xl text-sm font-bold text-brand-darkteal focus:outline-none focus:border-brand-teal cursor-pointer shadow-sm min-w-[200px]">
                             <option value="ALL">Semua Kabupaten</option>
                         </select>
@@ -99,8 +121,9 @@
                         </select>
                     </div>
                 </div>
-                <div class="p-2 bg-slate-50 rounded-2xl border border-slate-200 shadow-inner">
-                    <div id="mapKpr"></div>
+                <div class="p-2 bg-slate-50 rounded-2xl border border-slate-200 shadow-inner relative z-0">
+                    <!-- PERBAIKAN PETA: Penggunaan style inline untuk tinggi menjamin peta akan selalu muncul saat di-deploy -->
+                    <div id="mapKpr" class="w-full rounded-xl z-10 relative" style="height: 500px; min-height: 50vh;"></div>
                 </div>
             </div>
         </div>
