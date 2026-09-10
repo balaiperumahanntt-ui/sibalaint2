@@ -8,10 +8,6 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="https://i.ibb.co.com/RpTQRCrn/logo.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="https://i.ibb.co.com/RpTQRCrn/logo.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="https://i.ibb.co.com/RpTQRCrn/logo.png">
   <!-- AOS Animation Library CSS -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
@@ -36,11 +32,6 @@
       }
     }
   </script>
-   <style>
-        html {
-            scroll-behavior: smooth;
-        }
-    </style>
 
   <style>
     body {
@@ -419,8 +410,8 @@
   <!-- LOADING MODAL -->
   <div id="loadingModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden flex flex-col items-center justify-center text-white p-4">
     <div class="w-16 h-16 border-4 border-brand-gold border-t-transparent rounded-full animate-spin mb-4"></div>
-    <h3 class="text-lg font-bold text-white">Mengunggah & Menyimpan Data...</h3>
-    <p class="text-xs text-slate-300 mt-1">Mohon tunggu lebih lama, proses mengunggah berkas ke Google Drive sedang berlangsung.</p>
+   <h3 class="text-lg font-bold text-white">Connecting to Server</h3>
+        <p class="text-xs text-slate-300 mt-1">Please Wait...</p>
   </div>
 
   <!-- SUCCESS MODAL -->
@@ -429,7 +420,7 @@
       <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-2xl shadow-inner">
         <i class="fa-solid fa-check"></i>
       </div>
-      <h3 class="text-xl font-bold text-slate-800">Laporan Berhasil Terkirim!</h3>
+      <h3 class="text-xl font-bold text-slate-800">Success</h3>
       <p id="successMsg" class="text-sm text-slate-600 leading-relaxed"></p>
       <button onclick="closeSuccessModal()" class="w-full py-3 bg-brand-teal text-white font-bold rounded-xl text-sm hover:bg-brand-darkteal transition shadow">
         Isi Form Baru
