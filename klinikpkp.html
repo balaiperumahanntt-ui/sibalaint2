@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Under Maintenance - Balai P3KP</title>
+    
+    <!-- Stylesheets & Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Tambahan Library AOS untuk animasi data-aos -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Konfigurasi Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            teal: '#0E5975',
+                            darkteal: '#093C4F',
+                            gold: '#CBA355',
+                            lightgold: '#E0C17B'
+                        },
+                        // Menambahkan warna dari halaman utama agar Header berfungsi
+                        midnightgreen: '#084C61',
+                        khaki: '#D5C58A',
+                        krem: '#F2EEDF',
+                        darkaqua: '#0E5B73'
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #F3F5F7;
+            background-image: radial-gradient(#0E5975 0.75px, transparent 0.75px), radial-gradient(#0E5975 0.75px, #F3F5F7 0.75px);
+            background-size: 30px 30px;
+            background-position: 0 0, 15px 15px;
+        }
+        .gear-slow {
+            animation: spin 4s linear infinite;
+        }
+        .gear-reverse {
+            animation: spin-reverse 3s linear infinite;
+        }
+        @keyframes spin-reverse {
+            from { transform: rotate(360deg); }
+            to { transform: rotate(0deg); }
+        }
+    </style>
+</head>
+<!-- Perbaikan: Mengubah body menjadi flex-col agar header tetap di atas -->
+<body class="font-sans min-h-screen text-slate-800 flex flex-col antialiased">
+    
+    <!-- HEADER -->
+    <header class="bg-midnightgreen/95 backdrop-blur-md border-b-4 border-khaki text-krem sticky top-0 z-50 transition-all shadow-md glass-header text-white" data-aos="fade-down">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-3">
+                <div class="flex items-center gap-5">
+                    <a href="index.html" class="flex items-center shrink-0">
+                        <img src="https://i.ibb.co.com/Gf4rz3Yn/BALAI-NT-II-8.png" alt="Maskot SiBalai" class="w-[180px] h-auto object-contain">
+                    </a>
+                    <a href="index.html" class="text-white/80 hover:text-brand-gold transition-all text-sm font-medium flex items-center gap-1 px-2 py-1.5 rounded-lg hover:bg-white/10 border border-transparent hover:border-white/20 mt-2.5">
+                        <i class="fa-solid fa-arrow-left"></i> Kembali
+                    </a>
+                </div>
+                <div class="hidden md:flex space-x-1 font-medium">
+                    <span class="px-4 py-3 bg-white/10 rounded-lg text-white"><i class="fa-solid fa-user-pen mr-2"></i>KLINIK PKP</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Kontainer Utama: Akan mengambil sisa ruang dan menengahkan card -->
+    <main class="flex-1 flex items-center justify-center p-4">
+        <div class="max-w-lg w-full bg-white rounded-[2rem] shadow-2xl border border-slate-100 overflow-hidden relative text-center" data-aos="zoom-in" data-aos-delay="100">
+            <div class="p-8 sm:p-12">
+                <!-- Logo Instalasi -->
+                <div class="flex justify-center mb-6">
+                    <div class="w-20 h-20 rounded-full border-2 border-brand-gold/50 p-1 bg-brand-darkteal shadow-lg flex items-center justify-center relative overflow-hidden">
+                        <img src="https://i.ibb.co.com/RpTQRCrn/logo.png" onerror="this.style.display='none'" alt="Logo" class="w-full h-full object-contain p-1 z-10">
+                        <i class="fa-solid fa-building text-2xl text-brand-gold absolute opacity-20"></i>
+                    </div>
+                </div>
+
+                <!-- Icon Animasi Perbaikan -->
+                <div class="relative flex justify-center items-center h-24 mb-6 text-brand-teal">
+                    <i class="fa-solid fa-gear text-6xl gear-slow absolute -ml-10 -mt-4 text-brand-darkteal opacity-90"></i>
+                    <i class="fa-solid fa-gear text-4xl gear-reverse absolute ml-10 mt-6 text-brand-gold opacity-90"></i>
+                    <i class="fa-solid fa-wrench text-3xl absolute z-10 text-slate-700 -ml-16 mt-8 transform -rotate-45"></i>
+                </div>
+
+                <!-- Teks Utama -->
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-800 tracking-tight mb-3">
+                    Sistem Sedang Dikembangkan
+                </h1>
+                <p class="text-slate-500 text-sm sm:text-base leading-relaxed mb-8">
+                    Mohon maaf atas ketidaknyamanan ini. Kami sedang melakukan peningkatan sistem <b>Klinik PKP</b> untuk memberikan layanan yang lebih baik.
+                </p>
+
+                <!-- Info Tambahan -->
+                <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 mb-8 text-left">
+                    <p class="text-xs text-slate-500 font-medium">Estimasi Waktu Penyelesaian:</p>
+                    <p class="text-sm font-bold text-brand-darkteal mt-1">
+                        <i class="fa-regular fa-clock mr-1"></i> Silakan cek kembali beberapa saat lagi.
+                    </p>
+                </div>
+
+                <!-- Tombol Refresh -->
+                <button onclick="window.location.reload()" class="w-full py-3.5 bg-slate-100 hover:bg-brand-teal hover:text-white text-slate-700 font-bold rounded-xl text-sm transition-all shadow-sm flex items-center justify-center gap-2 group cursor-pointer">
+                    <i class="fa-solid fa-rotate-right group-hover:rotate-180 transition-transform duration-500"></i>
+                    <span>Coba Muat Ulang Halaman</span>
+                </button>
+            </div>
+
+            <!-- Footer Card -->
+            <div class="bg-slate-50 py-4 text-xs text-slate-400 font-medium border-t border-slate-100">
+                &copy; 2026 Balai P3KP Nusa Tenggara II. Hak Cipta Dilindungi Undang-Undang.
+            </div>
+        </div>
+    </main>
+
+    <!-- Script Inisialisasi AOS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 800,
+                once: true
+            });
+        });
+    </script>
+</body>
+</html>
