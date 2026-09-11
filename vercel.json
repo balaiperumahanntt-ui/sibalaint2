@@ -8,6 +8,7 @@
     { "source": "/laporrtlh", "destination": "/laporrtlh.html" },
     { "source": "/bankdesain", "destination": "/bankdesain.html" },
     { "source": "/kpr-perumahan", "destination": "/kpr-perumahan.html" },
+    { "source": "/struktur", "destination": "/struktur-organisasi.html" },
     { "source": "/pengembang", "destination": "/pengembang.html" }
   ]
 }
