@@ -4,6 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pelaporan RTLH - Balai P3KP</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="https://i.ibb.co.com/RpTQRCrn/logo.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://i.ibb.co.com/RpTQRCrn/logo.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="https://i.ibb.co.com/RpTQRCrn/logo.png">
+
   <!-- Tailwind CSS & FontAwesome Icons -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -16,14 +22,10 @@
       theme: {
         extend: {
           colors: {
-            brand: {
-              teal: '#0E5975',
-              darkteal: '#093C4F',
-              gold: '#CBA355',
-              lightgold: '#E0C17B',
-              bg: '#F8F9FA',
-              card: '#FFFFFF'
-            }
+            krem: '#F2EEDF',
+            khaki: '#D5C58A',
+            darkaqua: '#0E5B73',
+            midnightgreen: '#084C61',
           },
           fontFamily: {
             sans: ['"Plus Jakarta Sans"', 'sans-serif'],
@@ -34,15 +36,19 @@
   </script>
 
   <style>
-    body {
-      background-color: #F3F5F7;
-      background-image: radial-gradient(#0E5975 0.75px, transparent 0.75px), radial-gradient(#0E5975 0.75px, #F3F5F7 0.75px);
-      background-size: 30px 30px;
-      background-position: 0 0, 15px 15px;
+    html {
+        scroll-behavior: smooth;
     }
-    
-    .glass-header {
-      background: linear-gradient(135deg, #093C4F 0%, #0E5975 100%);
+
+    /* Class untuk membuat pattern tekstur geometris warna putih */
+    .bg-pattern-krem::before {
+        content: "";
+        position: absolute;
+        inset: 0; 
+        z-index: 0; 
+        pointer-events: none; 
+        background-image: url("data:image/svg+xml,%3Csvg width='40' height='70' viewBox='0 0 40 70' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M20 35l20 11.547v23.094L20 58.094 0 69.641V46.547zM0 23.094V0l20 11.547L40 0v23.094L20 34.641z'/%3E%3C/g%3E%3C/svg%3E");
+        opacity: 0.45; 
     }
 
     .dropzone {
@@ -50,8 +56,8 @@
       transition: all 0.25s ease;
     }
     .dropzone:hover {
-      border-color: #0E5975;
-      background-color: #F0F7FA;
+      border-color: #0E5B73; /* darkaqua */
+      background-color: #F2EEDF; /* krem (light) */
     }
 
     .combobox-list {
@@ -63,17 +69,20 @@
       width: 6px;
     }
     ::-webkit-scrollbar-track {
-      background: #F1F5F9;
+      background: #F2EEDF;
     }
     ::-webkit-scrollbar-thumb {
-      background: #CBD5E1;
+      background: #D5C58A;
       border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #0E5B73;
     }
   </style>
 </head>
-<body class="font-sans min-h-screen text-slate-800 flex flex-col antialiased">
+<body class="font-sans min-h-screen text-midnightgreen bg-krem flex flex-col antialiased relative bg-pattern-krem">
 
-  <!-- Header / Navbar -->
+   <!-- Header / Navbar -->
     <header class="bg-midnightgreen/90 backdrop-blur-md border-b-4 border-khaki text-krem sticky top-0 z-50 transition-all shadow-md" data-aos="fade-down">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center py-3">
@@ -211,17 +220,17 @@
     </header>
 
   <!-- FORM CONTAINER -->
-  <main class="flex-grow w-full max-w-4xl mx-auto px-4 sm:px-6 pb-12">
-    <div class="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden" data-aos="fade-up">
+  <main class="flex-grow w-full max-w-4xl mx-auto px-4 sm:px-6 pt-10 pb-12 relative z-10">
+    <div class="bg-white rounded-3xl shadow-2xl border-t-8 border-khaki overflow-hidden" data-aos="fade-up">
       
       <!-- Intro Notice -->
-      <div class="bg-gradient-to-r from-sky-50 to-amber-50 p-5 sm:p-6 border-b border-slate-200/80 flex items-start gap-4">
-        <div class="w-10 h-10 rounded-2xl bg-brand-teal text-white flex items-center justify-center flex-shrink-0 shadow-md">
+      <div class="bg-darkaqua/5 p-5 sm:p-6 border-b border-slate-200/80 flex items-start gap-4">
+        <div class="w-10 h-10 rounded-2xl bg-darkaqua text-white flex items-center justify-center flex-shrink-0 shadow-md">
           <i class="fa-solid fa-file-pen text-lg"></i>
         </div>
-        <div class="text-sm text-slate-600 leading-relaxed">
-          <p class="font-bold text-slate-800 text-base mb-0.5">Petunjuk Pengisian Form:</p>
-          Isilah data identitas, lokasi, dan unggah berkas foto kondisi rumah secara valid. Pastikan <span class="font-semibold text-brand-teal">NIK & KK tepat 16 digit</span>, serta <span class="font-semibold text-brand-teal">RT/RW & No HP masing-masing sesuai ketentuan</span>. Berkas akan tersimpan aman di Google Drive.
+        <div class="text-sm text-midnightgreen leading-relaxed">
+          <p class="font-bold text-midnightgreen text-base mb-0.5">Petunjuk Pengisian Form:</p>
+          Isilah data identitas, lokasi, dan unggah berkas foto kondisi rumah secara valid. Pastikan <span class="font-bold text-darkaqua">NIK & KK tepat 16 digit</span>, serta <span class="font-bold text-darkaqua">RT/RW & No HP masing-masing sesuai ketentuan</span>. Berkas akan tersimpan aman dan terenkripsi.
         </div>
       </div>
 
@@ -229,51 +238,51 @@
         
         <!-- SECTION 1: IDENTITAS PEMILIK RUMAH -->
         <section class="space-y-6" data-aos="fade-up" data-aos-delay="100">
-          <div class="flex items-center gap-3 border-b-2 border-brand-gold/30 pb-3">
-            <span class="w-8 h-8 rounded-xl bg-brand-teal text-white font-bold text-sm flex items-center justify-center shadow">1</span>
-            <h2 class="text-lg font-bold text-brand-darkteal uppercase tracking-wide">Data Identitas Pemilik Rumah</h2>
+          <div class="flex items-center gap-3 border-b-2 border-khaki/50 pb-3">
+            <span class="w-8 h-8 rounded-xl bg-darkaqua text-krem font-bold text-sm flex items-center justify-center shadow">1</span>
+            <h2 class="text-lg font-bold text-midnightgreen uppercase tracking-wide">Data Identitas Pemilik Rumah</h2>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div class="sm:col-span-2">
-              <label class="block text-sm font-semibold text-slate-700 mb-2">
+              <label class="block text-sm font-semibold text-midnightgreen mb-2">
                 Nama Pemilik Rumah <span class="text-rose-500">*</span>
               </label>
               <div class="relative">
-                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-darkaqua/50">
                   <i class="fa-solid fa-user"></i>
                 </div>
                 <input type="text" id="namaPemilik" required placeholder="Masukkan nama lengkap sesuai KTP"
-                  class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-teal focus:border-brand-teal outline-none transition text-sm">
+                  class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-darkaqua focus:border-darkaqua outline-none transition text-sm">
               </div>
             </div>
 
             <div>
-              <label class="block text-sm font-semibold text-slate-700 mb-2">
+              <label class="block text-sm font-semibold text-midnightgreen mb-2">
                 NIK Pemilik Rumah (16 Digit) <span class="text-rose-500">*</span>
               </label>
               <div class="relative">
-                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-darkaqua/50">
                   <i class="fa-solid fa-address-card"></i>
                 </div>
                 <input type="text" id="nik" required maxlength="16" pattern="[0-9]{16}" placeholder="530XXXXXXXXXXXXXXXX"
                   oninput="validateDigitOnly(this, 16, 'nikError')"
-                  class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-teal focus:border-brand-teal outline-none transition text-sm font-mono tracking-wider">
+                  class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-darkaqua focus:border-darkaqua outline-none transition text-sm font-mono tracking-wider">
               </div>
               <p id="nikError" class="text-xs text-rose-500 mt-1 hidden"><i class="fa-solid fa-circle-exclamation mr-1"></i>NIK harus tepat 16 digit angka.</p>
             </div>
 
             <div>
-              <label class="block text-sm font-semibold text-slate-700 mb-2">
+              <label class="block text-sm font-semibold text-midnightgreen mb-2">
                 Nomor Kartu Keluarga (16 Digit) <span class="text-rose-500">*</span>
               </label>
               <div class="relative">
-                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-darkaqua/50">
                   <i class="fa-solid fa-users"></i>
                 </div>
                 <input type="text" id="kk" required maxlength="16" pattern="[0-9]{16}" placeholder="530XXXXXXXXXXXXXXXX"
                   oninput="validateDigitOnly(this, 16, 'kkError')"
-                  class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-teal focus:border-brand-teal outline-none transition text-sm font-mono tracking-wider">
+                  class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-darkaqua focus:border-darkaqua outline-none transition text-sm font-mono tracking-wider">
               </div>
               <p id="kkError" class="text-xs text-rose-500 mt-1 hidden"><i class="fa-solid fa-circle-exclamation mr-1"></i>Nomor KK harus tepat 16 digit angka.</p>
             </div>
@@ -282,25 +291,25 @@
 
         <!-- SECTION 2: ALAMAT LOKASI RUMAH -->
         <section class="space-y-6" data-aos="fade-up" data-aos-delay="200">
-          <div class="flex items-center gap-3 border-b-2 border-brand-gold/30 pb-3">
-            <span class="w-8 h-8 rounded-xl bg-brand-teal text-white font-bold text-sm flex items-center justify-center shadow">2</span>
-            <h2 class="text-lg font-bold text-brand-darkteal uppercase tracking-wide">Lokasi & Alamat Rumah (Sesuai KTP)</h2>
+          <div class="flex items-center gap-3 border-b-2 border-khaki/50 pb-3">
+            <span class="w-8 h-8 rounded-xl bg-darkaqua text-krem font-bold text-sm flex items-center justify-center shadow">2</span>
+            <h2 class="text-lg font-bold text-midnightgreen uppercase tracking-wide">Lokasi & Alamat Rumah (Sesuai KTP)</h2>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
             <!-- Kabupaten/Kota -->
             <div class="relative">
-              <label class="block text-sm font-semibold text-slate-700 mb-2">
+              <label class="block text-sm font-semibold text-midnightgreen mb-2">
                 Kabupaten/Kota <span class="text-rose-500">*</span>
               </label>
               <div class="relative">
                 <input type="text" id="kabupaten" required readonly placeholder="Pilih Kabupaten..."
                   onclick="toggleCombobox('kabDropdown')"
-                  class="w-full pl-10 pr-8 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-teal focus:border-brand-teal outline-none transition text-sm cursor-pointer">
-                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                  class="w-full pl-10 pr-8 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-darkaqua focus:border-darkaqua outline-none transition text-sm cursor-pointer">
+                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-darkaqua/50">
                   <i class="fa-solid fa-map-location-dot"></i>
                 </div>
-                <div class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer text-slate-400" onclick="toggleCombobox('kabDropdown')">
+                <div class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer text-darkaqua/50" onclick="toggleCombobox('kabDropdown')">
                   <i class="fa-solid fa-chevron-down text-xs"></i>
                 </div>
               </div>
@@ -309,17 +318,17 @@
 
             <!-- Kecamatan -->
             <div class="relative">
-              <label class="block text-sm font-semibold text-slate-700 mb-2">
+              <label class="block text-sm font-semibold text-midnightgreen mb-2">
                 Kecamatan <span class="text-rose-500">*</span>
               </label>
               <div class="relative">
                 <input type="text" id="kecamatan" required readonly placeholder="Pilih Kecamatan..."
                   onclick="toggleCombobox('kecDropdown')"
-                  class="w-full pl-10 pr-8 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-teal focus:border-brand-teal outline-none transition text-sm cursor-pointer">
-                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                  class="w-full pl-10 pr-8 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-darkaqua focus:border-darkaqua outline-none transition text-sm cursor-pointer">
+                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-darkaqua/50">
                   <i class="fa-solid fa-building"></i>
                 </div>
-                <div class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer text-slate-400" onclick="toggleCombobox('kecDropdown')">
+                <div class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer text-darkaqua/50" onclick="toggleCombobox('kecDropdown')">
                   <i class="fa-solid fa-chevron-down text-xs"></i>
                 </div>
               </div>
@@ -328,17 +337,17 @@
 
             <!-- Desa/Kelurahan -->
             <div class="relative">
-              <label class="block text-sm font-semibold text-slate-700 mb-2">
+              <label class="block text-sm font-semibold text-midnightgreen mb-2">
                 Desa/Kelurahan <span class="text-rose-500">*</span>
               </label>
               <div class="relative">
                 <input type="text" id="desa" required readonly placeholder="Pilih Desa..."
                   onclick="toggleCombobox('desaDropdown')"
-                  class="w-full pl-10 pr-8 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-teal focus:border-brand-teal outline-none transition text-sm cursor-pointer">
-                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                  class="w-full pl-10 pr-8 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-darkaqua focus:border-darkaqua outline-none transition text-sm cursor-pointer">
+                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-darkaqua/50">
                   <i class="fa-solid fa-house-chimney"></i>
                 </div>
-                <div class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer text-slate-400" onclick="toggleCombobox('desaDropdown')">
+                <div class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer text-darkaqua/50" onclick="toggleCombobox('desaDropdown')">
                   <i class="fa-solid fa-chevron-down text-xs"></i>
                 </div>
               </div>
@@ -348,48 +357,48 @@
 
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
             <div>
-              <label class="block text-sm font-semibold text-slate-700 mb-2">
+              <label class="block text-sm font-semibold text-midnightgreen mb-2">
                 RT / RW (Maks 11 Karakter) <span class="text-rose-500">*</span>
               </label>
               <div class="relative">
-                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-darkaqua/50">
                   <i class="fa-solid fa-hashtag"></i>
                 </div>
                 <input type="text" id="rtRw" required maxlength="11" placeholder="Maks 11 Karakter"
                   oninput="validateLengthOnly(this, 11, 'rtRwError')"
-                  class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-teal focus:border-brand-teal outline-none transition text-sm">
+                  class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-darkaqua focus:border-darkaqua outline-none transition text-sm">
               </div>
               <p id="rtRwError" class="text-xs text-rose-500 mt-1 hidden"><i class="fa-solid fa-circle-exclamation mr-1"></i>RT/RW maksimal 11 karakter.</p>
             </div>
 
             <div class="sm:col-span-2">
-              <label class="block text-sm font-semibold text-slate-700 mb-2">
+              <label class="block text-sm font-semibold text-midnightgreen mb-2">
                 Alamat Rumah Lengkap <span class="text-rose-500">*</span>
               </label>
               <div class="relative">
-                <div class="absolute top-3.5 left-0 pl-3.5 flex items-start pointer-events-none text-slate-400">
+                <div class="absolute top-3.5 left-0 pl-3.5 flex items-start pointer-events-none text-darkaqua/50">
                   <i class="fa-solid fa-location-dot"></i>
                 </div>
                 <textarea id="alamatLengkap" required rows="2" placeholder="Nama Jalan, No. Rumah, Patokan Lokasi..."
-                  class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-teal focus:border-brand-teal outline-none transition text-sm"></textarea>
+                  class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-darkaqua focus:border-darkaqua outline-none transition text-sm"></textarea>
               </div>
             </div>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div class="sm:col-span-2 p-4 bg-blue-50 border border-blue-100 rounded-xl">
-              <label class="block text-sm font-semibold text-slate-700 mb-2">
-                Koordinat Titik Lokasi Rumah <span class="text-xs text-slate-500 font-normal">(Opsional namun sangat disarankan)</span>
+            <div class="sm:col-span-2 p-4 bg-darkaqua/5 border border-darkaqua/20 rounded-xl">
+              <label class="block text-sm font-semibold text-midnightgreen mb-2">
+                Koordinat Titik Lokasi Rumah <span class="text-xs text-midnightgreen/60 font-normal">(Opsional namun sangat disarankan)</span>
               </label>
               <div class="flex flex-col sm:flex-row gap-3">
                 <div class="relative flex-grow">
-                  <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-blue-400">
+                  <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-darkaqua">
                     <i class="fa-solid fa-location-crosshairs"></i>
                   </div>
                   <input type="text" id="koordinat" readonly placeholder="Klik tombol di samping untuk deteksi lokasi otomatis"
-                    class="w-full pl-10 pr-4 py-3 bg-white border border-blue-200 rounded-xl outline-none transition text-sm text-slate-600">
+                    class="w-full pl-10 pr-4 py-3 bg-white border border-slate-200 rounded-xl outline-none transition text-sm text-midnightgreen">
                 </div>
-                <button type="button" id="btn-location" onclick="getLocation()" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-sm font-semibold transition whitespace-nowrap shadow-md">
+                <button type="button" id="btn-location" onclick="getLocation()" class="px-6 py-3 bg-darkaqua hover:bg-midnightgreen text-krem rounded-xl text-sm font-semibold transition whitespace-nowrap shadow-md">
                   <i class="fa-solid fa-map-pin mr-2"></i>Dapatkan Titik Lokasi
                 </button>
               </div>
@@ -399,38 +408,38 @@
 
         <!-- SECTION 3: KONTAK KOMUNIKASI -->
         <section class="space-y-6" data-aos="fade-up" data-aos-delay="300">
-          <div class="flex items-center gap-3 border-b-2 border-brand-gold/30 pb-3">
-            <span class="w-8 h-8 rounded-xl bg-brand-teal text-white font-bold text-sm flex items-center justify-center shadow">3</span>
-            <h2 class="text-lg font-bold text-brand-darkteal uppercase tracking-wide">Nomor Kontak Whatsapp / HP</h2>
+          <div class="flex items-center gap-3 border-b-2 border-khaki/50 pb-3">
+            <span class="w-8 h-8 rounded-xl bg-darkaqua text-krem font-bold text-sm flex items-center justify-center shadow">3</span>
+            <h2 class="text-lg font-bold text-midnightgreen uppercase tracking-wide">Nomor Kontak Whatsapp / HP</h2>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div>
-              <label class="block text-sm font-semibold text-slate-700 mb-2">
+              <label class="block text-sm font-semibold text-midnightgreen mb-2">
                 No HP/Whatsapp Pemilik Rumah <span class="text-rose-500">*</span>
               </label>
               <div class="relative">
-                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-darkaqua/50">
                   <i class="fa-brands fa-whatsapp text-lg"></i>
                 </div>
                 <input type="tel" id="noHpPemilik" required maxlength="13" placeholder="08XXXXXXXXXXX"
                   oninput="validateDigitOnly(this, 13, 'hpPemilikError')"
-                  class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-teal focus:border-brand-teal outline-none transition text-sm font-mono tracking-wider">
+                  class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-darkaqua focus:border-darkaqua outline-none transition text-sm font-mono tracking-wider">
               </div>
               <p id="hpPemilikError" class="text-xs text-rose-500 mt-1 hidden"><i class="fa-solid fa-circle-exclamation mr-1"></i>Nomor HP maksimal 13 digit angka.</p>
             </div>
 
             <div>
-              <label class="block text-sm font-semibold text-slate-700 mb-2">
+              <label class="block text-sm font-semibold text-midnightgreen mb-2">
                 No HP/Whatsapp Perangkat Desa <span class="text-rose-500">*</span>
               </label>
               <div class="relative">
-                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-darkaqua/50">
                   <i class="fa-solid fa-phone"></i>
                 </div>
                 <input type="tel" id="noHpKades" required maxlength="13" placeholder="08XXXXXXXXXXX"
                   oninput="validateDigitOnly(this, 13, 'hpKadesError')"
-                  class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-teal focus:border-brand-teal outline-none transition text-sm font-mono tracking-wider">
+                  class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-darkaqua focus:border-darkaqua outline-none transition text-sm font-mono tracking-wider">
               </div>
               <p id="hpKadesError" class="text-xs text-rose-500 mt-1 hidden"><i class="fa-solid fa-circle-exclamation mr-1"></i>Nomor HP maksimal 13 digit angka.</p>
             </div>
@@ -439,71 +448,71 @@
 
         <!-- SECTION 4: UNGGAH DOKUMEN & FOTO -->
         <section class="space-y-6" data-aos="fade-up" data-aos-delay="400">
-          <div class="flex items-center gap-3 border-b-2 border-brand-gold/30 pb-3">
-            <span class="w-8 h-8 rounded-xl bg-brand-teal text-white font-bold text-sm flex items-center justify-center shadow">4</span>
-            <h2 class="text-lg font-bold text-brand-darkteal uppercase tracking-wide">Unggah Berkas Dokumen & Foto Rumah</h2>
+          <div class="flex items-center gap-3 border-b-2 border-khaki/50 pb-3">
+            <span class="w-8 h-8 rounded-xl bg-darkaqua text-krem font-bold text-sm flex items-center justify-center shadow">4</span>
+            <h2 class="text-lg font-bold text-midnightgreen uppercase tracking-wide">Unggah Berkas Dokumen & Foto Rumah</h2>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <!-- Foto Pemilik Latar Belakang Rumah -->
             <div class="dropzone p-4 rounded-2xl bg-slate-50 text-center relative flex flex-col items-center justify-center min-h-[160px]">
-              <i class="fa-solid fa-camera text-2xl text-brand-teal mb-2"></i>
-              <p class="text-xs font-bold text-slate-700">Foto Pemilik dengan Latar Rumah <span class="text-rose-500">*</span></p>
-              <p class="text-[11px] text-slate-500 mt-1 mb-3">Format JPG/PNG (Maks 10MB)</p>
+              <i class="fa-solid fa-camera text-2xl text-darkaqua mb-2"></i>
+              <p class="text-xs font-bold text-midnightgreen">Foto Pemilik dengan Latar Rumah <span class="text-rose-500">*</span></p>
+              <p class="text-[11px] text-midnightgreen/60 mt-1 mb-3">Format JPG/PNG (Maks 10MB)</p>
               <input type="file" id="fotoPemilik" accept="image/*" required onchange="handleFileSelect(this, 'previewPemilik')" class="hidden">
-              <button type="button" onclick="document.getElementById('fotoPemilik').click()" class="px-4 py-1.5 bg-brand-teal text-white rounded-lg text-xs font-semibold hover:bg-brand-darkteal transition shadow-sm">
+              <button type="button" onclick="document.getElementById('fotoPemilik').click()" class="px-4 py-1.5 bg-darkaqua text-krem rounded-lg text-xs font-semibold hover:bg-midnightgreen transition shadow-sm">
                 Pilih Foto
               </button>
-              <div id="previewPemilik" class="mt-2 text-xs text-slate-600 font-medium truncate max-w-full"></div>
+              <div id="previewPemilik" class="mt-2 text-xs text-midnightgreen/80 font-medium truncate max-w-full"></div>
             </div>
 
             <!-- Foto / Scan KTP -->
             <div class="dropzone p-4 rounded-2xl bg-slate-50 text-center relative flex flex-col items-center justify-center min-h-[160px]">
-              <i class="fa-solid fa-id-card text-2xl text-brand-teal mb-2"></i>
-              <p class="text-xs font-bold text-slate-700">Foto/Scan KTP Pemilik Rumah <span class="text-rose-500">*</span></p>
-              <p class="text-[11px] text-slate-500 mt-1 mb-3">Format JPG/PNG/PDF (Maks 10MB)</p>
+              <i class="fa-solid fa-id-card text-2xl text-darkaqua mb-2"></i>
+              <p class="text-xs font-bold text-midnightgreen">Foto/Scan KTP Pemilik Rumah <span class="text-rose-500">*</span></p>
+              <p class="text-[11px] text-midnightgreen/60 mt-1 mb-3">Format JPG/PNG/PDF (Maks 10MB)</p>
               <input type="file" id="fotoKtp" accept="image/*,application/pdf" required onchange="handleFileSelect(this, 'previewKtp')" class="hidden">
-              <button type="button" onclick="document.getElementById('fotoKtp').click()" class="px-4 py-1.5 bg-brand-teal text-white rounded-lg text-xs font-semibold hover:bg-brand-darkteal transition shadow-sm">
+              <button type="button" onclick="document.getElementById('fotoKtp').click()" class="px-4 py-1.5 bg-darkaqua text-krem rounded-lg text-xs font-semibold hover:bg-midnightgreen transition shadow-sm">
                 Pilih Berkas
               </button>
-              <div id="previewKtp" class="mt-2 text-xs text-slate-600 font-medium truncate max-w-full"></div>
+              <div id="previewKtp" class="mt-2 text-xs text-midnightgreen/80 font-medium truncate max-w-full"></div>
             </div>
 
             <!-- Foto / Scan Kartu Keluarga -->
             <div class="dropzone p-4 rounded-2xl bg-slate-50 text-center relative flex flex-col items-center justify-center min-h-[160px]">
-              <i class="fa-solid fa-folder-open text-2xl text-brand-teal mb-2"></i>
-              <p class="text-xs font-bold text-slate-700">Foto/Scan Kartu Keluarga <span class="text-rose-500">*</span></p>
-              <p class="text-[11px] text-slate-500 mt-1 mb-3">Format JPG/PNG/PDF (Maks 10MB)</p>
+              <i class="fa-solid fa-folder-open text-2xl text-darkaqua mb-2"></i>
+              <p class="text-xs font-bold text-midnightgreen">Foto/Scan Kartu Keluarga <span class="text-rose-500">*</span></p>
+              <p class="text-[11px] text-midnightgreen/60 mt-1 mb-3">Format JPG/PNG/PDF (Maks 10MB)</p>
               <input type="file" id="fotoKk" accept="image/*,application/pdf" required onchange="handleFileSelect(this, 'previewKk')" class="hidden">
-              <button type="button" onclick="document.getElementById('fotoKk').click()" class="px-4 py-1.5 bg-brand-teal text-white rounded-lg text-xs font-semibold hover:bg-brand-darkteal transition shadow-sm">
+              <button type="button" onclick="document.getElementById('fotoKk').click()" class="px-4 py-1.5 bg-darkaqua text-krem rounded-lg text-xs font-semibold hover:bg-midnightgreen transition shadow-sm">
                 Pilih Berkas
               </button>
-              <div id="previewKk" class="mt-2 text-xs text-slate-600 font-medium truncate max-w-full"></div>
+              <div id="previewKk" class="mt-2 text-xs text-midnightgreen/80 font-medium truncate max-w-full"></div>
             </div>
 
             <!-- Surat Kepemilikan Lahan -->
             <div class="dropzone p-4 rounded-2xl bg-slate-50 text-center relative flex flex-col items-center justify-center min-h-[160px]">
-              <i class="fa-solid fa-file-contract text-2xl text-brand-teal mb-2"></i>
-              <p class="text-xs font-bold text-slate-700">Surat Kepemilikan Lahan <span class="text-rose-500">*</span></p>
-              <p class="text-[11px] text-slate-500 mt-1 mb-1">Sertifikat / Letter C / AJB / Surat Desa</p>
+              <i class="fa-solid fa-file-contract text-2xl text-darkaqua mb-2"></i>
+              <p class="text-xs font-bold text-midnightgreen">Surat Kepemilikan Lahan <span class="text-rose-500">*</span></p>
+              <p class="text-[11px] text-midnightgreen/60 mt-1 mb-1">Sertifikat / Letter C / AJB / Surat Desa</p>
               <input type="file" id="suratLahan" accept="image/*,application/pdf" required onchange="handleFileSelect(this, 'previewLahan')" class="hidden">
-              <button type="button" onclick="document.getElementById('suratLahan').click()" class="px-4 py-1.5 bg-brand-teal text-white rounded-lg text-xs font-semibold hover:bg-brand-darkteal transition shadow-sm mt-1">
+              <button type="button" onclick="document.getElementById('suratLahan').click()" class="px-4 py-1.5 bg-darkaqua text-krem rounded-lg text-xs font-semibold hover:bg-midnightgreen transition shadow-sm mt-1">
                 Pilih Berkas
               </button>
-              <div id="previewLahan" class="mt-2 text-xs text-slate-600 font-medium truncate max-w-full"></div>
+              <div id="previewLahan" class="mt-2 text-xs text-midnightgreen/80 font-medium truncate max-w-full"></div>
             </div>
 
             <!-- Foto Kondisi Kerusakan Rumah -->
-            <div class="sm:col-span-2 dropzone p-6 rounded-2xl bg-slate-50 relative flex flex-col items-center justify-center border-2 border-brand-gold/50 border-dashed">
-              <i class="fa-solid fa-images text-3xl text-brand-gold mb-2"></i>
-              <p class="text-sm font-bold text-slate-800">Foto Kondisi Kerusakan Rumah <span class="text-rose-500">*</span></p>
-              <p class="text-xs text-slate-500 mt-1 mb-4 text-center">
+            <div class="sm:col-span-2 dropzone p-6 rounded-2xl bg-slate-50 relative flex flex-col items-center justify-center border-2 border-khaki border-dashed">
+              <i class="fa-solid fa-images text-3xl text-khaki mb-2"></i>
+              <p class="text-sm font-bold text-midnightgreen">Foto Kondisi Kerusakan Rumah <span class="text-rose-500">*</span></p>
+              <p class="text-xs text-midnightgreen/60 mt-1 mb-4 text-center">
                 Pilih foto kondisi kerusakan rumah dari galeri perangkat Anda. Anda dapat memilih beberapa foto sekaligus.
               </p>
               
               <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto justify-center">
                 <input type="file" id="fotoRumah" accept="image/*" multiple onchange="handleMultiFileSelect(this, 'previewRumah')" class="hidden">
-                <button type="button" onclick="document.getElementById('fotoRumah').click()" class="px-6 py-3 bg-brand-teal text-white rounded-xl text-xs font-bold hover:bg-brand-darkteal transition shadow-md flex items-center justify-center gap-2">
+                <button type="button" onclick="document.getElementById('fotoRumah').click()" class="px-6 py-3 bg-darkaqua text-krem rounded-xl text-xs font-bold hover:bg-midnightgreen transition shadow-md flex items-center justify-center gap-2">
                   <i class="fa-solid fa-folder-open"></i> Unggah Foto dari Galeri
                 </button>
               </div>
@@ -515,8 +524,8 @@
 
         <!-- SUBMIT BUTTON -->
         <div class="pt-4">
-          <button type="submit" id="btnSubmit" class="w-full py-4 bg-gradient-to-r from-brand-teal to-brand-darkteal hover:from-brand-darkteal hover:to-slate-900 text-white rounded-2xl font-bold text-base sm:text-lg shadow-xl hover:shadow-2xl transition transform active:scale-[0.99] flex items-center justify-center gap-3 border border-brand-gold/30">
-            <i class="fa-solid fa-paper-plane"></i>
+          <button type="submit" id="btnSubmit" class="w-full py-4 bg-gradient-to-r from-darkaqua to-midnightgreen hover:from-midnightgreen hover:to-[#052b36] text-krem rounded-2xl font-bold text-base sm:text-lg shadow-xl hover:shadow-2xl transition transform active:scale-[0.99] flex items-center justify-center gap-3 border border-khaki/50">
+            <i class="fa-solid fa-paper-plane text-khaki"></i>
             <span>Kirim Pelaporan RTLH</span>
           </button>
         </div>
@@ -525,7 +534,7 @@
     </div>
   </main>
 
- <!-- Footer Section (Modern Redesign) -->
+  <!-- Footer Section (Modern Redesign) -->
     <footer id="footer" class="bg-[#0b161f] text-krem/80 border-t border-white/10 relative overflow-hidden" data-aos="fade-up">
         <!-- Elemen Dekorasi Background -->
         <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
@@ -578,7 +587,7 @@
                         <li><a href="#" class="hover:text-khaki hover:translate-x-2 transition-transform duration-300 inline-flex items-center gap-2"><i class="fa-solid fa-chevron-right text-[10px] text-khaki"></i> Masukan & Saran</a></li>
                         <li><a href="#dialogPengaduan" class="hover:text-khaki hover:translate-x-2 transition-transform duration-300 inline-flex items-center gap-2"><i class="fa-solid fa-chevron-right text-[10px] text-khaki"></i> Pusat Pengaduan</a></li>
                         <li><a href="#" class="hover:text-khaki hover:translate-x-2 transition-transform duration-300 inline-flex items-center gap-2"><i class="fa-solid fa-chevron-right text-[10px] text-khaki"></i> FAQ</a></li>
-                        <li><a href="struktur-organisasi" class="hover:text-khaki hover:translate-x-2 transition-transform duration-300 inline-flex items-center gap-2"><i class="fa-solid fa-chevron-right text-[10px] text-khaki"></i> Pejabat Struktural</a></li>
+                        <li><a href="struktur" class="hover:text-khaki hover:translate-x-2 transition-transform duration-300 inline-flex items-center gap-2"><i class="fa-solid fa-chevron-right text-[10px] text-khaki"></i> Pejabat Struktural</a></li>
                     </ul>
                 </div>
 
@@ -636,7 +645,7 @@
 
   <!-- LOADING MODAL -->
   <div id="loadingModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden flex flex-col items-center justify-center text-white p-4">
-    <div class="w-16 h-16 border-4 border-brand-gold border-t-transparent rounded-full animate-spin mb-4"></div>
+    <div class="w-16 h-16 border-4 border-khaki border-t-transparent rounded-full animate-spin mb-4"></div>
    <h3 class="text-lg font-bold text-white">Connecting to Server</h3>
         <p class="text-xs text-slate-300 mt-1">Please Wait...</p>
   </div>
@@ -647,9 +656,9 @@
       <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-2xl shadow-inner">
         <i class="fa-solid fa-check"></i>
       </div>
-      <h3 class="text-xl font-bold text-slate-800">Success</h3>
-      <p id="successMsg" class="text-sm text-slate-600 leading-relaxed"></p>
-      <button onclick="closeSuccessModal()" class="w-full py-3 bg-brand-teal text-white font-bold rounded-xl text-sm hover:bg-brand-darkteal transition shadow">
+      <h3 class="text-xl font-bold text-midnightgreen">Success</h3>
+      <p id="successMsg" class="text-sm text-midnightgreen/80 leading-relaxed"></p>
+      <button onclick="closeSuccessModal()" class="w-full py-3 bg-darkaqua text-krem font-bold rounded-xl text-sm hover:bg-midnightgreen transition shadow">
         Isi Form Baru
       </button>
     </div>
@@ -661,7 +670,7 @@
   <!-- SCRIPT LOGIC -->
   <script>
     // ==========================================
-    // DATA WILAYAH (Silakan masukkan data wilayah Anda di bawah ini)
+    // DATA WILAYAH 
     // ==========================================
     const DATA_WILAYAH = {
      "Kota Kupang": {
@@ -4825,7 +4834,7 @@
       }
       items.forEach(item => {
         const li = document.createElement('li');
-        li.className = "px-4 py-3 border-b border-slate-50 hover:bg-brand-teal hover:text-white cursor-pointer transition text-sm font-medium";
+        li.className = "px-4 py-3 border-b border-slate-50 hover:bg-darkaqua hover:text-krem cursor-pointer transition text-sm font-medium";
         li.textContent = item;
         li.onmousedown = function(e) {
           e.preventDefault(); 
@@ -4872,7 +4881,7 @@
             input.value = lat + ", " + long;
             
             btn.innerHTML = '<i class="fa-solid fa-check mr-2"></i>Lokasi Didapat';
-            btn.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+            btn.classList.remove('bg-darkaqua', 'hover:bg-midnightgreen');
             btn.classList.add('bg-emerald-600', 'hover:bg-emerald-700');
           },
           function(error) {
@@ -4973,10 +4982,10 @@
       if (fileBase64Map['fotoRumah'] && fileBase64Map['fotoRumah'].length > 0) {
         fileBase64Map['fotoRumah'].forEach((f, idx) => {
           const itemEl = document.createElement('div');
-          itemEl.className = "flex items-center justify-between p-3 bg-white rounded-xl border border-slate-200 shadow-sm text-xs font-medium text-slate-700";
+          itemEl.className = "flex items-center justify-between p-3 bg-white rounded-xl border border-slate-200 shadow-sm text-xs font-medium text-midnightgreen";
           itemEl.innerHTML = `
             <div class="flex items-center gap-2 truncate">
-                <i class="fa-solid fa-image text-brand-teal"></i>
+                <i class="fa-solid fa-image text-darkaqua"></i>
                 <span class="truncate">${f.name}</span>
             </div>
             <button type="button" onclick="removeFotoRumah(${idx})" class="text-rose-500 hover:text-rose-700 ml-2 p-1 bg-rose-50 rounded-md">
