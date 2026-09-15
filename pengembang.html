@@ -3,65 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal KPR & Perumahan - Balai P3KP NT II</title>
-
+    <title>Portal Pengembang</title>
+    
+    <!-- Stylesheets & Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="https://i.ibb.co.com/RpTQRCrn/logo.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="https://i.ibb.co.com/RpTQRCrn/logo.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="https://i.ibb.co.com/RpTQRCrn/logo.png">
-
+    <!-- Tambahan Library AOS untuk animasi data-aos -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
-    
-    <!-- External Stylesheet -->
-    <link rel="stylesheet" href="style.css">
 
-    <!-- Tailwind Config Diperbarui (Warna krem disamakan dengan index.html agar pattern terlihat) -->
+    <!-- Konfigurasi Tailwind -->
     <script>
-        tailwind.config = { 
-            theme: { 
-                extend: { 
-                    colors: { 
-                        brand: { teal: '#0E5975', darkteal: '#093C4F', gold: '#CBA355', lightgold: '#E0C17B' },
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            teal: '#0E5975',
+                            darkteal: '#093C4F',
+                            gold: '#CBA355',
+                            lightgold: '#E0C17B'
+                        },
+                        // Menambahkan warna dari halaman utama agar Header berfungsi
                         midnightgreen: '#084C61',
                         khaki: '#D5C58A',
-                        krem: '#F2EEDF', /* KODE WARNA DIPERBAIKI SAMA DENGAN INDEX */
+                        krem: '#F2EEDF',
                         darkaqua: '#0E5B73'
-                    } 
-                } 
-            } 
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    }
+                }
+            }
         }
     </script>
-     
-    <style>
-        html {
-            scroll-behavior: smooth;
-        }
 
-        /* Class Pattern sesuai permintaan dari index */
-        .bg-pattern-krem::before {
-            content: "";
-            position: absolute;
-            inset: 0; /* Menutupi seluruh ukuran section */
-            z-index: 0; /* Diposisikan di latar belakang */
-            pointer-events: none; /* Memastikan pattern tidak menghalangi kursor saat menyorot teks/tombol */
-            
-            /* SVG Pattern Geometris Putih */
-            background-image: url("data:image/svg+xml,%3Csvg width='40' height='70' viewBox='0 0 40 70' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M20 35l20 11.547v23.094L20 58.094 0 69.641V46.547zM0 23.094V0l20 11.547L40 0v23.094L20 34.641z'/%3E%3C/g%3E%3C/svg%3E");
-            
-            opacity: 0.35; /* Atur angka ini (0.1 - 0.9) jika ingin pattern lebih redup atau lebih terang */
+    <style>
+        body {
+            background-color: #F3F5F7;
+            background-image: radial-gradient(#0E5975 0.75px, transparent 0.75px), radial-gradient(#0E5975 0.75px, #F3F5F7 0.75px);
+            background-size: 30px 30px;
+            background-position: 0 0, 15px 15px;
+        }
+        .gear-slow {
+            animation: spin 4s linear infinite;
+        }
+        .gear-reverse {
+            animation: spin-reverse 3s linear infinite;
+        }
+        @keyframes spin-reverse {
+            from { transform: rotate(360deg); }
+            to { transform: rotate(0deg); }
         }
     </style>
 </head>
-<!-- Ditambahkan class bg-krem, bg-pattern-krem, dan relative pada body -->
-<body class="body-pengembang relative bg-krem bg-pattern-krem min-h-screen text-slate-800 flex flex-col antialiased">
-
-     <!-- Header / Navbar -->
+<!-- Perbaikan: Mengubah body menjadi flex-col agar header tetap di atas -->
+<body class="font-sans min-h-screen text-slate-800 flex flex-col antialiased">
+    
+    <!-- Header / Navbar -->
     <header class="bg-midnightgreen/90 backdrop-blur-md border-b-4 border-khaki text-krem sticky top-0 z-50 transition-all shadow-md" data-aos="fade-down">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center py-3">
@@ -198,169 +197,55 @@
         </div>
     </header>
 
-    <!-- Main Content (Ditambah relative z-10 agar konten tampil di atas pattern) -->
-    <main class="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 space-y-8 relative z-10 pb-12">
-        <!-- STATISTIK -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-            <div data-aos="fade-up" data-aos-delay="100" class="bg-white rounded-3xl shadow-lg border border-slate-100 p-5 flex items-center gap-4">
-                <div class="w-12 h-12 rounded-full bg-brand-teal text-white flex items-center justify-center text-xl shadow-inner"><i class="fa-solid fa-house"></i></div>
-                <div><p class="text-xs text-slate-500 font-bold uppercase tracking-wide">Total Unit Tersedia</p><h3 id="statTotalKavling" class="text-2xl font-extrabold text-brand-darkteal">0</h3></div>
-            </div>
-            <div data-aos="fade-up" data-aos-delay="200" class="bg-white rounded-3xl shadow-lg border border-slate-100 p-5 flex items-center gap-4">
-                <div class="w-12 h-12 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-xl shadow-inner"><i class="fa-solid fa-check"></i></div>
-                <div><p class="text-xs text-slate-500 font-bold uppercase tracking-wide">Subsidi Ready</p><h3 id="statSubsidiReady" class="text-2xl font-extrabold text-green-600">0</h3></div>
-            </div>
-            <div data-aos="fade-up" data-aos-delay="300" class="bg-white rounded-3xl shadow-lg border border-slate-100 p-5 flex items-center gap-4">
-                <div class="w-12 h-12 rounded-full bg-brand-gold/20 text-brand-gold flex items-center justify-center text-xl shadow-inner"><i class="fa-solid fa-star"></i></div>
-                <div><p class="text-xs text-slate-500 font-bold uppercase tracking-wide">Komersil Ready</p><h3 id="statKomersilReady" class="text-2xl font-extrabold text-brand-gold">0</h3></div>
-            </div>
-            <div data-aos="fade-up" data-aos-delay="400" class="bg-white rounded-3xl shadow-lg border border-slate-100 p-5 flex items-center gap-4">
-                <div class="w-12 h-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xl shadow-inner"><i class="fa-solid fa-building"></i></div>
-                <div><p class="text-xs text-slate-500 font-bold uppercase tracking-wide">Total Pengembang</p><h3 id="statPengembang" class="text-2xl font-extrabold text-blue-600">0</h3></div>
-            </div>
-        </div>
-
-        <!-- PETA SEBARAN -->
-        <div data-aos="fade-up" class="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden relative z-10">
-            <div class="p-6">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 border-b-2 border-brand-gold/30 pb-4">
-                    <div class="flex items-center gap-3">
-                        <span class="w-10 h-10 rounded-xl bg-brand-teal text-white font-bold text-lg flex items-center justify-center shadow"><i class="fa-solid fa-map-location-dot"></i></span>
-                        <h2 class="text-lg font-bold text-brand-darkteal uppercase tracking-wide">Peta Sebaran KPR</h2>
-                    </div>
-                    <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto relative z-20">
-                        <select id="filterKabupaten" onchange="applyFilters()" class="px-4 py-2.5 bg-slate-50 border-2 border-brand-gold/50 rounded-xl text-sm font-bold text-brand-darkteal focus:outline-none focus:border-brand-teal cursor-pointer shadow-sm min-w-[200px]">
-                            <option value="ALL">Semua Kabupaten</option>
-                        </select>
-                        <select id="filterKategori" onchange="applyFilters()" class="px-4 py-2.5 bg-slate-50 border-2 border-brand-gold/50 rounded-xl text-sm font-bold text-brand-darkteal focus:outline-none focus:border-brand-teal cursor-pointer shadow-sm min-w-[200px]">
-                            <option value="ALL">Semua Kategori</option>
-                            <option value="Subsidi">Subsidi (MBR)</option>
-                            <option value="Komersil">Komersil</option>
-                        </select>
+    <!-- Kontainer Utama: Akan mengambil sisa ruang dan menengahkan card -->
+    <main class="flex-1 flex items-center justify-center p-4">
+        <div class="max-w-lg w-full bg-white rounded-[2rem] shadow-2xl border border-slate-100 overflow-hidden relative text-center" data-aos="zoom-in" data-aos-delay="100">
+            <div class="p-8 sm:p-12">
+                <!-- Logo Instalasi -->
+                <div class="flex justify-center mb-6">
+                    <div class="w-20 h-20 rounded-full border-2 border-brand-gold/50 p-1 bg-brand-darkteal shadow-lg flex items-center justify-center relative overflow-hidden">
+                        <img src="https://i.ibb.co.com/RpTQRCrn/logo.png" onerror="this.style.display='none'" alt="Logo" class="w-full h-full object-contain p-1 z-10">
+                        <i class="fa-solid fa-building text-2xl text-brand-gold absolute opacity-20"></i>
                     </div>
                 </div>
-                <div class="p-2 bg-slate-50 rounded-2xl border border-slate-200 shadow-inner relative z-0">
-                    <!-- PERBAIKAN PETA: Penggunaan style inline untuk tinggi menjamin peta akan selalu muncul saat di-deploy -->
-                    <div id="mapKpr" class="w-full rounded-xl z-10 relative" style="height: 500px; min-height: 50vh;"></div>
+
+                <!-- Icon Animasi Perbaikan -->
+                <div class="relative flex justify-center items-center h-24 mb-6 text-brand-teal">
+                    <i class="fa-solid fa-gear text-6xl gear-slow absolute -ml-10 -mt-4 text-brand-darkteal opacity-90"></i>
+                    <i class="fa-solid fa-gear text-4xl gear-reverse absolute ml-10 mt-6 text-brand-gold opacity-90"></i>
+                    <i class="fa-solid fa-wrench text-3xl absolute z-10 text-slate-700 -ml-16 mt-8 transform -rotate-45"></i>
                 </div>
+
+                <!-- Teks Utama -->
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-800 tracking-tight mb-3">
+                    Sistem Sedang Dikembangkan
+                </h1>
+                <p class="text-slate-500 text-sm sm:text-base leading-relaxed mb-8">
+                    Mohon maaf atas ketidaknyamanan ini. Kami sedang melakukan peningkatan sistem <b>Klinik PKP</b> untuk memberikan layanan yang lebih baik.
+                </p>
+
+                <!-- Info Tambahan -->
+                <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 mb-8 text-left">
+                    <p class="text-xs text-slate-500 font-medium">Estimasi Waktu Penyelesaian:</p>
+                    <p class="text-sm font-bold text-brand-darkteal mt-1">
+                        <i class="fa-regular fa-clock mr-1"></i> Silakan cek kembali beberapa saat lagi.
+                    </p>
+                </div>
+
+                <!-- Tombol Refresh -->
+                <button onclick="window.location.reload()" class="w-full py-3.5 bg-slate-100 hover:bg-brand-teal hover:text-white text-slate-700 font-bold rounded-xl text-sm transition-all shadow-sm flex items-center justify-center gap-2 group cursor-pointer">
+                    <i class="fa-solid fa-rotate-right group-hover:rotate-180 transition-transform duration-500"></i>
+                    <span>Coba Muat Ulang Halaman</span>
+                </button>
+            </div>
+
+            <!-- Footer Card -->
+            <div class="bg-slate-50 py-4 text-xs text-slate-400 font-medium border-t border-slate-100">
+                &copy; 2026 Balai P3KP Nusa Tenggara II. Hak Cipta Dilindungi Undang-Undang.
             </div>
         </div>
-
-        <!-- DAFTAR PERUMAHAN -->
-        <div data-aos="fade-up" class="flex items-center gap-3 border-b-2 border-brand-gold/30 pb-3 mt-8">
-            <span class="w-8 h-8 rounded-xl bg-brand-gold text-white font-bold text-sm flex items-center justify-center shadow"><i class="fa-solid fa-layer-group"></i></span>
-            <h2 class="text-xl font-bold text-brand-darkteal uppercase tracking-wide">Daftar Perumahan</h2>
-        </div>
-
-        <div id="notificationBanner"></div>
-        <div id="katalogGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
     </main>
-
-    <!-- MODAL DETAIL -->
-    <div id="modalDetail" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl shadow-2xl w-full max-w-5xl max-h-[95vh] overflow-y-auto flex flex-col relative">
-            <div class="sticky top-0 bg-brand-darkteal text-white p-5 flex justify-between items-center z-20 shadow-md">
-                <div>
-                    <h2 id="modalTitle" class="text-xl font-bold">Nama Perumahan</h2>
-                    <p id="modalDeveloper" class="text-sm text-brand-lightgold"><i class="fa-solid fa-building mr-1"></i> PT. Pengembang</p>
-                </div>
-                <button onclick="closeModal('modalDetail')" class="w-8 h-8 bg-white/20 hover:bg-red-500 rounded-full flex items-center justify-center transition-colors"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-
-            <div class="p-6 grid grid-cols-1 lg:grid-cols-5 gap-8">
-                <div class="lg:col-span-2 space-y-6">
-                    <div class="rounded-2xl overflow-hidden shadow-md bg-slate-100 relative group aspect-video">
-                        <div class="absolute top-3 left-3 px-3 py-1 bg-brand-gold text-white border-white border text-xs font-bold rounded-full shadow-md z-10" id="modalReadyLabel">0 Unit Tersedia</div>
-                        <img id="modalImg" src="" alt="Foto Perumahan" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                    </div>
-                    
-                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 shadow-inner">
-                        <h3 class="font-bold text-brand-darkteal border-b-2 border-brand-gold/30 pb-2 mb-3">Informasi Unit & Harga</h3>
-                        <div class="space-y-3 text-sm text-slate-700">
-                            <p class="flex justify-between items-center"><span>Kategori:</span> <strong id="modalKategori" class="text-brand-teal px-2 py-0.5 bg-brand-teal/10 rounded"></strong></p>
-                            <p class="flex justify-between items-center"><span>Harga:</span> <strong id="modalHarga" class="text-green-600 text-base"></strong></p>
-                            <p class="flex justify-between items-center"><span>Jumlah Total Rumah:</span> <strong id="modalJumlahRumah"></strong></p>
-                            <p class="flex justify-between items-center"><span>Status Terakad:</span> <strong id="modalTerakad"></strong></p>
-                            <p class="flex justify-between items-center border-t pt-2"><span>Unit Tersedia (Ready):</span> <strong id="modalUnitTersedia" class="text-emerald-600 text-base"></strong></p>
-                            <p class="flex justify-between items-center"><span>Tipe Unit:</span> <strong id="modalTipe"></strong></p>
-                            <p class="flex justify-between items-center"><span>Luas Bangunan / Lahan:</span> <strong id="modalLuas"></strong></p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="lg:col-span-3 space-y-6 flex flex-col">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div class="bg-blue-50 p-4 rounded-2xl border border-blue-200">
-                            <h3 class="font-bold text-blue-900 border-b border-blue-200 pb-2 mb-3">Informasi Legalitas</h3>
-                            <div class="space-y-2 text-sm text-blue-800">
-                                <p><i class="fa-solid fa-users mr-2 w-4"></i> <strong>Asosiasi:</strong> <span id="modalAsosiasi"></span></p>
-                                <p><i class="fa-solid fa-calendar mr-2 w-4"></i> <strong>Tahun Bangun:</strong> <span id="modalTahun"></span></p>
-                                <p><i class="fa-solid fa-house-circle-check mr-2 w-4"></i> <strong>Status Perumahan:</strong> <span id="modalStatusPerumahan"></span></p>
-                            </div>
-                        </div>
-                        
-                        <div class="bg-amber-50 p-4 rounded-2xl border border-amber-200">
-                            <h3 class="font-bold text-amber-900 border-b border-amber-200 pb-2 mb-3">Kontak Pengembang</h3>
-                            <div class="space-y-2 text-xs sm:text-sm text-amber-800">
-                                <p class="flex items-start"><i class="fa-brands fa-whatsapp text-green-600 mr-2 w-4 mt-0.5 flex-shrink-0"></i> <a id="modalTelepon" href="#" target="_blank" class="underline hover:text-green-700 font-bold break-all leading-tight">-</a></p>
-                                <p class="flex items-start"><i class="fa-solid fa-envelope mr-2 w-4 mt-0.5 flex-shrink-0"></i> <span id="modalEmail" class="break-all leading-tight">-</span></p>
-                                <p id="wrapWebsite" class="flex items-start"><i class="fa-solid fa-globe mr-2 w-4 mt-0.5 flex-shrink-0"></i> <a id="modalWebsite" href="#" target="_blank" class="underline hover:text-amber-600 font-bold break-all leading-tight">-</a></p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 shadow-inner flex-1">
-                        <h3 class="font-bold text-brand-darkteal border-b-2 border-brand-gold/30 pb-2 mb-3">Spesifikasi & Ruangan</h3>
-                        <div class="grid grid-cols-2 gap-y-3 gap-x-2 text-sm text-slate-700 mb-4">
-                            <div><strong class="block text-xs text-brand-lightgold uppercase">Kamar Tidur</strong> <span id="modalKT" class="font-semibold"></span></div>
-                            <div><strong class="block text-xs text-brand-lightgold uppercase">Kamar Mandi</strong> <span id="modalKM" class="font-semibold"></span></div>
-                        </div>
-                        <div class="grid grid-cols-2 gap-y-4 gap-x-2 text-sm text-slate-700" id="modalSpek"></div>
-                        
-                        <h3 class="font-bold text-brand-darkteal border-b-2 border-brand-gold/30 pb-2 mt-6 mb-3">Alamat Lengkap</h3>
-                        <p class="text-sm text-slate-700 leading-relaxed"><i class="fa-solid fa-map-pin text-brand-gold mr-1"></i> <span id="modalAlamat"></span></p>
-                    </div>
-                    
-                    <div class="grid grid-cols-3 gap-3 mt-auto pt-2">
-                        <button onclick="lihatGambar('siteplan')" class="bg-brand-darkteal hover:bg-brand-teal text-white font-bold py-3 rounded-xl shadow-md transition-colors flex items-center justify-center gap-2 text-sm">
-                            <i class="fa-solid fa-map"></i> Siteplan
-                        </button>
-                        <button onclick="lihatGambar('denah')" class="bg-brand-gold hover:bg-brand-lightgold text-slate-900 font-bold py-3 rounded-xl shadow-md transition-colors flex items-center justify-center gap-2 text-sm">
-                            <i class="fa-solid fa-house-chimney-window"></i> Denah
-                        </button>
-                        <a id="modalMapsLink" href="#" target="_blank" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl shadow-md transition-colors flex items-center justify-center gap-2 text-sm">
-                            <i class="fa-solid fa-location-arrow"></i> Google Maps
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modalGambar" class="fixed inset-0 bg-slate-950/95 backdrop-blur-md z-[60] hidden flex flex-col items-center justify-center p-4">
-        <button onclick="closeModal('modalGambar')" class="absolute top-6 right-6 text-white text-xl bg-white/10 hover:bg-white/25 w-12 h-12 rounded-full flex items-center justify-center transition shadow-lg cursor-pointer z-50">
-            <i class="fa-solid fa-xmark"></i>
-        </button>
-        <div class="relative w-full max-w-4xl max-h-[85vh] flex flex-col items-center justify-center">
-            <img id="imgLayarPenuh" src="" alt="Gambar Tinjauan" class="w-full h-auto max-h-[75vh] object-contain bg-white rounded-2xl shadow-2xl p-2 mb-4">
-            <p id="captionGambar" class="text-white text-base font-semibold text-center max-w-xl px-4 bg-slate-900/60 py-2 rounded-xl border border-white/10"></p>
-        </div>
-    </div>
-
-    <div id="loadingOverlay" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-[9999] flex flex-col items-center justify-center text-white p-4">
-        <div class="w-16 h-16 border-4 border-brand-gold border-t-transparent rounded-full animate-spin mb-4"></div>
-        <h3 class="text-lg font-bold text-white">Connecting to Server</h3>
-        <p class="text-xs text-slate-300 mt-1">Please Wait...</p>
-    </div>
-
-    
-
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    
-    <!-- Script Global -->
-    <script src="main.js"></script>
-</body>
-<!-- Footer Section (Modern Redesign) -->
+    <!-- Footer Section (Modern Redesign) -->
     <footer id="footer" class="bg-[#0b161f] text-krem/80 border-t border-white/10 relative overflow-hidden" data-aos="fade-up">
         <!-- Elemen Dekorasi Background -->
         <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
@@ -413,7 +298,7 @@
                         <li><a href="#" class="hover:text-khaki hover:translate-x-2 transition-transform duration-300 inline-flex items-center gap-2"><i class="fa-solid fa-chevron-right text-[10px] text-khaki"></i> Masukan & Saran</a></li>
                         <li><a href="#dialogPengaduan" class="hover:text-khaki hover:translate-x-2 transition-transform duration-300 inline-flex items-center gap-2"><i class="fa-solid fa-chevron-right text-[10px] text-khaki"></i> Pusat Pengaduan</a></li>
                         <li><a href="#" class="hover:text-khaki hover:translate-x-2 transition-transform duration-300 inline-flex items-center gap-2"><i class="fa-solid fa-chevron-right text-[10px] text-khaki"></i> FAQ</a></li>
-                        <li><a href="struktur-organisasi" class="hover:text-khaki hover:translate-x-2 transition-transform duration-300 inline-flex items-center gap-2"><i class="fa-solid fa-chevron-right text-[10px] text-khaki"></i> Pejabat Struktural</a></li>
+                        <li><a href="struktur" class="hover:text-khaki hover:translate-x-2 transition-transform duration-300 inline-flex items-center gap-2"><i class="fa-solid fa-chevron-right text-[10px] text-khaki"></i> Pejabat Struktural</a></li>
                     </ul>
                 </div>
 
@@ -468,4 +353,16 @@
             </div>
         </div>
     </footer>
+
+    <!-- Script Inisialisasi AOS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 800,
+                once: true
+            });
+        });
+    </script>
+</body>
 </html>
