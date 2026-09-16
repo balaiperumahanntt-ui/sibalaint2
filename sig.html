@@ -16,7 +16,6 @@
       theme: { extend: { colors: { krem: '#F2EEDF', khaki: '#D5C58A', darkaqua: '#0E5B73', midnightgreen: '#084C61', brand: { teal: '#0E5975', darkteal: '#093C4F', gold: '#CBA355' } } } }
     }
   </script>
-  <script src="main.js"></script>
   <style>
     .custom-map-label { pointer-events: none; transition: opacity 0.3s ease-in-out; }
     .btn-select { transition: all 0.3s ease; }
@@ -347,6 +346,7 @@
   </div>
 
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="main.js"></script>
 
   <script>
     const API_URL = "https://script.google.com/macros/s/AKfycbwjMz13YPo-X_OxHxIt-zu5tN8TbPN-kkI0pHI0I-qunQxSLaCJd08h8_0UpK66wCUp/exec";
@@ -772,6 +772,7 @@
       myChart = new Chart(document.getElementById('barChart').getContext('2d'), { type: 'bar', data: { labels: labels, datasets: datasets }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top' } }, scales: { y: { beginAtZero: true, grid: { drawBorder: false } }, x: { grid: { display: false } } } } });
     }
   </script>
+  
    
 </body>
 </html>
