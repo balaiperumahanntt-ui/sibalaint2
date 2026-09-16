@@ -167,7 +167,7 @@
         </div>
     </header>
 
-  <main class="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 mt-8 pb-12">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 mt-8">
     <div class="text-center mb-8" data-aos="fade-up">
        <span class="inline-block px-3 py-1 bg-brand-gold/20 text-brand-gold border border-brand-gold/40 rounded-full text-xs font-semibold tracking-wider uppercase mb-2">Kementerian Perumahan & Kawasan Permukiman</span>
        <h1 class="text-2xl md:text-3xl font-extrabold text-brand-darkteal tracking-tight">Sistem Informasi Geografis Terpadu</h1>
@@ -176,7 +176,7 @@
     <div class="flex flex-wrap justify-center gap-3 md:gap-6 mb-8" data-aos="fade-up" data-aos-delay="100">
         <button onclick="changeMode('rtlh')" id="btn-rtlh" class="btn-select px-6 py-3 rounded-xl border-2 font-bold flex items-center gap-2 shadow-sm"><i class="fa-solid fa-house-chimney-crack"></i> Sebaran RTLH</button>
         <button onclick="changeMode('rusun')" id="btn-rusun" class="btn-select px-6 py-3 rounded-xl border-2 font-bold flex items-center gap-2 shadow-sm"><i class="fa-solid fa-building"></i> Sebaran Rusun</button>
-        <button onclick="changeMode('bsps')" id="btn-bsps" class="btn-select px-6 py-3 rounded-xl border-2 font-bold flex items-center gap-2 shadow-sm"><i class="fa-solid fa-hammer"></i> Sebaran Bedah Rumah</button>
+        <button onclick="changeMode('bsps')" id="btn-bsps" class="btn-select px-6 py-3 rounded-xl border-2 font-bold flex items-center gap-2 shadow-sm"><i class="fa-solid fa-hammer"></i> Sebaran BSPS</button>
         <button onclick="changeMode('rusus')" id="btn-rusus" class="btn-select px-6 py-3 rounded-xl border-2 font-bold flex items-center gap-2 shadow-sm"><i class="fa-solid fa-house-flag"></i> Sebaran Rusus</button>
     </div>
 
@@ -345,11 +345,12 @@
         <p class="text-xs text-slate-300 mt-1">Please Wait...</p>
   </div>
 
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
   <script src="main.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
   <script>
-    const API_URL = "https://script.google.com/macros/s/AKfycbwjMz13YPo-X_OxHxIt-zu5tN8TbPN-kkI0pHI0I-qunQxSLaCJd08h8_0UpK66wCUp/exec";
+    const API_URL = "https://script.google.com/macros/s/AKfycbxRtlWX4bCZIE--AcTiqDp6-nVOtJqNtt3Im9tw4R4yvU7EQgIfkafBF5GsJsUav0PY/exec";
 
     let allData = { rtlh: [], rusun: [], bsps_old: [], bsps_new: [], rusus: [] };
     let sheetDataMap = {}; 
@@ -391,17 +392,11 @@
       legendRTLH = L.control({position: 'bottomright'});
       legendRTLH.onAdd = function () {
         let div = L.DomUtil.create('div', 'bg-white/90 p-3 rounded-xl shadow-lg border border-slate-200');
-        div.innerHTML = `
-          <div style="font-weight: 700; font-size: 12px; margin-bottom: 6px; border-bottom: 1px solid #cbd5e1; padding-bottom: 4px; color: #093C4F;">Legenda Sebaran RTLH</div>
-          <table style="width: 100%; font-size: 11px; border-spacing: 0 4px; border-collapse: separate;">
-            <tr><td><i style="background: #fee5d9; width:12px; height:12px; display:inline-block; border:1px solid #ccc; margin-right:4px;"></i> 0 - 2.5K</td></tr>
-            <tr><td><i style="background: #fcae91; width:12px; height:12px; display:inline-block; border:1px solid #ccc; margin-right:4px;"></i> 2.5K - 5K</td></tr>
-            <tr><td><i style="background: #fb6a4a; width:12px; height:12px; display:inline-block; border:1px solid #ccc; margin-right:4px;"></i> 5K - 10K</td></tr>
-            <tr><td><i style="background: #de2d26; width:12px; height:12px; display:inline-block; border:1px solid #ccc; margin-right:4px;"></i> 10K - 20K</td></tr>
-            <tr><td><i style="background: #a50f15; width:12px; height:12px; display:inline-block; border:1px solid #ccc; margin-right:4px;"></i> &gt; 20K</td></tr>
-          </table>
-        `;
-        return div;
+        div.innerHTML = `<div style="font-weight: 700; font-size: 12px; margin-bottom: 6px; border-bottom: 1px solid #cbd5e1; padding-bottom: 4px;">Sebaran RTLH</div>
+          <table style="font-size: 11px;">
+            <tr><td><i style="background: #fee5d9; width:12px; height:12px; display:inline-block; margin-right:4px;"></i> 0 - 2.5K</td></tr>
+            <tr><td><i style="background: #a50f15; width:12px; height:12px; display:inline-block; margin-right:4px;"></i> > 20K</td></tr>
+          </table>`; return div;
       };
 
       legendBSPS_Polygon = L.control({position: 'bottomright'});
@@ -414,11 +409,11 @@
       legendBSPS_Point = L.control({position: 'bottomright'});
       legendBSPS_Point.onAdd = function () {
         let div = L.DomUtil.create('div', 'bg-white/90 p-3 rounded-xl shadow-lg border border-slate-200');
-        div.innerHTML = `<div style="font-weight: 700; font-size: 12px; margin-bottom: 6px; border-bottom: 1px solid #cbd5e1; padding-bottom: 4px;">Progres Bedah Rumah Koordinat</div>
+        div.innerHTML = `<div style="font-weight: 700; font-size: 12px; margin-bottom: 6px; border-bottom: 1px solid #cbd5e1; padding-bottom: 4px;">Progres BSPS Titik</div>
           <table style="font-size: 11px;">
             <tr><td><i style="background: #22c55e; border-radius:50%; width:12px; height:12px; display:inline-block; margin-right:4px;"></i> 100% Selesai</td></tr>
-            <tr><td><i style="background: #eab308; border-radius:50%; width:12px; height:12px; display:inline-block; margin-right:4px;"></i> 30% - <100%</td></tr>
-            <tr><td><i style="background: #f97316; border-radius:50%; width:12px; height:12px; display:inline-block; margin-right:4px;"></i> >0% - 30%</td></tr>
+            <tr><td><i style="background: #eab308; border-radius:50%; width:12px; height:12px; display:inline-block; margin-right:4px;"></i> 30% - 99%</td></tr>
+            <tr><td><i style="background: #f97316; border-radius:50%; width:12px; height:12px; display:inline-block; margin-right:4px;"></i> >0% - 29%</td></tr>
             <tr><td><i style="background: #ef4444; border-radius:50%; width:12px; height:12px; display:inline-block; margin-right:4px;"></i> 0%</td></tr>
           </table>`; return div;
       };
@@ -426,12 +421,8 @@
       legendRusus = L.control({position: 'bottomright'});
       legendRusus.onAdd = function () {
         let div = L.DomUtil.create('div', 'bg-white/90 p-3 rounded-xl shadow-lg border border-slate-200');
-        div.innerHTML = `<div style="font-weight: 700; font-size: 12px; margin-bottom: 6px; border-bottom: 1px solid #cbd5e1; padding-bottom: 4px;">Legenda Rusus</div>
-          <table style="font-size: 11px;">
-             <tr><td><i style="background: #0E5975; width:12px; height:12px; display:inline-block; margin-right:4px;"></i> Wilayah Ada Alokasi</td></tr>
-             <tr><td><i style="background: #3b82f6; border-radius:50%; border:1px solid #fff; width:12px; height:12px; display:inline-block; margin-right:4px;"></i> Titik Lokasi Rusus</td></tr>
-          </table>`; 
-        return div;
+        div.innerHTML = `<div style="font-weight: 700; font-size: 12px; margin-bottom: 6px; border-bottom: 1px solid #cbd5e1; padding-bottom: 4px;">Alokasi Rusus</div>
+          <table style="font-size: 11px;"><tr><td><i style="background: #0E5975; width:12px; height:12px; display:inline-block; margin-right:4px;"></i> Ada Alokasi</td></tr></table>`; return div;
       };
     }
 
@@ -492,15 +483,12 @@
       }).catch(err => alert("Gagal memuat data dari Spreadsheet."));
     }
 
-   function processDataMaps() {
+    function processDataMaps() {
       rususMap = {};
-      allData.rusus.forEach(row => { 
-          let k=row[2], u=parseInt(row[3])||0; 
-          if(k) rususMap[normalizeName(k)] = (rususMap[normalizeName(k)]||0)+u; 
-      });
+      allData.rusus.forEach(row => { let k=row[2], u=parseInt(row[3])||0; if(k) rususMap[normalizeName(k)] = (rususMap[normalizeName(k)]||0)+u; });
     }
 
-   function changeMode(mode) {
+    function changeMode(mode) {
       currentMode = mode;
       document.querySelectorAll('.btn-select').forEach(b => b.classList.remove('active'));
       document.getElementById('btn-'+mode).classList.add('active');
@@ -511,6 +499,7 @@
       if(activeLegend) { map.removeControl(activeLegend); activeLegend = null; }
       map.closePopup();
 
+      // Hapus atau sembunyikan batas wilayah kabupaten khusus saat mode 'rusun'
       if (geojsonBorderLayer) {
         if (mode === 'rusun') {
           if (map.hasLayer(geojsonBorderLayer)) map.removeLayer(geojsonBorderLayer);
@@ -520,9 +509,6 @@
           if (!map.hasLayer(labelLayerGroup)) map.addLayer(labelLayerGroup);
         }
       }
-
-      // BARIS INI DITAMBAHKAN AGAR WARNA LAYER SEBELUMNYA OTOMATIS BERSIH/TERLEPAS
-      if (geojsonFillLayer) geojsonFillLayer.setStyle(styleFillFeature);
 
       if(mode === 'rtlh') {
           renderRTLH(); activeLegend = legendRTLH.addTo(map);
@@ -541,7 +527,7 @@
     function initBspsDropdown() {
       let yearSet = new Set();
       allData.bsps_old.forEach(r => { if(r[4]) yearSet.add(String(r[4]).trim()); }); 
-      allData.bsps_new.forEach(r => { if(r[5]) yearSet.add(String(r[5]).trim()); }); // Indeks 5 untuk TA pada format baru
+      allData.bsps_new.forEach(r => { if(r[5]) yearSet.add(String(r[5]).trim()); });
       
       let years = Array.from(yearSet).sort().reverse();
       let sel = document.getElementById('bspsYearSelect');
@@ -575,7 +561,7 @@
       renderBSPS();
     }
 
-   function renderBSPS() {
+    function renderBSPS() {
       let year = document.getElementById('bspsYearSelect').value;
       let tbody = '';
       let totalUnits = 0;
@@ -591,8 +577,6 @@
         let bounds = L.latLngBounds();
 
         dataToRender.forEach((row, i) => {
-          // Mapping Sesuai Urutan Kolom Baru Anda:
-          // 0:NO BNBA, 1:NAMA, 2:KAB/KOTA, 3:KECAMATAN, 4:DESA/KELURAHAN, 5:TA, 6:KOORDINAT, 7:PROGRES, 8:TAHAPINVER, 9:FOTO
           let nobnba = row[0], nama = row[1], kab = row[2], kec = row[3], desa = row[4], ta = row[5];
           let koordinatStr = String(row[6] || "").trim();
           let progresRaw = String(row[7] || "").trim(); // Membaca teks progres dari spreadsheet
@@ -603,7 +587,7 @@
             kabCounts[kab] = (kabCounts[kab] || 0) + 1;
             bspsPolygonMap[normalizeName(kab)] = 1;
 
-            // Logika warna berdasarkan kategori teks di spreadsheet
+            // Logika warna berdasarkan kategori teks
             let color = '#ef4444'; // Merah (default / 0)
             if (progresRaw === '100') {
               color = '#22c55e'; // Hijau
@@ -625,14 +609,12 @@
               <td class="py-2 px-4 text-center">${fotoBadge}</td>
             </tr>`;
 
-            // Parsing Koordinat Gabungan (Memisahkan Latitude dan Longitude)
             if (koordinatStr.includes(',')) {
               let coords = koordinatStr.split(',').map(c => parseFloat(c.trim().replace(',', '.')));
               let lat = coords[0];
               let lng = coords[1];
 
               if (!isNaN(lat) && !isNaN(lng)) {
-                // Antisipasi jika posisi Lat & Lng terbalik di sheet
                 if (Math.abs(lat) > 90) { let t = lat; lat = lng; lng = t; }
 
                 let marker = L.circleMarker([lat, lng], { radius: 6, fillColor: color, color: '#fff', weight: 1.5, fillOpacity: 0.9 });
@@ -643,7 +625,7 @@
                     <hr style="margin:5px 0;">
                     <b>Kab/Kota:</b> ${kab}<br>
                     <b>Desa:</b> ${desa}<br>
-                    <b>Progres:</b> <span style="color:${color}; font-weight:bold;">${progresRaw || '0'}</span><br>
+                    <b>Progres:</b> <span style="color:${color}; font-weight:bold;">${isNaN(progres)?0:progres}%</span><br>
                     <b>Tahap:</b> ${tahap||'-'}
                     ${foto ? `<br><a href="${foto}" target="_blank" style="display:inline-block; margin-top:6px; color:#0E5975; font-weight:bold;">🔗 Buka Foto Lokasi</a>` : ''}
                   </div>
@@ -700,7 +682,32 @@
     
     function renderRusun() {
       let t='', kC={}, tR=0;
-      allData.rusun.forEach((r, i) => { let k=r[0], n=r[1], c=r[2], l=r[3], ta=r[4], f=r[5]; if(k){ tR++; kC[k]=(kC[k]||0)+1; t+=`<tr class="hover:bg-slate-50"><td class="py-2 px-4 text-center">${i+1}</td><td class="py-2 px-4">${k}</td><td class="py-2 px-4">${n}</td><td class="py-2 px-4">${l}</td><td class="py-2 px-4 text-center">${ta}</td></tr>`; if(c&&c.includes(',')){ let [lat, lng]=c.split(',').map(x=>parseFloat(x.trim())); if(!isNaN(lat)&&!isNaN(lng)){ pointLayerGroup.addLayer(L.marker([lat, lng]).bindPopup(`<b>${n}</b><br>${l}`)); } } }});
+      let bounds = L.latLngBounds();
+
+      allData.rusun.forEach((r, i) => { 
+        let k=r[0], n=r[1], c=r[2], l=r[3], ta=r[4], f=r[5]; 
+        if(k){ 
+          tR++; 
+          kC[k]=(kC[k]||0)+1; 
+          t+=`<tr class="hover:bg-slate-50"><td class="py-2 px-4 text-center">${i+1}</td><td class="py-2 px-4">${k}</td><td class="py-2 px-4">${n}</td><td class="py-2 px-4">${l}</td><td class="py-2 px-4 text-center">${ta}</td></tr>`; 
+          
+          if(c&&c.includes(',')){ 
+            let [lat, lng]=c.split(',').map(x=>parseFloat(x.trim())); 
+            if(!isNaN(lat)&&!isNaN(lng)){ 
+              let marker = L.marker([lat, lng]).bindPopup(`<b>${n}</b><br>${l}`);
+              pointLayerGroup.addLayer(marker);
+              bounds.extend([lat, lng]);
+            } 
+          } 
+        } 
+      });
+
+      if (bounds.isValid()) {
+        map.fitBounds(bounds, { padding: [50, 50], maxZoom: 13 });
+      } else {
+        map.setView([-8.65, 121.0], 8);
+      }
+
       document.getElementById('stats-container').innerHTML = `<div class="bg-white rounded-2xl shadow p-5 flex items-center gap-4"><div class="w-12 h-12 rounded-full bg-brand-teal text-white flex items-center justify-center text-xl"><i class="fa-solid fa-building"></i></div><div><p class="text-xs text-slate-500 font-bold uppercase">Total Rusun</p><h3 class="text-2xl font-extrabold text-brand-darkteal">${tR} Unit</h3></div></div><div class="bg-white rounded-2xl shadow p-5 flex items-center gap-4 md:col-span-2"><div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl"><i class="fa-solid fa-map-location-dot"></i></div><div><p class="text-xs text-slate-500 font-bold uppercase">Tersebar di</p><h3 class="text-2xl font-extrabold text-emerald-600">${Object.keys(kC).length} Kabupaten</h3></div></div>`;
       document.getElementById('table-head').innerHTML = `<tr><th class="p-3 text-center">No</th><th class="p-3">Kabupaten</th><th class="p-3">Nama Rusun</th><th class="p-3">Lokasi</th><th class="p-3">TA</th></tr>`; document.getElementById('table-body').innerHTML = t;
       document.getElementById('chart-title').innerText = "Sebaran Rusun"; renderChart(Object.keys(kC), [{label:'Rusun', data:Object.values(kC), backgroundColor:'#0E5975'}]);
@@ -708,63 +715,10 @@
 
     function renderRusus() {
       let t='', tR=0, kC={};
-      let bounds = L.latLngBounds();
-      
-      allData.rusus.forEach((r, i) => { 
-          let n=r[0], l=r[1], k=r[2], u=parseInt(r[3])||0, ta=r[4], foto=r[5], koordinatStr=String(r[6]||"").trim(); 
-          
-          if(k){ 
-              tR+=u; 
-              kC[k]=(kC[k]||0)+u; 
-              let btnFoto = foto ? `<a href="${foto}" target="_blank" class="text-brand-teal underline font-bold"><i class="fa-solid fa-image"></i> Lihat</a>` : '-';
-              
-              t+=`<tr class="hover:bg-slate-50">
-                    <td class="py-2 px-4 text-center">${i+1}</td>
-                    <td class="py-2 px-4 font-bold text-brand-darkteal">${n||'-'}</td>
-                    <td class="py-2 px-4">${k}</td>
-                    <td class="py-2 px-4 text-right font-semibold">${u}</td>
-                    <td class="py-2 px-4 text-center">${ta||'-'}</td>
-                    <td class="py-2 px-4 text-center">${btnFoto}</td>
-                  </tr>`; 
-              
-              if (koordinatStr.includes(',')) {
-                  let coords = koordinatStr.split(',').map(c => parseFloat(c.trim().replace(',', '.')));
-                  let lat = coords[0], lng = coords[1];
-                  
-                  if (!isNaN(lat) && !isNaN(lng)) {
-                      if (Math.abs(lat) > 90) { let temp = lat; lat = lng; lng = temp; }
-                      
-                      let marker = L.circleMarker([lat, lng], { radius: 7, fillColor: '#3b82f6', color: '#fff', weight: 2, fillOpacity: 0.9 });
-                      marker.bindPopup(`
-                          <div style="font-family:'Plus Jakarta Sans',sans-serif; width:220px;">
-                            <b style="font-size:14px; color:#093C4F;">${n||'-'}</b><br>
-                            <hr style="margin:5px 0;">
-                            <b>Kab/Kota:</b> ${k}<br>
-                            <b>Lokasi:</b> ${l||'-'}<br>
-                            <b>Jumlah Unit:</b> ${u} Unit<br>
-                            <b>Tahun Anggaran:</b> ${ta||'-'}
-                            ${foto ? `<br><a href="${foto}" target="_blank" style="display:inline-block; margin-top:6px; color:#0E5975; font-weight:bold;">🔗 Buka Foto Lokasi</a>` : ''}
-                          </div>
-                      `);
-                      pointLayerGroup.addLayer(marker);
-                      bounds.extend([lat, lng]);
-                  }
-              }
-          }
-      });
-      
-      if (bounds.isValid()) {
-          map.fitBounds(bounds, { padding: [30, 30], maxZoom: 12 });
-      } else {
-          map.setView([-8.65, 121.0], 8);
-      }
-
+      allData.rusus.forEach((r, i) => { let n=r[0], l=r[1], k=r[2], u=parseInt(r[3])||0, ta=r[4]; if(k){ tR+=u; kC[k]=(kC[k]||0)+u; t+=`<tr class="hover:bg-slate-50"><td class="py-2 px-4 text-center">${i+1}</td><td class="py-2 px-4">${n}</td><td class="py-2 px-4">${k}</td><td class="py-2 px-4 text-right">${u}</td><td class="py-2 px-4 text-center">${ta}</td></tr>`; }});
       document.getElementById('stats-container').innerHTML = `<div class="bg-white rounded-2xl shadow p-5 flex items-center gap-4"><div class="w-12 h-12 rounded-full bg-brand-teal text-white flex items-center justify-center text-xl"><i class="fa-solid fa-house-flag"></i></div><div><p class="text-xs text-slate-500 font-bold uppercase">Total Rusus</p><h3 class="text-2xl font-extrabold text-brand-darkteal">${tR} Unit</h3></div></div><div class="bg-white rounded-2xl shadow p-5 flex items-center gap-4 md:col-span-2"><div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl"><i class="fa-solid fa-map-location-dot"></i></div><div><p class="text-xs text-slate-500 font-bold uppercase">Tersebar di</p><h3 class="text-2xl font-extrabold text-emerald-600">${Object.keys(kC).length} Kabupaten</h3></div></div>`;
-      document.getElementById('table-head').innerHTML = `<tr><th class="p-3 text-center">No</th><th class="p-3">Nama Rusus</th><th class="p-3">Kabupaten</th><th class="p-3 text-right">Unit</th><th class="p-3 text-center">TA</th><th class="p-3 text-center">Foto</th></tr>`;
-      document.getElementById('table-body').innerHTML = t || '<tr><td colspan="6" class="text-center py-4">Data tidak ditemukan</td></tr>';
-      
-      document.getElementById('chart-title').innerText = "Sebaran Rusus"; 
-      renderChart(Object.keys(kC), [{label:'Rusus', data:Object.values(kC), backgroundColor:'#0E5975', borderRadius:4}]);
+      document.getElementById('table-head').innerHTML = `<tr><th class="p-3 text-center">No</th><th class="p-3">Nama Rusus</th><th class="p-3">Kabupaten</th><th class="p-3 text-right">Unit</th><th class="p-3">TA</th></tr>`; document.getElementById('table-body').innerHTML = t;
+      document.getElementById('chart-title').innerText = "Sebaran Rusus"; renderChart(Object.keys(kC), [{label:'Rusus', data:Object.values(kC), backgroundColor:'#0E5975'}]);
     }
 
     function renderChart(labels, datasets) {
