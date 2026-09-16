@@ -16,6 +16,7 @@
       theme: { extend: { colors: { krem: '#F2EEDF', khaki: '#D5C58A', darkaqua: '#0E5B73', midnightgreen: '#084C61', brand: { teal: '#0E5975', darkteal: '#093C4F', gold: '#CBA355' } } } }
     }
   </script>
+  <script src="main.js"></script>
   <style>
     .custom-map-label { pointer-events: none; transition: opacity 0.3s ease-in-out; }
     .btn-select { transition: all 0.3s ease; }
@@ -771,6 +772,6 @@
       myChart = new Chart(document.getElementById('barChart').getContext('2d'), { type: 'bar', data: { labels: labels, datasets: datasets }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top' } }, scales: { y: { beginAtZero: true, grid: { drawBorder: false } }, x: { grid: { display: false } } } } });
     }
   </script>
-   <script src="main.js"></script>
+   
 </body>
 </html>
