@@ -425,26 +425,48 @@
             <!-- LEVEL 1: KEPALA BALAI -->
             <div id="node-kepala-balai" class="z-10 relative"></div>
 
-            <!-- GARIS PENGHUBUNG K. BALAI KE LEVEL 2 -->
-            <div class="w-[3px] h-10 bg-khaki"></div>
-
             <!-- LEVEL 2: CABANG ATAS -->
             <div class="org-branch max-w-6xl w-full relative z-10">
                 <div class="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[3px] bg-khaki -z-10"></div>
 
                 <div class="org-node"><div id="node-tu"></div></div>
-                <div class="org-node">
-                    <div class="flex flex-col items-center gap-2">
-                        <div id="node-wil1"></div>
-                        <div class="w-[3px] h-8 bg-khaki"></div>
-                        <div id="node-fungsional"></div>
-                    </div>
-                </div>
+                
+                <!-- Wilayah 1 kini berdiri sendiri (Ahli Madya dipindahkan dari sini) -->
+                <div class="org-node"><div id="node-wil1"></div></div>
+                
                 <div class="org-node"><div id="node-wil2"></div></div>
                 <div class="org-node"><div id="node-ppkbalai"></div></div>
             </div>
 
-            <!-- GARIS PENGHUBUNG LEVEL 2 KE K. SATKER -->
+            <!-- GARIS PENGHUBUNG LEVEL 2 KE TENGAH -->
+            <div class="w-[3px] h-10 bg-khaki"></div>
+
+            <!-- LEVEL KHUSUS: JABATAN FUNGSIONAL (Nempel di Garis Utama) -->
+            <div class="w-full max-w-6xl relative flex flex-col md:flex-row justify-center z-10">
+                
+                <!-- Garis Utama Tengah (Hanya muncul di desktop) -->
+                <div class="hidden md:block absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[3px] bg-khaki -z-10"></div>
+                
+                <!-- Wadah Kartu Ahli Madya (Ditarik presisi ke sisi Kiri) -->
+                <div class="w-full md:w-[50%] flex justify-center md:pr-12 relative z-10">
+                    
+                    <!-- Garis Horizontal Penghubung ke Garis Utama (Hanya desktop) -->
+                    <div class="hidden md:block absolute top-1/2 right-0 w-12 h-[3px] bg-khaki -z-10 -translate-y-1/2"></div>
+                    
+                    <!-- CSS khusus untuk memaksa kartu mepet ke kanan (menyentuh garis kuning) pada mode Desktop -->
+                    <style>
+                        @media (min-width: 768px) {
+                            #node-fungsional .org-card { margin-right: 0 !important; margin-left: auto !important; }
+                        }
+                    </style>
+                    <div id="node-fungsional" class="w-full"></div>
+                </div>
+                
+                <!-- Ruang Penyeimbang di Kanan agar letak garis tengah tetap sejajar -->
+                <div class="hidden md:block w-[50%]"></div>
+            </div>
+
+            <!-- GARIS PENGHUBUNG FUNGSIONAL KE K. SATKER -->
             <div class="w-[3px] h-10 bg-khaki"></div>
 
             <!-- LEVEL 3: KEPALA SATKER -->
@@ -458,9 +480,33 @@
                 <!-- Diisi otomatis via JS -->
             </div>
         </div>
+        <!-- MODAL DETAIL PEGAWAI -->
+        <div id="employeeModal" class="fixed inset-0 z-[9999] hidden flex items-center justify-center bg-black/70 backdrop-blur-sm opacity-0 transition-opacity duration-300">
+            <div class="bg-midnightgreen border-2 border-khaki rounded-2xl w-11/12 max-w-sm p-6 relative shadow-[0_10px_40px_rgba(0,0,0,0.5)] transform scale-95 transition-transform duration-300">
+                <!-- Tombol Close -->
+                <button onclick="closeModal()" class="absolute top-3 right-4 text-krem hover:text-khaki text-3xl font-bold transition-colors">&times;</button>
+                
+                <div class="flex flex-col items-center text-center mt-2">
+                    <img id="modalFoto" src="" alt="Foto" class="w-32 h-32 rounded-full object-cover border-4 border-khaki bg-krem mb-4 shadow-lg" style="object-position: center 15%;">
+                    <h3 id="modalNama" class="text-xl font-bold text-krem mb-1 leading-snug">Nama Pegawai</h3>
+                    <p id="modalJabatan" class="text-[11px] font-extrabold text-khaki uppercase tracking-widest mb-4">Jabatan</p>
+                    
+                    <div class="w-full bg-darkaqua/40 rounded-xl p-4 border border-krem/10 text-left">
+                        <div class="mb-3">
+                            <p class="text-[10px] text-krem/60 uppercase font-bold tracking-wider mb-0.5">Bidang / Subdit</p>
+                            <p id="modalBidang" class="text-sm text-krem font-medium">-</p>
+                        </div>
+                        <div>
+                            <p class="text-[10px] text-krem/60 uppercase font-bold tracking-wider mb-0.5">Bagian / Satker</p>
+                            <p id="modalBagian" class="text-sm text-krem font-medium">-</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 
-    <!-- SCRIPT PULL DATA -->
+   <!-- SCRIPT PULL DATA -->
     <script src="main.js"></script>
     <script>
         const API_URL = 'https://script.google.com/macros/s/AKfycbxXhYlDK1D61PwrRoJ9oGujeikkFqxu-UmLIAJcgTUT-OdETg6ir5TrgJU1Ajw-FVKc/exec';
@@ -472,17 +518,24 @@
             return match ? `https://drive.google.com/thumbnail?id=${match[1]}&sz=w400-h400` : url;
         }
 
+        // Variabel penampung data pegawai untuk modal
+        window.pegawaiDataMap = {};
+
         function buatKartu(pegawai, staffs = []) {
             if (!pegawai) return '';
             const foto = getDirectImageUrl(pegawai.foto);
             const hasStaff = staffs.length > 0;
             
+            // Simpan data pegawai ke map
+            const empId = 'emp_' + Math.random().toString(36).substr(2, 9);
+            window.pegawaiDataMap[empId] = { ...pegawai, fotoUrl: foto };
+            
             let html = `
-                <div class="org-card ${hasStaff ? 'clickable' : ''}" ${hasStaff ? 'onclick="toggleNode(this)"' : ''}>
+                <div class="org-card clickable" onclick="showModal('${empId}')">
                     <img src="${foto}" alt="${pegawai.nama}" class="profile-img" loading="lazy">
                     <p class="jabatan-text">${pegawai.jabatan}</p>
                     <p class="nama-text">${pegawai.nama}</p>
-                    ${hasStaff ? `<span class="toggle-badge"><i class="fa-solid fa-users"></i> ${staffs.length} Staf <i class="fa-solid fa-chevron-down ml-1 transition-transform duration-300"></i></span>` : ''}
+                    ${hasStaff ? `<span class="toggle-badge" onclick="event.stopPropagation(); toggleNode(this.parentElement)"><i class="fa-solid fa-users"></i> ${staffs.length} Staf <i class="fa-solid fa-chevron-down ml-1 transition-transform duration-300"></i></span>` : ''}
                 </div>
             `;
 
@@ -490,13 +543,18 @@
                 html += `
                     <div class="staff-wrapper">
                         <div class="staff-inner">
-                            ${staffs.map(s => `
-                                <div class="staff-card">
-                                    <img src="${getDirectImageUrl(s.foto)}" alt="${s.nama}" class="profile-img" loading="lazy">
+                            ${staffs.map(s => {
+                                const sFoto = getDirectImageUrl(s.foto);
+                                const sId = 'emp_' + Math.random().toString(36).substr(2, 9);
+                                window.pegawaiDataMap[sId] = { ...s, fotoUrl: sFoto };
+                                return `
+                                <div class="staff-card clickable" onclick="showModal('${sId}')" style="cursor: pointer;">
+                                    <img src="${sFoto}" alt="${s.nama}" class="profile-img" loading="lazy">
                                     <p class="jabatan-text">${s.jabatan}</p>
                                     <p class="nama-text">${s.nama}</p>
                                 </div>
-                            `).join('')}
+                                `;
+                            }).join('')}
                         </div>
                     </div>
                 `;
@@ -512,6 +570,59 @@
                 if (icon) icon.style.transform = wrapper.classList.contains('active') ? 'rotate(180deg)' : 'rotate(0deg)';
             }
         }
+
+        // ==========================================
+        // SCRIPT LOGIKA UNTUK MODAL (POP-UP)
+        // ==========================================
+        
+        window.showModal = function(id) {
+            const emp = window.pegawaiDataMap[id];
+            if(!emp) return;
+            
+            // Masukkan data ke dalam Modal
+            document.getElementById('modalFoto').src = emp.fotoUrl;
+            document.getElementById('modalNama').innerText = emp.nama || '-';
+            document.getElementById('modalJabatan').innerText = emp.jabatan || '-';
+            document.getElementById('modalBidang').innerText = emp.bidang || '-';
+            document.getElementById('modalBagian').innerText = emp.bagian || '-';
+            
+            const modal = document.getElementById('employeeModal');
+            const modalContent = modal.querySelector('div');
+            
+            // Tampilkan dengan Animasi
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95');
+                modalContent.classList.add('scale-100');
+            }, 10);
+        }
+
+        window.closeModal = function() {
+            const modal = document.getElementById('employeeModal');
+            const modalContent = modal.querySelector('div');
+            
+            // Sembunyikan dengan Animasi
+            modal.classList.add('opacity-0');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+        
+        // Menutup modal jika area gelap di luar modal diklik
+        document.addEventListener('click', function(event) {
+            const modal = document.getElementById('employeeModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+
+        // ==========================================
+        // SCRIPT INIT DATA ORG CHART
+        // ==========================================
 
         async function initOrgChart() {
             try {
