@@ -192,6 +192,75 @@
             height: 30px;
             background: #D5C58A;
         }
+        /* --- RESPONSIVE FIX UNTUK MOBILE & TABLET --- */
+        
+        /* 1. Mencegah kartu gepeng di ukuran Tablet (memunculkan scroll horizontal otomatis) */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            #org-container {
+                min-width: 1000px;
+                padding: 0 20px;
+            }
+        }
+
+        /* 2. Mengubah menjadi tampilan Vertikal (Stacking) khusus di Smartphone */
+        @media (max-width: 768px) {
+            /* Ubah cabang dari menyamping menjadi menurun */
+            .org-branch {
+                flex-direction: column !important;
+                padding-top: 0 !important;
+                gap: 0 !important;
+            }
+
+            /* Sembunyikan garis tengah panjang bawaan desktop */
+            .org-branch > div.absolute {
+                display: none !important;
+            }
+
+            /* Atur ulang struktur node untuk ditumpuk vertikal */
+            .org-node {
+                padding: 40px 10px 0 10px !important;
+                width: 100% !important;
+                display: flex !important;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            /* Hapus garis konektor horizontal */
+            .org-node::before {
+                display: none !important;
+            }
+
+            /* Ubah fungsi garis penghubung menjadi konektor rantai vertikal */
+            .org-node::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 3px;
+                height: 40px !important;
+                background: #D5C58A;
+            }
+
+            /* Pengecualian: Node teratas tidak butuh garis di atasnya lagi */
+            .org-branch > .org-node:first-of-type {
+                padding-top: 0 !important;
+            }
+            .org-branch > .org-node:first-of-type::after {
+                display: none !important;
+            }
+
+            /* Sesuaikan proporsi kartu utama agar pas dengan lebar layar HP */
+            .org-card {
+                width: 100%;
+                max-width: 280px;
+            }
+            
+            /* Sesuaikan kartu staf agar lebih kompak */
+            .staff-card {
+                width: 140px; 
+            }
+        }
     </style>
 </head>
 
