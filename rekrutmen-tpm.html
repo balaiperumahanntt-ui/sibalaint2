@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- MASUKKAN JUDUL ANDA DI SINI -->
+    <title>REKRUTMEN TPM BEDAH RUMAH NTT</title>
+    
+     <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="https://i.ibb.co.com/RpTQRCrn/logo.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://i.ibb.co.com/RpTQRCrn/logo.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="https://i.ibb.co.com/RpTQRCrn/logo.png">
+
+    <!-- Memuat Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Memuat FontAwesome untuk Ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Konfigurasi Palet Warna */
+        :root {
+            --krem: #F2EEDF;
+            --khaki: #D5C58A;
+            --darkaqua: #0E5B73;
+            --midnightgreen: #084C61;
+        }
+        
+        body {
+            background-color: var(--krem);
+            /* Pola geometris putih transparan di latar belakang */
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.5'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Gaya Glassmorphism untuk Header */
+        .glass-header {
+            background: rgba(8, 76, 97, 0.85); /* midnightgreen transparan */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Gaya Tombol (Gradient) */
+        .link-btn {
+            background: linear-gradient(135deg, var(--darkaqua), var(--midnightgreen));
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .link-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(8, 76, 97, 0.3);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center text-[#084C61]">
+
+    <!-- Header Glassmorphism dengan Logo -->
+    <header class="glass-header w-full flex justify-center py-4 shadow-md sticky top-0 z-50">
+        <img src="https://i.ibb.co.com/RpTQRCrn/logo.png" alt="Logo Balai P3KP NT II" class="h-16 object-contain">
+    </header>
+
+    <!-- Konten Utama (Linktree Area) -->
+    <main class="w-full max-w-md px-5 py-10 flex flex-col items-center">
+        
+        <!-- MASUKKAN JUDUL ANDA DI SINI -->
+        <h1 class="text-2xl font-bold mb-2 text-center text-[#084C61]">BALAI P3KP NUSA TENGGARA II</h1>
+        <p class="text-[#0E5B73] mb-8 text-center text-sm font-medium">Rekrutmen Tenaga Pemberdayaan Masyarakat Khusus Penanganan Pasca Gempa Flores TA 2026</p>
+
+        <!-- Daftar Tautan -->
+        <div class="w-full flex flex-col gap-4">
+            
+            <!-- Tautan 1 -->
+            <a href="https://drive.google.com/drive/folders/1VSae8p8zPk0A536JKQxx4kXjtuwLlKkI?usp=sharing" target="_blank" class="link-btn w-full text-white font-semibold rounded-full py-4 px-6 flex items-center justify-between shadow">
+                <i class="fa-solid fa-bullhorn text-xl w-6"></i>
+                <span class="flex-1 text-center">Pengumuman Seleksi</span>
+                <i class="fa-solid fa-chevron-right w-6 text-right opacity-70"></i>
+            </a>
+
+            <!-- Tautan 2 -->
+            <a href="https://drive.google.com/drive/folders/1pO40RdYlPvgkZ5WZPBcCuNugaZ4lFoSk?usp=sharing" target="_blank" class="link-btn w-full text-white font-semibold rounded-full py-4 px-6 flex items-center justify-between shadow">
+                <i class="fa-solid fa-list-check text-xl w-6"></i>
+                <span class="flex-1 text-center">Format Lamaran</span>
+                <i class="fa-solid fa-chevron-right w-6 text-right opacity-70"></i>
+            </a>
+
+            <!-- Tautan 3 -->
+            <a href="rekrutmen-tpm.html" target="_blank" class="link-btn w-full text-white font-semibold rounded-full py-4 px-6 flex items-center justify-between shadow">
+                <i class="fa-solid fa-file-signature text-xl w-6"></i>
+                <span class="flex-1 text-center">Formulir Pelamaran</span>
+                <i class="fa-solid fa-chevron-right w-6 text-right opacity-70"></i>
+            </a>
+
+            <!-- Tautan 4 -->
+            <a href="https://api.whatsapp.com/send/?phone=6285180598023" target="_blank" class="link-btn w-full text-white font-semibold rounded-full py-4 px-6 flex items-center justify-between shadow">
+                <i class="fa-solid fa-phone text-xl w-6"></i>
+                <span class="flex-1 text-center">Narahubung</span>
+                <i class="fa-solid fa-chevron-right w-6 text-right opacity-70"></i>
+            </a>
+
+        </div>
+    </main>
+
+</body>
+</html>
