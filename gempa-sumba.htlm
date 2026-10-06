@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LAPOR GEMPA SUMBA</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="https://i.ibb.co.com/RpTQRCrn/logo.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://i.ibb.co.com/RpTQRCrn/logo.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="https://i.ibb.co.com/RpTQRCrn/logo.png">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              teal: '#0E5975',
+              darkteal: '#093C4F',
+              gold: '#CBA355',
+              lightgold: '#E0C17B'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #F3F5F7;
+      background-image: radial-gradient(#0E5975 0.75px, transparent 0.75px), radial-gradient(#0E5975 0.75px, #F3F5F7 0.75px);
+      background-size: 30px 30px;
+      background-position: 0 0, 15px 15px;
+    }
+    .glass-header {
+      background: linear-gradient(135deg, #093C4F 0%, #0E5975 100%);
+    }
+    .dropzone {
+      border: 2px dashed #CBD5E1;
+      transition: all 0.25s ease;
+    }
+    .dropzone:hover {
+      border-color: #0E5975;
+      background-color: #F0F7FA;
+    }
+    .combobox-list {
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #F1F5F9; }
+    ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
+  </style>
+</head>
+<body class="font-sans min-h-screen text-slate-800 pb-12 antialiased">
+
+  <header class="glass-header text-white shadow-xl mb-8 border-b-4 border-brand-gold">
+    <div class="max-w-4xl mx-auto px-4 py-6 sm:px-6 flex flex-col sm:flex-row items-center gap-5 text-center sm:text-left">
+      <div class="relative flex-shrink-0">
+        <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full border-4 border-brand-gold/80 p-1 bg-brand-darkteal shadow-lg flex items-center justify-center overflow-hidden">
+          <img src="https://i.ibb.co.com/RpTQRCrn/logo.png" onerror="this.style.display='none'" alt="Logo" class="w-full h-full object-contain p-1 z-10">
+          <i class="fa-solid fa-house-chimney-crack text-4xl text-brand-gold absolute"></i>
+        </div>
+      </div>
+      <div>
+        <span class="inline-block px-3 py-1 bg-brand-gold/20 text-brand-gold border border-brand-gold/40 rounded-full text-xs font-semibold tracking-wider uppercase mb-1">
+          Kementerian Perumahan & Kawasan Permukiman
+        </span>
+        <h1 class="text-xl sm:text-2xl md:text-3xl font-extrabold text-white tracking-tight leading-tight">
+          BALAI P3KP NUSA TENGGARA II
+        </h1>
+        <p class="text-slate-200 text-sm sm:text-base font-medium mt-1">
+          Formulir Pendataan & Pelaporan Rumah Terdampak Bencana Gempa Sumba Barat Daya
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-4 sm:px-6">
+    <div class="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden">
+      <form id="rtlhForm" onsubmit="submitForm(event)" class="p-6 sm:p-10 space-y-10">
+        
+        <section class="space-y-6">
+          <div class="flex items-center gap-3 border-b-2 border-brand-gold/30 pb-3">
+            <span class="w-8 h-8 rounded-xl bg-brand-teal text-white font-bold text-sm flex items-center justify-center shadow">1</span>
+            <h2 class="text-lg font-bold text-brand-darkteal uppercase tracking-wide">Data Identitas</h2>
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Nama Pemilik Rumah <span class="text-rose-500">*</span></label>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400"><i class="fa-solid fa-user"></i></div>
+              <input type="text" id="namaPemilik" required placeholder="Masukkan nama lengkap" class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-teal outline-none transition text-sm">
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 2: ALAMAT LOKASI & KOORDINAT -->
+        <section class="space-y-6">
+          <div class="flex items-center gap-3 border-b-2 border-brand-gold/30 pb-3">
+            <span class="w-8 h-8 rounded-xl bg-brand-teal text-white font-bold text-sm flex items-center justify-center shadow">2</span>
+            <h2 class="text-lg font-bold text-brand-darkteal uppercase tracking-wide">Lokasi & Wilayah</h2>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <!-- KABUPATEN -->
+            <div class="relative">
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Kabupaten/Kota <span class="text-rose-500">*</span></label>
+              <div class="relative">
+                <input type="text" id="kabupaten" required readonly placeholder="Pilih Kabupaten..." 
+                  onclick="toggleCombobox('kabDropdown')"
+                  class="w-full pl-10 pr-8 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none transition text-sm cursor-pointer select-none">
+                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400"><i class="fa-solid fa-map-location-dot"></i></div>
+                <div class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer text-slate-400" onclick="toggleCombobox('kabDropdown')"><i class="fa-solid fa-chevron-down text-xs"></i></div>
+              </div>
+              <ul id="kabDropdown" class="combobox-list hidden absolute z-50 left-0 right-0 mt-1 bg-white border border-slate-200 rounded-xl shadow-xl py-2 text-sm"></ul>
+            </div>
+
+            <!-- KECAMATAN -->
+            <div class="relative">
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Kecamatan <span class="text-rose-500">*</span></label>
+              <div class="relative">
+                <input type="text" id="kecamatan" required readonly placeholder="Pilih Kecamatan..." 
+                  onclick="toggleCombobox('kecDropdown')"
+                  class="w-full pl-10 pr-8 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none transition text-sm cursor-pointer select-none">
+                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400"><i class="fa-solid fa-building"></i></div>
+                <div class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer text-slate-400" onclick="toggleCombobox('kecDropdown')"><i class="fa-solid fa-chevron-down text-xs"></i></div>
+              </div>
+              <ul id="kecDropdown" class="combobox-list hidden absolute z-50 left-0 right-0 mt-1 bg-white border border-slate-200 rounded-xl shadow-xl py-2 text-sm"></ul>
+            </div>
+
+            <!-- DESA -->
+            <div class="relative">
+              <label class="block text-sm font-semibold text-slate-700 mb-2">Desa/Kelurahan <span class="text-rose-500">*</span></label>
+              <div class="relative">
+                <input type="text" id="desa" required readonly placeholder="Pilih Desa..." 
+                  onclick="toggleCombobox('desaDropdown')"
+                  class="w-full pl-10 pr-8 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none transition text-sm cursor-pointer select-none">
+                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400"><i class="fa-solid fa-house-chimney"></i></div>
+                <div class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer text-slate-400" onclick="toggleCombobox('desaDropdown')"><i class="fa-solid fa-chevron-down text-xs"></i></div>
+              </div>
+              <ul id="desaDropdown" class="combobox-list hidden absolute z-50 left-0 right-0 mt-1 bg-white border border-slate-200 rounded-xl shadow-xl py-2 text-sm"></ul>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-slate-700 mb-2">RT / RW <span class="text-rose-500">*</span></label>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400"><i class="fa-solid fa-hashtag"></i></div>
+              <input type="text" id="rtRw" required placeholder="Contoh: RT 002 / RW 005" class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-brand-teal outline-none transition text-sm">
+            </div>
+          </div>
+          
+          <!-- TITIK KOORDINAT -->
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+            <label class="block text-sm font-semibold text-slate-700 mb-2">Titik Koordinat Lokasi <span class="text-rose-500">*</span></label>
+            <div class="flex flex-col sm:flex-row gap-3">
+              <div class="relative flex-grow">
+                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400"><i class="fa-solid fa-location-crosshairs"></i></div>
+                <input type="text" id="koordinat" required readonly placeholder="Klik tombol untuk mengambil lokasi" class="w-full pl-10 pr-4 py-3 bg-white border border-slate-200 rounded-xl outline-none transition text-sm text-slate-600">
+              </div>
+              <button type="button" onclick="getLocation()" class="shrink-0 px-5 py-3 bg-brand-darkteal text-white rounded-xl text-sm font-bold hover:bg-brand-teal transition shadow flex items-center justify-center gap-2">
+                <i class="fa-solid fa-satellite-dish"></i> Ambil Lokasi
+              </button>
+            </div>
+            <p id="lokasiStatus" class="text-xs text-slate-500 mt-2 font-medium"></p>
+          </div>
+        </section>
+
+        <!-- SECTION 3: FOTO RUMAH -->
+        <section class="space-y-6">
+          <div class="flex items-center gap-3 border-b-2 border-brand-gold/30 pb-3">
+            <span class="w-8 h-8 rounded-xl bg-brand-teal text-white font-bold text-sm flex items-center justify-center shadow">3</span>
+            <h2 class="text-lg font-bold text-brand-darkteal uppercase tracking-wide">Unggah Foto Rumah</h2>
+          </div>
+          <div class="dropzone p-6 rounded-2xl bg-slate-50 text-center relative flex flex-col items-center justify-center border-2 border-dashed border-slate-300 hover:border-brand-teal transition">
+            <i class="fa-solid fa-images text-4xl text-brand-gold mb-3"></i>
+            <p class="text-sm font-bold text-slate-800">Foto Kondisi Kerusakan Rumah <span class="text-rose-500">*</span></p>
+            <p class="text-xs text-slate-500 mt-1 mb-4">Maksimal 10MB per foto. <b>Batas maksimal 5 foto sekaligus</b>.</p>
+            <input type="file" id="fotoRumah" accept="image/*" multiple required onchange="handleMultiFileSelect(this, 'previewRumah')" class="hidden">
+            <button type="button" onclick="document.getElementById('fotoRumah').click()" class="px-6 py-2.5 bg-brand-gold text-slate-900 rounded-xl text-sm font-bold hover:bg-brand-lightgold transition shadow-md">
+              <i class="fa-solid fa-cloud-arrow-up mr-2"></i>Pilih Foto-Foto Rumah
+            </button>
+            <div id="previewRumah" class="mt-4 text-xs text-slate-700 font-medium space-y-2 flex flex-col items-center justify-center w-full"></div>
+          </div>
+        </section>
+
+        <div class="pt-4">
+          <button type="submit" id="btnSubmit" class="w-full py-4 bg-gradient-to-r from-brand-teal to-brand-darkteal hover:from-brand-darkteal hover:to-slate-900 text-white rounded-2xl font-bold text-base sm:text-lg shadow-xl hover:shadow-2xl transition transform active:scale-[0.99] flex items-center justify-center gap-3">
+            <i class="fa-solid fa-paper-plane"></i><span>Kirim Pelaporan</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <!-- MODALS -->
+  <div id="loadingModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden flex flex-col items-center justify-center text-white p-4">
+    <div class="w-16 h-16 border-4 border-brand-gold border-t-transparent rounded-full animate-spin mb-4"></div>
+    <h3 class="text-lg font-bold text-white">Mengirim Data...</h3>
+    <p class="text-xs text-slate-300 mt-1">Mohon tunggu, sedang mengirim ke server.</p>
+  </div>
+
+  <div id="successModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full text-center space-y-4 shadow-2xl border-t-8 border-emerald-500">
+      <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-3xl shadow-inner"><i class="fa-solid fa-check"></i></div>
+      <h3 class="text-xl font-bold text-slate-800">Laporan Terkirim!</h3>
+      <p id="successMsg" class="text-sm text-slate-600 leading-relaxed"></p>
+      <button onclick="closeSuccessModal()" class="w-full mt-2 py-3 bg-brand-teal text-white font-bold rounded-xl text-sm hover:bg-brand-darkteal transition shadow">Isi Form Baru</button>
+    </div>
+  </div>
+
+  <script>
+    // ==========================================
+    // 1. TEMPAT PASTE LINK API GOOGLE APPS SCRIPT
+    // ==========================================
+    const GOOGLE_API_URL = "https://script.google.com/macros/s/AKfycby5IbkCdyTdvO22IrlGHoo9k3EQzxsugYCaS2p0P4IWhTSGzK2aSY4YyLElbDNm5os43A/exec"; 
+
+    // ==========================================
+    // 2. DATA WILAYAH 
+    // ==========================================
+    const DATA_WILAYAH = {
+       "Sumba Barat Daya": {
+        "Kodi Bangedo": [
+            "Umbu Ngedo", "Walla Ndimu", "Mata Kapore", "Waikadada", "Lete Loko", "Dinjo", "Rada Loko", "Waipaddi", "Delu Depa", "Mere Kehe", "Waikaninyo", "Ana Goka", "Maliti Bondo Ate", "Ana Lewe", "Bondo Balla"
+        ],
+        "Kodi Balaghar": [
+            "Kahale", "Panenggo Ede", "Waikarara", "Wailangira", "Waiha", "Wainyapu", "Karang Indah", "Rada Malando", "Waimaringi", "Tana Mete", "Waimakaha", "Manu Toghi", "Loko Tali", "Waipakolo"
+        ],
+        "Kodi": [
+            "Kapaka Madeta", "Koki", "Hamonggo Lele", "Bondo Kodi", "Pero Batang", "Wura Homba", "Ate Dalo", "Homba Rande", "Kawango Hari", "Mali Iha", "Onggol", "Pero Konda", "Tanjung Karoso", "Watu Wona", "Ana Engge", "Kadoki Horo", "Homba Rica", "Ana Kaka", "Ole Ate"
+        ],
+        "Kodi Utara": [
+            "Hoha Wungo", "Homba Karipit", "Wailabubur", "Noha", "Waiholo", "Kori", "Kalena Rongo", "Mangganipi", "Kendu Wela", "Bila Cenge", "Bukambero", "Waitaru", "Homba Pare", "Kadaghu Tana", "Hameli Ate", "Kadu Eta", "Magho Linyo", "Wee Wella", "Nangga Mutu", "Limbu Kembe", "Moro Manduyo"
+        ],
+        "Wewewa Selatan": [
+            "Buru Kaghu", "Denduka", "Bondo Bela", "Delo", "Tena Teke", "Bondo Ukka", "Buru Deilo", "Weri Lolo", "Milla Ate", "Rita Baru", "Mandungo", "Umbu Wangu", "Wee Wulla", "Wee Baghe"
+        ],
+        "Wewewa Barat": [
+            "Raba Ege", "Kalimbu Tillu", "Wee Kombaka", "Menne Ate", "Wali Ate", "Kalembu Weri", "Kabali Dana", "Watu Labara", "Waimangura", "Reda Pada", "Marokota", "Kalembu Kanaika", "Wee Kura", "Laga Lete", "Tawo Rara", "Lua Koba", "Kalaki Kambe", "Sangu Ate", "Pero", "Lolo Ole"
+        ],
+        "Wewewa Timur": [
+            "Dangga Mangu", "Dikira", "Pada Eweta", "Mareda Kalada", "Tema Tana", "Kalembu Ndara Mane", "Wee Limbu", "Lete Kamouna", "Mata Pyawu", "Wee Lima", "Kadi Wone", "Maliti Dari", "Dede Pada", "Kadi Wano", "Nyura Lele", "Mawo Dana", "Mainda Ole", "Lele Maya", "Mata Wee Lima"
+        ],
+        "Wewewa Tengah": [
+            "Omba Rade", "Eka Pata", "Wee Rame", "Wee Kokora", "Kali Ngara", "Lombu", "Kanelu", "Tanggaba", "Wee Patando", "Bolora", "Kadi Roma", "Bondo Delo", "Tarra Mata", "Mata Wee Karoro", "Gollu Sapi", "Mata Lombu", "Limbu Watu", "Mareda Wuni", "Lete Wungana", "Kiku Booko"
+        ],
+        "Wewewa Utara": [
+            "Wano Talla", "Wee Paboba", "Mataloko", "Puu Potto", "Wee Namba", "Mali Mada", "Mawo Maliti", "Jela Manu", "Bodo Ponda", "Pandua Tana", "Odi Paurata", "Reda Wano"
+        ],
+        "Loura": [
+            "Ramma Dana", "Karuni", "Totok", "Wee Manada", "Lete Konda", "Bondo Boghila", "Wee Kambala", "Payola Umbu", "Pogo Tena", "Loko Kalada", "Lete Konda Selatan"
+        ],
+        "Kota Tambolaka": [
+            "Wee Londa", "Langga Lero", "Waitabula", "Kalena Wano", "Rada Mata", "Wee Pangali", "Kalembu Kaha", "Wee Rena", "Watu Kawula", "Kadi Pada"
+        ]
+    }
+    };
+
+    // ==========================================
+    // 2.1 AMBIL TITIK KOORDINAT (GEOLOCATION)
+    // ==========================================
+    function getLocation() {
+      const statusEl = document.getElementById('lokasiStatus');
+      const inputEl = document.getElementById('koordinat');
+      
+      if (!navigator.geolocation) {
+        statusEl.textContent = "Geolokasi tidak didukung oleh browser Anda.";
+        statusEl.className = "text-xs text-rose-500 mt-2 font-medium";
+        return;
+      }
+
+      statusEl.textContent = "Sedang mencari lokasi...";
+      statusEl.className = "text-xs text-slate-500 mt-2 font-medium animate-pulse";
+      
+      // Opsi untuk meningkatkan akurasi lokasi
+      const options = {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 0
+      };
+
+      navigator.geolocation.getCurrentPosition(
+        // Callback Success
+        function(position) {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+          inputEl.value = `${lat}, ${lon}`;
+          statusEl.innerHTML = `<span class="text-emerald-600"><i class="fa-solid fa-check-circle mr-1"></i> Lokasi berhasil didapatkan (Akurasi: ${Math.round(position.coords.accuracy)} meter)</span>`;
+          statusEl.className = "text-xs mt-2 font-medium";
+        },
+        // Callback Error
+        function(error) {
+          let errorMsg = "Terjadi kesalahan saat mengambil lokasi.";
+          switch(error.code) {
+            case error.PERMISSION_DENIED:
+              errorMsg = "Izin lokasi ditolak. Harap izinkan browser/HP Anda mengakses lokasi.";
+              break;
+            case error.POSITION_UNAVAILABLE:
+              errorMsg = "Informasi lokasi tidak tersedia saat ini. Coba nyalakan GPS.";
+              break;
+            case error.TIMEOUT:
+              errorMsg = "Waktu pencarian lokasi habis. Coba lagi.";
+              break;
+          }
+          statusEl.innerHTML = `<i class="fa-solid fa-triangle-exclamation mr-1"></i> ${errorMsg}`;
+          statusEl.className = "text-xs text-rose-500 mt-2 font-medium";
+        },
+        options
+      );
+    }
+
+    // ==========================================
+    // 3. LOGIKA DROPDOWN 
+    // ==========================================
+    window.onload = function() { populateKabupaten(); };
+
+    function populateKabupaten() {
+      const list = Object.keys(DATA_WILAYAH);
+      renderComboboxItems('kabDropdown', list, 'kabupaten', onKabupatenSelected);
+    }
+
+    function onKabupatenSelected(selectedKab) {
+      document.getElementById('kabupaten').value = selectedKab;
+      hideCombobox('kabDropdown');
+      document.getElementById('kecamatan').value = '';
+      document.getElementById('desa').value = '';
+      
+      const kecMap = DATA_WILAYAH[selectedKab] || {};
+      const kecList = Object.keys(kecMap);
+      renderComboboxItems('kecDropdown', kecList, 'kecamatan', onKecamatanSelected);
+    }
+
+    function onKecamatanSelected(selectedKec) {
+      document.getElementById('kecamatan').value = selectedKec;
+      hideCombobox('kecDropdown');
+      document.getElementById('desa').value = ''; 
+      
+      const selectedKab = document.getElementById('kabupaten').value;
+      const desaList = (DATA_WILAYAH[selectedKab] && DATA_WILAYAH[selectedKab][selectedKec]) ? DATA_WILAYAH[selectedKab][selectedKec] : [];
+      renderComboboxItems('desaDropdown', desaList, 'desa', function(val) {
+        document.getElementById('desa').value = val;
+        hideCombobox('desaDropdown');
+      });
+    }
+
+    function renderComboboxItems(elementId, items, inputId, onSelectCallback) {
+      const ul = document.getElementById(elementId);
+      ul.innerHTML = '';
+      if (!items || items.length === 0) {
+        ul.innerHTML = `<li class="px-4 py-3 text-xs text-rose-500 italic bg-rose-50">Pilih wilayah sebelumnya terlebih dahulu</li>`;
+        return;
+      }
+      items.forEach(item => {
+        const li = document.createElement('li');
+        li.className = "px-4 py-3 border-b border-slate-50 hover:bg-brand-teal hover:text-white cursor-pointer transition text-sm font-medium";
+        li.textContent = item;
+        li.onmousedown = function(e) {
+          e.preventDefault(); 
+          if (onSelectCallback) onSelectCallback(item);
+          else { document.getElementById(inputId).value = item; hideCombobox(elementId); }
+        };
+        ul.appendChild(li);
+      });
+    }
+
+    function toggleCombobox(id) {
+      const el = document.getElementById(id);
+      if (el.classList.contains('hidden')) {
+        document.querySelectorAll('.combobox-list').forEach(list => list.classList.add('hidden')); 
+        el.classList.remove('hidden');
+      } else {
+        el.classList.add('hidden');
+      }
+    }
+
+    function hideCombobox(id) {
+      setTimeout(() => { const el = document.getElementById(id); if (el) el.classList.add('hidden'); }, 150);
+    }
+
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.relative')) document.querySelectorAll('.combobox-list').forEach(el => el.classList.add('hidden'));
+    });
+
+    // ==========================================
+    // 4. LOGIKA FOTO & SUBMIT FORM VIA FETCH API
+    // ==========================================
+    const fileBase64Map = {};
+
+    function handleMultiFileSelect(input, previewId) {
+      const files = Array.from(input.files);
+      const prevDiv = document.getElementById(previewId);
+      
+      if (files.length === 0) return;
+
+      if (files.length > 5) {
+        alert("Maaf, maksimal hanya 5 foto yang dapat diunggah sekaligus!");
+        input.value = "";
+        prevDiv.innerHTML = "";
+        fileBase64Map['fotoRumah'] = [];
+        return;
+      }
+
+      fileBase64Map['fotoRumah'] = [];
+      prevDiv.innerHTML = '';
+
+      files.forEach((file) => {
+        if (file.size > 10 * 1024 * 1024) {
+          alert(`Ukuran file ${file.name} melebihi batas 10MB!`);
+          return;
+        }
+        
+        const itemEl = document.createElement('div');
+        itemEl.className = "flex items-center justify-between gap-3 text-slate-700 bg-slate-100 py-2 px-4 rounded-xl w-full max-w-sm border border-slate-200 shadow-sm";
+        itemEl.innerHTML = `<div class="flex items-center gap-2 overflow-hidden"><i class="fa-solid fa-image text-brand-teal shrink-0"></i><span class="truncate whitespace-nowrap overflow-hidden text-ellipsis">${file.name}</span></div> <span class="text-[10px] font-bold text-slate-400 shrink-0">${(file.size/1024/1024).toFixed(2)} MB</span>`;
+        prevDiv.appendChild(itemEl);
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const bytes = e.target.result.split(',')[1];
+          fileBase64Map['fotoRumah'].push({ name: file.name, mimeType: file.type, bytes: bytes });
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function submitForm(e) {
+      e.preventDefault();
+      
+      const kab = document.getElementById('kabupaten').value;
+      const kec = document.getElementById('kecamatan').value;
+      const des = document.getElementById('desa').value;
+      const koordinat = document.getElementById('koordinat').value;
+      
+      if(!kab || !kec || !des) {
+          alert("Silakan lengkapi pilihan Kabupaten, Kecamatan, dan Desa.");
+          return;
+      }
+      
+      if(!koordinat) {
+          alert("Harap ambil Titik Koordinat lokasi terlebih dahulu dengan menekan tombol 'Ambil Lokasi'.");
+          return;
+      }
+
+      if (!fileBase64Map['fotoRumah'] || fileBase64Map['fotoRumah'].length === 0) {
+        alert("Pilih dan unggah minimal 1 foto rumah terlebih dahulu.");
+        return;
+      }
+
+      if (GOOGLE_API_URL === "GANTI_TEKS_INI_DENGAN_URL_WEB_APP_ANDA" || GOOGLE_API_URL === "") {
+        alert("PERHATIAN: Anda belum memasukkan URL Google Apps Script ke dalam file HTML!");
+        return;
+      }
+      
+      document.getElementById('loadingModal').classList.remove('hidden');
+
+      const payload = {
+        namaPemilik: document.getElementById('namaPemilik').value,
+        kabupaten: kab,
+        kecamatan: kec,
+        desa: des,
+        rtRw: document.getElementById('rtRw').value,
+        koordinat: koordinat,
+        fotoRumah: fileBase64Map['fotoRumah']
+      };
+
+      // FETCH API (MENGIRIM DATA KE APPS SCRIPT DARI WEBSITE BIASA)
+      fetch(GOOGLE_API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload)
+      })
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('loadingModal').classList.add('hidden');
+        if (data && data.status === 'success') {
+          document.getElementById('successMsg').innerText = data.message;
+          document.getElementById('successModal').classList.remove('hidden');
+        } else {
+          alert("Gagal menyimpan: " + (data.message || "Terjadi kesalahan sistem."));
+        }
+      })
+      .catch(error => {
+        document.getElementById('loadingModal').classList.add('hidden');
+        alert("Error Jaringan: Gagal terhubung ke server backend Apps Script. Pastikan internet Anda aktif dan URL API sudah benar.");
+        console.error(error);
+      });
+    }
+
+    function closeSuccessModal() {
+      document.getElementById('successModal').classList.add('hidden');
+      document.getElementById('rtlhForm').reset();
+      document.getElementById('previewRumah').innerHTML = '';
+      document.getElementById('lokasiStatus').innerHTML = '';
+      fileBase64Map['fotoRumah'] = [];
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
