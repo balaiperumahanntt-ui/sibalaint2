@@ -10,5 +10,6 @@
     { "source": "/kpr-perumahan", "destination": "/kpr-perumahan.html" },
     { "source": "/struktur-organisasi", "destination": "/struktur-organisasi.html" },
     { "source": "/pengembang", "destination": "/pengembang.html" }
+    { "source": "/lapor-gempa-sumba", "destination": "/lapor-gempa-sumba.html" }
   ]
 }
